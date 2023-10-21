@@ -8,7 +8,7 @@ include("./header.php");
             <!-- Start row -->
             <div class="row">
                 <div class="col-md-8 col-lg-8">
-                    <h4 class="page-title">Employee Master</h4>
+                    <h4 class="page-title">Athorization</h4>
 
                 </div>
                 <div class="col-md-4 col-lg-4 mr-0">
@@ -25,24 +25,28 @@ include("./header.php");
         <div class="row">
             <div class="col-md-6 grid-margin stretch-card">
                 <div class="card">
-                    <h4 class="header-title">Enter Employee Details</h4>
+                    <h4 class="header-title"> Select Authorization</h4>
                     <form class="forms-sample">
                         <div class="form-group">
-                            <label>Employee Name</label>
-                            <input type="text" class="form-control" id="txt_employee_name" name="txt_employee_name"
-                                placeholder="Enter Employee Name">
+                            <label>Select Employee</label>
+                            <select class="form-select col-md-12 custom-select">
+                                <option value="option1">Select Employee</option>
+                                <option value="option1">Employee-1 Name Here</option>
+                                <option value="option2">Employee-2 Name Here</option>
+                                <option value="option3">Employe-3 Name Here</option>
+                            </select>
                         </div>
-                 
-                        <div class="form-group">
-                            <label>Employee Mobile Number</label>
-                            <input type="text" class="form-control" id="txt_employee_mobile_number"
-                                name="txt_employee_mobile_number" placeholder="Enter Employee Mobile Number ">
+
+                        <div class="form-group ml-4">
+
+                            <label>Select Module</label><br>
+                            <input class="form-check-input checkbox " type="checkbox" id="exampleCheckbox"><span class="ml-2">Module-1 Name Here</span><br>
+                            <input class="form-check-input checkbox " type="checkbox" id="exampleCheckbox"><span class="ml-2">Module-1 Name Here</span><br>
+                            <input class="form-check-input checkbox" type="checkbox" id="exampleCheckbox"><span class="ml-2">Module-1 Name Here</span><br>
+                            <input class="form-check-input checkbox " type="checkbox" id="exampleCheckbox"><span class="ml-2">Module-1 Name Here</span><br>
+
                         </div>
-                        <div class="form-group">
-                            <label>Employee Address</label>
-                            <input type="text" class="form-control" id="txt_employee_address"
-                                name="txt_employee_address" placeholder="Enter Employee Address ">
-                        </div>
+                  
 
 
                         <button type="submit" class="btn btn-primary mr-2" id="">Submit</button>

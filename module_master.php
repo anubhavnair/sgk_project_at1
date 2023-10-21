@@ -8,7 +8,7 @@ include("./header.php");
             <!-- Start row -->
             <div class="row">
                 <div class="col-md-8 col-lg-8">
-                    <h4 class="page-title">Employee Master</h4>
+                    <h4 class="page-title">Authorization Master</h4>
 
                 </div>
                 <div class="col-md-4 col-lg-4 mr-0">
@@ -25,23 +25,23 @@ include("./header.php");
         <div class="row">
             <div class="col-md-6 grid-margin stretch-card">
                 <div class="card">
-                    <h4 class="header-title">Enter Employee Details</h4>
+                    <h4 class="header-title">Enter Module Details</h4>
                     <form class="forms-sample">
                         <div class="form-group">
-                            <label>Employee Name</label>
-                            <input type="text" class="form-control" id="txt_employee_name" name="txt_employee_name"
-                                placeholder="Enter Employee Name">
+                            <label>Module Title</label>
+                            <input type="text" class="form-control" id="txt_employee_name" name="txt_module_title"
+                                placeholder="Enter Module Title">
                         </div>
                  
                         <div class="form-group">
-                            <label>Employee Mobile Number</label>
-                            <input type="text" class="form-control" id="txt_employee_mobile_number"
-                                name="txt_employee_mobile_number" placeholder="Enter Employee Mobile Number ">
+                            <label>Short Order</label>
+                            <input type="text" class="form-control" id="txt_short_order"
+                                name="txt_short_order" placeholder="Enter Short Order ">
                         </div>
                         <div class="form-group">
-                            <label>Employee Address</label>
-                            <input type="text" class="form-control" id="txt_employee_address"
-                                name="txt_employee_address" placeholder="Enter Employee Address ">
+                            <label>URL</label>
+                            <input type="text" class="form-control" id="txt_url"
+                                name="txt_url" placeholder="Enter Url ">
                         </div>
 
 
@@ -58,10 +58,10 @@ include("./header.php");
 
 
             $("#manage").on("click", function (e) {
-                window.location.replace("./employee_master_manage.php");
+                window.location.replace("./module_master_manage");
             })
             $("#add").on("click", function (e) {
-                window.location.replace("./employee_master.php");
+                window.location.replace("./module_master.php");
             })
             $("#authorization").on("click", function (e) {
                 window.location.replace("./employee_authorization.php");

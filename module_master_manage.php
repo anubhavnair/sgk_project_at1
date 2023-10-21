@@ -10,7 +10,7 @@ include("./header.php");
             <!-- Start row -->
             <div class="row">
                 <div class="col-md-8 col-lg-8">
-                    <h4 class="page-title">Employee Master</h4>
+                    <h4 class="page-title">Module Master Manage</h4>
 
                 </div>
                 <div class="col-md-4 col-lg-4 mr-0">
@@ -27,16 +27,16 @@ include("./header.php");
         <div class="row">
             <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
-                    <h4 class="header-title">Employee Master</h4>
+                    <h4 class="header-title">Module Details</h4>
                     <div class="table-responsive-xl">
                         <table class="table responsive-table">
                             <thead>
                                 <tr>
                                     <th scope="col">SNO</th>
-                                    <th scope="col">Employee Name</th>
+                                    <th scope="col">Module Title</th>
                                   
-                                    <th scope="col">Mobile Number </th>
-                                    <th scope="col">Address</th>
+                                    <th scope="col">Short Order </th>
+                                    <th scope="col">URL</th>
                                     <th scope="col">status</th>
 
                                 </tr>
@@ -44,10 +44,10 @@ include("./header.php");
                             <tbody>
                                 <tr>
                                     <th>1</th>
-                                    <td>Employee Name</td>
+                                    <td>Module Title Here</td>
                                 
-                                    <td>Mobile Number</td>
-                                    <td>Address</td>
+                                    <td>Short Order  Here </td>
+                                    <td>Url Here </td>
                                     <td>
                                         <div class="d-flex"><a href="#"><svg xmlns="http://www.w3.org/2000/svg"
                                                     width="16" height="16" fill="currentColor" class="bi bi-trash3-fill"
@@ -65,10 +65,10 @@ include("./header.php");
                                 </tr>
                                 <tr>
                                     <th>1</th>
-                                    <td>Employee Name</td>
+                                    <td>Module Title Here</td>
                                
-                                    <td>Mobile Number</td>
-                                    <td>Address</td>
+                                    <td>Short Order Here</td>
+                                    <td>URL Here</td>
                                     <td>
                                         <div class="d-flex"><a href="#"><svg xmlns="http://www.w3.org/2000/svg"
                                                     width="16" height="16" fill="currentColor" class="bi bi-trash3-fill"
@@ -85,11 +85,11 @@ include("./header.php");
 
                                 </tr>
                                 <tr>
-                                    <th>1</th>
-                                    <td>Employee Name</td>
+                                    <th>2</th>
+                                    <td>Module Title Here</td>
                              
-                                    <td>Mobile Number</td>
-                                    <td>Address</td>
+                                    <td>Short Order</td>
+                                    <td>Url Here</td>
                                     <td>
                                         <div class="d-flex"><a href="#"><svg xmlns="http://www.w3.org/2000/svg"
                                                     width="16" height="16" fill="currentColor" class="bi bi-trash3-fill"
@@ -106,11 +106,11 @@ include("./header.php");
 
                                 </tr>
                                 <tr>
-                                    <th>1</th>
-                                    <td>Employee Name</td>
+                                    <th>3</th>
+                                    <td>Module Title Here</td>
                                
-                                    <td>Mobile Number</td>
-                                    <td>Address</td>
+                                    <td>Short Order Here</td>
+                                    <td>URL</td>
                                     <td>
                                         <div class="d-flex"><a href="#"><svg xmlns="http://www.w3.org/2000/svg"
                                                     width="16" height="16" fill="currentColor" class="bi bi-trash3-fill"
@@ -142,10 +142,10 @@ include("./header.php");
 
 
             $("#manage").on("click", function (e) {
-                window.location.replace("./employee_master_manage.php");
+                window.location.replace("./authorization_master_manage.php");
             })
             $("#add").on("click", function (e) {
-                window.location.replace("./employee_master.php");
+                window.location.replace("./authorization_master.php");
             })
             $("#authorization").on("click", function (e) {
                 window.location.replace("./employee_authorization.php");
