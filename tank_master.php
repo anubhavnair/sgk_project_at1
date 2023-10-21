@@ -49,43 +49,61 @@ include("./header.php");
           <h4 class="header-title">Enter Details</h4>
           
           <form class="forms-sample">
-                 <div class="form-group col-12 d-flex ">
+                 <div class="form-group col-12 d-flex">
+                     <div class="ml-auto">
                     <input type="date" class="form-control" name="date_enter_date" id="date_enter_date"value="">
-                  </div>
-                  <div class="form-group row">
-                    <label for="txt_select_area" class="col-md-3 col-form-label font-weight-bold">Select Area</label>
-                    <div class="form-group row col-md-6">
-                      <select class="form-control" name="txt_select_area" id="txt_select_area">
-                        <option value="1">Raipur</option>
-                        <option value="2">Durg</option>
-                        <option value="3">Bhilai</option>
-                        <option value="4">Rajnandgaon</option>
-                      </select>
                     </div>
                   </div>
-                
-                
-                  
-                  <div class="form-group">
-                    <label for="txt_total_refill">Total refill</label>
-                    <input type="text" class="form-control" name="txt_total_refill" id="txt_total_refill" placeholder="Enter Total Refill">
-                  </div>
-                  <div class="form-group">
-                    <label for="txt_opening_meter">Opening meter</label>
-                    <input type="text" class="form-control" id="txt_opening_meter" name="txt_opening_meter" placeholder="Enter Opening Meter">
-                  </div>
-                  <div class="form-group">
-                    <label for="txt_closing_meter">Closing meter</label>
-                    <input type="text" class="form-control" id="txt_closing_meter" name="txt_closing_meter" placeholder="Enter Closing Meter">
-                  </div>
-                  <div class="form-group">
+
+                  <section class="d-flex align-items-center col-12 p-0">
+  <div class="form-group col-md-6">
+    <label for="txt_select_area" class="col-form-label col-md-4">Select Area</label>
+    <div class="col-md-8 p-0">
+      <select class="form-control" name="txt_select_area" id="txt_select_area">
+        <option value="1">Raipur</option>
+        <option value="2">Durg</option>
+        <option value="3">Bhilai</option>
+        <option value="4">Rajnandgaon</option>
+      </select>
+    </div>
+  </div>
+  <div class="form-group col-md-6">
+    <label for="txt_opening_meter">Opening meter</label>
+    <input type="text" class="form-control" name="txt_opening_meter" id="txt_opening_meter" placeholder="Enter Opening Meter">
+  </div>
+</section>
+
+<section class="d-flex align-items-center col-12 p-0">
+  <div class="form-group col-md-6">
+    <label for="txt_total_refill">Total Refill</label>
+    <input type="text" class="form-control" name="txt_total_refill" id="txt_total_refill" placeholder="Enter Total Refill">
+  </div>
+  <div class="form-group col-md-6">
+    <label for="txt_closing_meter">Closing meter</label>
+    <input type="text" class="form-control" name="txt_closing_meter" id="txt_closing_meter" placeholder="Enter Closing Meter">
+  </div>
+</section>
+
+
+                  <div class="form-group col-md-12">
                     <label for="txt_desel_out">Desel out</label>
                     <input type="text" class="form-control" id="txt_desel_out" name="txt_desel_out" placeholder="Enter Desel Out">
                   </div>
-                  <div class="form-group">
+                  <div class="form-group col-md-12">
                     <label for="txt_description">Description</label>
                     <textarea class="form-control" id="txt_description" name="txt_description" placeholder="Enter Description"></textarea>
                   </div>
+
+                  <section class="d-flex align-items-center col-md-12 p-0">
+                  <div class="form-group col-md-6">
+                    <label for="txt_desel_out">Desel out</label>
+                    <input type="text" class="form-control" id="txt_desel_out" name="txt_desel_out" placeholder="Enter Desel Out">
+                  </div>
+                   <div class="form-group col-md-6">
+                    <label for="txt_desel_out">Desel out</label>
+                    <input type="text" class="form-control" id="txt_desel_out" name="txt_desel_out" placeholder="Enter Desel Out">
+                  </div>
+                  </section>
 
                   <button type="submit" class="btn btn-primary mr-2">Submit</button>
                 </form>
