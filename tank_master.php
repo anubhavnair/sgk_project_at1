@@ -4,25 +4,7 @@ include("./header.php");
 <div class="content_wrapper bg_homebefore inner-wrapper forms-sec">
   <div class="container-fluid">
 
-      <!-- filter section start  -->
 
-      <span id="filter_icon"><svg width="30" height="30" fill="none" stroke="#0d02b1" stroke-linecap="round"
-                stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"></path>
-                </svg>Click to Filter</span>
-               <div class="row filter_section" style="display:none;">
-                 <div class="col-md-12">
-                <label>Enter Start Date</label>
-                <input type="date" name='date_start_date' id='date_start_date' class="form-control">
-                <label> Enter End Date</label>
-                <input type="date" name='date_end_date' id='date_end_date' class="form-control">
-                <label> Enter Vehical Number</label>
-                <input type="text" name="text_vehical_number" id='text_vehical_number'
-                    placeholder="Enter Vehical Number" class="form-control">
-            </div>
-</div>
-
-                        <!-- filter section end  -->
 
 
     <!-- Start Breadcrumbbar -->
@@ -59,13 +41,14 @@ include("./header.php");
   <div class="form-group col-md-6">
     <label for="txt_select_area" class="col-form-label col-md-4">Select Area</label>
     <div class="col-md-8 p-0">
-      <select class="form-control" name="txt_select_area" id="txt_select_area">
-        <option value="1">Raipur</option>
-        <option value="2">Durg</option>
-        <option value="3">Bhilai</option>
-        <option value="4">Rajnandgaon</option>
-      </select>
-    </div>
+  <select class="form-control custom-select" name="txt_select_area" id="txt_select_area">
+    <option value="1">Raipur</option>
+    <option value="2">Durg</option>
+    <option value="3">Bhilai</option>
+    <option value="4">Rajnandgaon</option>
+  </select>
+</div>
+
   </div>
   <div class="form-group col-md-6">
     <label for="txt_opening_meter">Opening meter</label>

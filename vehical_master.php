@@ -24,21 +24,22 @@ require_once('./header.php');
         <!-- End Breadcrumbbar -->
         <!-- state start-->
         <div class="row">
-            <div class="col-md-6 grid-margin stretch-card">
+            <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
 
                 <form class="forms-sample">
-                  <div class="form-group row">
-                    <label for="txt_select_area" class="col-md-3 col-form-label font-weight-bold">Select Area</label>
+                <div class="form-group row">
+                    <label for="txt_select_area" class="col-md-3 col-form-label">Select Area</label>
                     <div class="col-md-6">
-                        <select class="form-control" name="txt_select_area" id="txt_select_area">
-                            <option value="1">Raipur</option>
-                            <option value="2">Durg</option>
-                            <option value="3">Bhilai</option>
-                            <option value="4">Rajnandgaon</option>
+                        <select class="form-control custom-select" name="txt_select_area" id="txt_select_area">
+                        <option value="1">Raipur</option>
+                        <option value="2">Durg</option>
+                        <option value="3">Bhilai</option>
+                        <option value="4">Rajnandgaon</option>
                         </select>
                     </div>
                 </div>
+
                 
                 
                   <div class="form-group">
