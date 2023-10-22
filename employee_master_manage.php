@@ -36,7 +36,7 @@ include("./header.php");
                                     <th scope="col">Employee Name</th>
                                   
                                     <th scope="col">Mobile Number </th>
-                                    <th scope="col">Address</th>
+                                    <th scope="col">Password</th>
                                     <th scope="col">status</th>
 
                                 </tr>
@@ -47,7 +47,7 @@ include("./header.php");
                                     <td>Employee Name</td>
                                 
                                     <td>Mobile Number</td>
-                                    <td>Address</td>
+                                    <td>password</td>
                                     <td>
                                         <div class="d-flex"><a href="#"><svg xmlns="http://www.w3.org/2000/svg"
                                                     width="16" height="16" fill="currentColor" class="bi bi-trash3-fill"
@@ -68,7 +68,7 @@ include("./header.php");
                                     <td>Employee Name</td>
                                
                                     <td>Mobile Number</td>
-                                    <td>Address</td>
+                                    <td>pasword</td>
                                     <td>
                                         <div class="d-flex"><a href="#"><svg xmlns="http://www.w3.org/2000/svg"
                                                     width="16" height="16" fill="currentColor" class="bi bi-trash3-fill"
@@ -89,7 +89,7 @@ include("./header.php");
                                     <td>Employee Name</td>
                              
                                     <td>Mobile Number</td>
-                                    <td>Address</td>
+                                    <td>password</td>
                                     <td>
                                         <div class="d-flex"><a href="#"><svg xmlns="http://www.w3.org/2000/svg"
                                                     width="16" height="16" fill="currentColor" class="bi bi-trash3-fill"
@@ -110,7 +110,7 @@ include("./header.php");
                                     <td>Employee Name</td>
                                
                                     <td>Mobile Number</td>
-                                    <td>Address</td>
+                                    <td>pasword</td>
                                     <td>
                                         <div class="d-flex"><a href="#"><svg xmlns="http://www.w3.org/2000/svg"
                                                     width="16" height="16" fill="currentColor" class="bi bi-trash3-fill"
