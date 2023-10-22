@@ -15,7 +15,7 @@ include("./header.php");
                     <div class="widgetbar">
                         <button class="btn btn-primary" id="add">Add</button>
                         <button class="btn btn-primary" id="manage">Manage</button>
-                        <button class="btn btn-primary" id="authorization">Authorization</button>
+                        
                     </div>
                 </div>
             </div>

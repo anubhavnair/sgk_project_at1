@@ -28,44 +28,27 @@ require_once('./header.php');
                 <div class="card">
 
                 <form class="forms-sample">
-                <div class="form-group row">
-                    <label for="txt_select_area" class="col-md-3 col-form-label">Select Area</label>
-                    <div class="col-md-6" >
-                        <select class="form-control custom-select" name="txt_select_area" id="txt_select_area" style="height:50px !important">
-                        <option value="1">Raipur</option>
-                        <option value="2">Durg</option>
-                        <option value="3">Bhilai</option>
-                        <option value="4">Rajnandgaon</option>
-                        </select>
-                    </div>
-                </div>
-
+              
                 
                 
                   <div class="form-group">
-                    <label for="date_enter_date">Enter Date</label>
-                    <input type="date" class="form-control" name="date_enter_date" id="date_enter_date" placeholder="Enter Date">
+                    <label for="date_enter_date">Enter Vehical Name</label>
+                    <input type="text" class="form-control" name="text_vehical_name" id="text_vehical_name" placeholder="Enter Name">
                   </div>
                   <div class="form-group">
-                    <label for="txt_total_refill">Total refill</label>
-                    <input type="text" class="form-control" name="txt_total_refill" id="txt_total_refill" placeholder="Enter Total Refill">
+                    <label for="txt_total_refill">Driver Name</label>
+                    <input type="text" class="form-control" name="txt_driver_name" id="txt_driver_name" placeholder="Enter Driver Name">
                   </div>
                   <div class="form-group">
-                    <label for="txt_opening_meter">Opening meter</label>
-                    <input type="text" class="form-control" id="txt_opening_meter" name="txt_opening_meter" placeholder="Enter Opening Meter">
+                    <label for="txt_opening_meter">Vehical Number</label>
+                    <input type="text" class="form-control" id="txt_vehical_name" name="text_vehical_name" placeholder="Enter Vehical Number">
                   </div>
                   <div class="form-group">
-                    <label for="txt_closing_meter">Closing meter</label>
-                    <input type="text" class="form-control" id="txt_closing_meter" name="txt_closing_meter" placeholder="Enter Closing Meter">
+                    <label for="txt_closing_meter">Driver Number</label>
+                    <input type="text" class="form-control" id="txt_driver_number" name="txt_driver_number" placeholder="Enter Driver Number">
                   </div>
-                  <div class="form-group">
-                    <label for="txt_desel_out">Desel out</label>
-                    <input type="text" class="form-control" id="txt_desel_out" name="txt_desel_out" placeholder="Enter Desel Out">
-                  </div>
-                  <div class="form-group">
-                    <label for="txt_description">Description</label>
-                    <textarea class="form-control" id="txt_description" rows="30" name="txt_description" placeholder="Enter Description" style="height:125px !important"></textarea>
-                  </div>
+                
+              
 
                   <button type="submit" class="btn btn-primary mr-2">Submit</button>
                 </form>

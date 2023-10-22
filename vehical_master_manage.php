@@ -38,6 +38,7 @@ require_once('./header.php');
                                     <th scope="col">Vehical Name</th>
                                     <th scope="col">Driver Name</th>
                                     <th scope="col">Vehical Number</th>
+                                    <th scope="col">Driver Number</th>
                                     <th scope="col">status</th>
                                 </tr>
                             </thead>
@@ -46,7 +47,8 @@ require_once('./header.php');
                                     <th scope="row">1</th>
                                     <td>Vehical Name</td>
                                     <td>Driver Name</td>
-                                    <td>Vehical Name </td>
+                                    <td>Vehical Number</td>
+                                    <td>Driver Number</td>
                                     <td>
                                         <div class="d-flex justify-content-center align-items-center"><a href="#"><svg
                                                     xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -63,10 +65,11 @@ require_once('./header.php');
 
                                 </tr>
                                 <tr>
-                                    <th scope="row">1</th>
+                                    <th scope="row">2</th>
                                     <td>Vehical Name</td>
                                     <td>Driver Name</td>
-                                    <td>Vehical Name </td>
+                                    <td>Vehical Number </td>
+                                    <td>Driver Number</td>
                                     <td>
                                         <div class="d-flex justify-content-center align-items-center"><a href="#"><svg
                                                     xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -83,10 +86,11 @@ require_once('./header.php');
 
                                 </tr>
                                 <tr>
-                                    <th scope="row">1</th>
+                                    <th scope="row">3</th>
                                     <td>Vehical Name</td>
                                     <td>Driver Name</td>
-                                    <td>Vehical Name </td>
+                                    <td>Vehical Number </td>
+                                    <td>Driver Number</td>
                                     <td>
                                         <div class="d-flex justify-content-center align-items-center"><a href="#"><svg
                                                     xmlns="http://www.w3.org/2000/svg" width="16" height="16"
@@ -103,10 +107,11 @@ require_once('./header.php');
 
                                 </tr>
                                 <tr>
-                                    <th scope="row">1</th>
+                                    <th scope="row">4</th>
                                     <td>Vehical Name</td>
                                     <td>Driver Name</td>
-                                    <td>Vehical Name </td>
+                                    <td>Vehical Number </td>
+                                    <td>Driver Number</td>
                                     <td>
                                         <div class="d-flex justify-content-center align-items-center"><a href="#"><svg
                                                     xmlns="http://www.w3.org/2000/svg" width="16" height="16"

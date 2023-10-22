@@ -18,7 +18,7 @@ include("./header.php");
                     <div class="widgetbar">
                         <button class="btn btn-primary" id="add">Add</button>
                         <button class="btn btn-primary" id="manage">Manage</button>
-                        <button class="btn btn-primary" id="authorization">Authorization</button>
+                   
                     </div>
                 </div>
             </div>
@@ -50,7 +50,7 @@ include("./header.php");
                                     <td>Short Order  Here </td>
                                     <td>Url Here </td>
                                     <td>
-                                        <div class="d-flex"><a href="#"><svg xmlns="http://www.w3.org/2000/svg"
+                                        <div class="d-flex><a href="#"><svg xmlns="http://www.w3.org/2000/svg"
                                                     width="16" height="16" fill="currentColor" class="bi bi-trash3-fill"
                                                     viewBox="0 0 16 16">
                                                     <path
@@ -143,13 +143,11 @@ include("./header.php");
 
 
             $("#manage").on("click", function (e) {
-                window.location.replace("./authorization_master_manage.php");
+                window.location.replace("./module_master_manage.php");
             })
             $("#add").on("click", function (e) {
-                window.location.replace("./authorization_master.php");
+                window.location.replace("./module_master.php");
             })
-            $("#authorization").on("click", function (e) {
-                window.location.replace("./employee_authorization.php");
-            })
+          
          
         </script>
