@@ -1,9 +1,9 @@
 <?php
-require_once("./root/dbconnection.php");
+include("./root/dbconnection.php");
 
 
 // insert logic of module master 
-if (isset($_REQUEST["text_module_title"]) && isset($_REQUEST["text_short_order"]) && isset($_REQUEST["text_url"])) {
+if (isset($_REQUEST["text_module_title"]) && isset($_REQUEST["text_short_order"]) && isset($_REQUEST["text_url"]) && !isset($_REQUEST["edit_id"])) {
 
     $text_module_title = $_REQUEST["text_module_title"];
     $text_short_order = $_REQUEST["text_short_order"];
@@ -31,12 +31,14 @@ if (isset($_REQUEST["del_id"])) {
 }
 ?>
 
-<?
+<?php
 
 
 // updating logic here  
 
 if (isset($_REQUEST["text_module_title"]) && isset($_REQUEST["text_short_order"]) && isset($_REQUEST["text_url"]) && isset($_REQUEST["edit_id"])) {
+
+    include("./root/dbconnection.php");
     $edit_id = $_REQUEST["edit_id"];
     $text_module_title = $_REQUEST["text_module_title"];
     $text_short_order = $_REQUEST["text_short_order"];

@@ -56,6 +56,11 @@ if (isset($_REQUEST["edit_id"])) {
                             <input type="text" class="form-control" id="text_url" name="txt_url" placeholder="Enter Url"
                                 value=<?= $row["module_url"]; ?>>
                         </div>
+                        <div class="form-group">
+                            
+                            <input type="hidden" class="form-control" id="text_edit_id" name="text_edit_id" 
+                                value=<?= $row["id"]; ?>>
+                        </div>
                         <input type="button" id="update" value="Update" class="btn btn-primary">
                     </div>
 
@@ -104,46 +109,96 @@ if (isset($_REQUEST["edit_id"])) {
     ?>
     <script>
 
+        $(document).ready(function () {
+            $("#manage").on("click", function (e) {
+                window.location.replace("./module_master_manage.php");
+            })
+            $("#add").on("click", function (e) {
+                window.location.replace("./module_master.php");
+            })
+
+            // on click of submit button data have to save on module_master_do.php page here ||
+            //                                                                               \/
+            $("#submit").on("click", function (e) {
+
+                const module_title = $("#text_module_title").val();
+                const short_order = $("#text_short_order").val();
+                const url = $("#text_url").val();
+                if (module_title == "" || module_title == null) {
 
 
-        $("#manage").on("click", function (e) {
-            window.location.replace("./module_master_manage.php");
-        })
-        $("#add").on("click", function (e) {
-            window.location.replace("./module_master.php");
-        })
+                    $("#text_module_title").focus();
+                }
+                else if (short_order == "" || short_order == null) {
 
-        // on click of submit button data have to save on module_master_do.php page here ||
-        //                                                                               \/
-        $("#submit").on("click", function (e) {
+                    $("#text_short_order").focus();
 
-            const module_title = $("#text_module_title").val();
-            const short_order = $("#text_short_order").val();
-            const url = $("#text_url").val();
-            if (module_title == "" || module_title == null) {
-                $("#text_module_title").focus();
-            }
-            else if (short_order == "" || short_order == null) {
-                $("#text_short_order").focus();
-            }
-            else if (url == "" || url == null) {
-                $("#text_url").focus();
-            } else {
-                $.post("module_master_do.php",
-                    {
-                        text_module_title: module_title,
-                        text_short_order: short_order,
-                        text_url: url
-                    }, function (data, status) {
-                        if (status == "success") {
-                            alert("Module Added Successfully !....");
-                            window.location.replace(".module_master.php")
+                }
+                else if (url == "" || url == null) {
+
+
+                    $("#text_url").focus();
+                } else {
+                    $.post("module_master_do.php",
+                        {
+                            text_module_title: module_title,
+                            text_short_order: short_order,
+                            text_url: url
+                        }, function (data, status) {
+                            if (status == "success") {
+                                alert("Module Added Successfully !....");
+                                window.location.replace("./module_master.php")
+                            }
                         }
-                    }
-                );
+                    );
 
-            }
-        });
+                }
+            });
 
+
+
+
+            // update 
+            $("#update").on("click", function (e) {
+
+                const module_title = $("#text_module_title").val();
+                const short_order = $("#text_short_order").val();
+                const url = $("#text_url").val();
+                const updt_id = $("#text_edit_id").val();
+                if (module_title == "" || module_title == null) {
+
+
+                    $("#text_module_title").focus();
+                }
+                else if (short_order == "" || short_order == null) {
+
+                    $("#text_short_order").focus();
+
+                }
+                else if (url == "" || url == null) {
+                    $("#text_url").focus();
+                } else {
+                    $.post("module_master_do.php",
+                        {  edit_id : updt_id,
+                            text_module_title: module_title,
+                            text_short_order: short_order,
+                            text_url: url
+                        }, function (data, status) {
+                            if (status == "success") {
+                                // alert(data);
+                                alert("Module Updated Successfully !....");
+                                window.location.replace("./module_master_manage.php")
+                            }
+                        }
+                    );
+
+                }
+            });
+
+
+
+
+
+        })
 
     </script>
