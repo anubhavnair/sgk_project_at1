@@ -33,7 +33,7 @@ include("./header.php");
             <!-- Start row -->
             <div class="row">
                 <div class="col-md-8 col-lg-8">
-                    <h4 class="page-title"> Manage Manager Entries</h4>
+                    <h4 class="page-title"> Manage Manager Entry Master</h4>
 
                 </div>
                 <div class="col-md-4 col-lg-4 mr-0">
@@ -71,7 +71,7 @@ include("./header.php");
                                     <td>vehical Number</td>
                                     <td>Quantity</td>
                                     <td>
-                                        <div class="d-flex justify-content-center align-items-center"><a href="#"><svg
+                                        <div class="d-flex justify-content-even "><a href="#"><svg
                                                     xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                     fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
                                                     <path
@@ -93,7 +93,7 @@ include("./header.php");
                                     <td>vehical Number</td>
                                     <td>Quantity</td>
                                     <td>
-                                        <div class="d-flex justify-content-center align-items-center"><a href="#"><svg
+                                        <div class="d-flex justify-content-even align-items-center"><a href="#"><svg
                                                     xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                     fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
                                                     <path
@@ -114,7 +114,7 @@ include("./header.php");
                                     <td>vehical Number</td>
                                     <td>Quantity</td>
                                     <td>
-                                        <div class="d-flex justify-content-center align-items-center"><a href="#"><svg
+                                        <div class="d-flex justify-content-even align-items-center"><a href="#"><svg
                                                     xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                     fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
                                                     <path
@@ -135,7 +135,7 @@ include("./header.php");
                                     <td>vehical Number</td>
                                     <td>Quantity</td>
                                     <td>
-                                        <div class="d-flex justify-content-center align-items-center"><a href="#"><svg
+                                        <div class="d-flex justify-content-even align-items-center"><a href="#"><svg
                                                     xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                     fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
                                                     <path

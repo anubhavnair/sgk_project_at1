@@ -47,7 +47,7 @@ require_once('./header.php');
                                         <td>1</td>
                                         <td>Area-1 Name Here</td>
                                         <td>
-                                            <div class="d-flex justify-content-around algin-content-start"><a
+                                            <div class="d-flex justify-content-center align-items-end"><a
                                                     href="#"><svg xmlns="http://www.w3.org/2000/svg" width="16"
                                                         height="16" fill="currentColor" class="bi bi-trash3-fill"
                                                         viewBox="0 0 16 16">
@@ -67,7 +67,7 @@ require_once('./header.php');
                                     <tr>
                                         <td>2</td>
                                         <td>Area-2 Name Here</td>
-                                        <td><div class="d-flex justify-content-around align-items-center"><a href="#"><svg
+                                        <td><div class="d-flex justify-content-center align-items-center"><a href="#"><svg
                           xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                           class="bi bi-trash3-fill" viewBox="0 0 16 16">
                           <path
@@ -82,7 +82,7 @@ require_once('./header.php');
                                     <tr>
                                         <td>3</td>
                                         <td>Area-3 Name Here</td>
-                                        <td><div class="d-flex justify-content-around align-items-center"><a href="#"><svg
+                                        <td><div class="d-flex justify-content-center align-items-center"><a href="#"><svg
                           xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                           class="bi bi-trash3-fill" viewBox="0 0 16 16">
                           <path
@@ -97,7 +97,7 @@ require_once('./header.php');
                                     <tr>
                                         <td>4</td>
                                         <td>Area-4 Name Here</td>
-                                        <td><div class="d-flex justify-content-around align-items-center"><a href="#"><svg
+                                        <td><div class="d-flex justify-content-center align-items-center"><a href="#"><svg
                           xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                           class="bi bi-trash3-fill" viewBox="0 0 16 16">
                           <path
@@ -112,7 +112,7 @@ require_once('./header.php');
                                     <tr>
                                         <td>5</td>
                                         <td>Area-5 Name Here</td>
-                                        <td><div class="d-flex justify-content-around align-items-center"><a href="#"><svg
+                                        <td><div class="d-flex justify-content-center align-items-center"><a href="#"><svg
                           xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                           class="bi bi-trash3-fill" viewBox="0 0 16 16">
                           <path
