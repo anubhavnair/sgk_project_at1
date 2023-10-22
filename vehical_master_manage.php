@@ -10,7 +10,7 @@ require_once('./header.php');
             <!-- Start row -->
             <div class="row">
                 <div class="col-md-8 col-lg-8">
-                    <h4 class="page-title">Vehical Master</h4>
+                    <h4 class="page-title">Manage Vehical Master</h4>
 
                 </div>
                 <div class="col-md-4 col-lg-4 mr-0">
@@ -26,7 +26,7 @@ require_once('./header.php');
         <div class="row">
             <div class="col-md-6 grid-margin stretch-card">
                 <div class="card">
-                    <h4 class="header-title">Vehical Details</h4>
+                  
 
 
                     <div class="table-responsive-xl">
