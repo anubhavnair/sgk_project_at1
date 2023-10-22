@@ -25,7 +25,7 @@ include("./header.php");
         <div class="row">
             <div class="col-md-6 grid-margin stretch-card">
                 <div class="card">
-                    <h4 class="header-title">Enter Module Details</h4>
+               
                     <form class="forms-sample">
                         <div class="form-group">
                             <label>Module Title</label>

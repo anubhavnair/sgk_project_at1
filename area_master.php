@@ -10,7 +10,7 @@ require_once('./header.php');
             <!-- Start row -->
             <div class="row">
                 <div class="col-md-8 col-lg-8">
-                    <h4 class="page-title">Vehical Master</h4>
+                    <h4 class="page-title">Area Master</h4>
 
                 </div>
                 <div class="col-md-4 col-lg-4 mr-0">
@@ -27,39 +27,17 @@ require_once('./header.php');
             <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
 
-                    <form class="forms-sample">
-                        <div class="table-responsive-xl">
-
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Enter Area Name</th>
-                                        
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>
-
-                                            <div class="form-group">
-                                                <!-- <label>Vehical Name</label> -->
-                                                <input type="text" class="form-control" id="txt_vehical_name"
-                                                    name="txt_vehical_name">
-                                            </div>
-                                        </td>
-                                  
-</tr>
-                       
-                                </tbody>
-                            </table>
+                <form class="forms-sample">
+                        <div class="form-group">
+                            <label>Enter Area Name </label>
+                            <input type="text" class="form-control" id="txt_area_name" name="txt_area_name"
+                                placeholder="Enter Area Name">
                         </div>
+                 
+                       
+                       
 
-
-
-
-
-
-                        <button type="button" class="btn btn-primary mr-2" id="submitBtn">Submit</button>
+                        <button type="submit" class="btn btn-primary mr-2" id="">Submit</button>
 
                     </form>
                 </div>

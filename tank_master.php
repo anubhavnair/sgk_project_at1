@@ -12,7 +12,7 @@ include("./header.php");
       <!-- Start row -->
       <div class="row">
         <div class="col-md-12 col-lg-8">
-          <h4 class="page-title">Tank Master</h4>
+          <h4 class="page-title">Tank Entry Master</h4>
 
         </div>
         <div class="col-md-4 col-lg-4 mr-0">

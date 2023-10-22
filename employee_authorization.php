@@ -1,7 +1,7 @@
 <?php
 include("./header.php");
 ?>
-<div class="content_wrapper bg_homebefore inner-wrapper forms-sec">
+<div class="content_wrapper bg_homebefore inner-wrapper forms-sec mr-auto">
     <div class="container-fluid">
         <!-- Start Breadcrumbbar -->
         <div class="breadcrumbbar">
@@ -23,7 +23,7 @@ include("./header.php");
         <!-- End Breadcrumbbar -->
         <!-- state start-->
         <div class="row">
-            <div class="col-md-6 grid-margin stretch-card">
+            <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
                     <h4 class="header-title"> Select Authorization</h4>
                     <form class="forms-sample">
@@ -37,19 +37,52 @@ include("./header.php");
                             </select>
                         </div>
 
-                        <div class="form-group ml-4">
+                        <div class="  form-check form-check-xl mr-auto text-left form-group">
 
-                            <label>Select Module</label><br>
-                            <input class="form-check-input checkbox " type="checkbox" id="exampleCheckbox"><span class="ml-2">Module-1 Name Here</span><br>
-                            <input class="form-check-input checkbox " type="checkbox" id="exampleCheckbox"><span class="ml-2">Module-1 Name Here</span><br>
-                            <input class="form-check-input checkbox" type="checkbox" id="exampleCheckbox"><span class="ml-2">Module-1 Name Here</span><br>
-                            <input class="form-check-input checkbox " type="checkbox" id="exampleCheckbox"><span class="ml-2">Module-1 Name Here</span><br>
+
+                            <style>
+                                .auth_ul li {
+                                    line-height: 30px;
+                                }
+                                .auth_ul label{
+                                    margin-left: -1rem;
+                                }
+
+                                .form-check-input {
+                                    margin-top: 9px;
+
+                                }
+                            </style>
+
+                            <ul class=" auth_ul text-left">
+
+                                <label>Select Module</label>
+                                <li class="lh-lg">
+                                    <input class="form-check-input checkbox mr-1.8" type="checkbox"
+                                        id="exampleCheckbox">
+                                    <span class="ml-2">Module-1 Name Here</span>
+                                </li>
+                                <li class="lh-lg">
+                                    <input class="form-check-input checkbox" type="checkbox" id="exampleCheckbox">
+                                    <span class="ml-2">Module-1 Name Here</span>
+                                </li>
+                                <li class="lh-lg">
+                                    <input class="form-check-input checkbox" type="checkbox" id="exampleCheckbox">
+                                    <span class="ml-2">Module-1 Name Here</span>
+                                </li>
+                                <li class="lh-lg">
+                                    <input class="form-check-input checkbox" type="checkbox" id="exampleCheckbox">
+                                    <span class="ml-2">Module-1 Name Here</span>
+                                </li>
+                            </ul>
+
 
                         </div>
-                  
 
 
-                        <button type="submit" class="btn btn-primary mr-2" id="">Submit</button>
+
+                        <button style="margin-top: 20px;" type="submit" class="btn btn-primary mr-2"
+                            id="">Submit</button>
 
                     </form>
                 </div>

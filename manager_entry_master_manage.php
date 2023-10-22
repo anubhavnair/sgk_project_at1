@@ -20,6 +20,7 @@ include("./header.php");
                 <input type="date" name='date_start_date' id='date_start_date' class="form-control">
                 
             </div>
+            <button id="search" class="btn btn-primary ml-auto mr-auto mt-1">Search</button>
         </div>
 
         <!-- filter section end  -->
@@ -32,7 +33,7 @@ include("./header.php");
             <!-- Start row -->
             <div class="row">
                 <div class="col-md-8 col-lg-8">
-                    <h4 class="page-title">Manager Entry</h4>
+                    <h4 class="page-title">Manager Entries</h4>
 
                 </div>
                 <div class="col-md-4 col-lg-4 mr-0">
@@ -48,7 +49,7 @@ include("./header.php");
         <div class="row">
             <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
-                    <h4 class="header-title">Manager Entry Master</h4>
+                  
                     <div class="table-responsive-xl">
                         <table class="table ">
                             <thead>
@@ -86,7 +87,7 @@ include("./header.php");
 
                                 </tr>
                                 <tr>
-                                    <th scope="row">1</th>
+                                    <th scope="row">2</th>
                                     <td>Date</td>
                                     <td>slip Number</td>
                                     <td>vehical Number</td>
@@ -107,7 +108,7 @@ include("./header.php");
 
                                 </tr>
                                 <tr>
-                                    <th scope="row">1</th>
+                                    <th scope="row">3</th>
                                     <td>Date</td>
                                     <td>slip Number</td>
                                     <td>vehical Number</td>
@@ -128,7 +129,7 @@ include("./header.php");
 
                                 </tr>
                                 <tr>
-                                    <th scope="row">1</th>
+                                    <th scope="row">4</th>
                                     <td>Date</td>
                                     <td>slip Number</td>
                                     <td>vehical Number</td>

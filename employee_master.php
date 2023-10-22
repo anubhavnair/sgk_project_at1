@@ -25,7 +25,7 @@ include("./header.php");
         <div class="row">
             <div class="col-md-6 grid-margin stretch-card">
                 <div class="card">
-                    <h4 class="header-title">Enter Employee Details</h4>
+                  
                     <form class="forms-sample">
                         <div class="form-group">
                             <label>Employee Name</label>
@@ -39,9 +39,9 @@ include("./header.php");
                                 name="txt_employee_mobile_number" placeholder="Enter Employee Mobile Number ">
                         </div>
                         <div class="form-group">
-                            <label>Employee Address</label>
-                            <input type="text" class="form-control" id="txt_employee_address"
-                                name="txt_employee_address" placeholder="Enter Employee Address ">
+                            <label>Employee Password</label>
+                            <input type="text" class="form-control" id="txt_employee_password"
+                                name="txt_employee_password" placeholder="Enter Employee Password ">
                         </div>
 
 
