@@ -37,139 +37,113 @@ if (isset($_REQUEST["edit_id"])) {
             <div class="col-md-6 grid-margin stretch-card">
                 <div class="card">
 
+                    <?php
+                    if (isset($_REQUEST["edit_id"])) {
+                        ?>
+                        <div class="form-group">
+                            <label>Module Title</label>
+                            <input type="text" class="form-control" id="text_module_title" name="text_module_title"
+                                placeholder="Enter Module Title" value=<?= $row["module_title"]; ?>>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Short Order</label>
+                            <input type="text" class="form-control" id="text_short_order" name="text_short_order"
+                                placeholder="Enter Short Order " value=<?= $row["short_order"]; ?>>
+                        </div>
+                        <div class="form-group">
+                            <label>URL</label>
+                            <input type="text" class="form-control" id="text_url" name="txt_url" placeholder="Enter Url"
+                                value=<?= $row["module_url"]; ?>>
+                        </div>
+                        <input type="button" id="update" value="Update" class="btn btn-primary">
+                    </div>
+
+
+
+                    <?php
+
+                    } else {
+
+
+                        ?>
 
                     <div class="form-group">
                         <label>Module Title</label>
                         <input type="text" class="form-control" id="text_module_title" name="text_module_title"
-                            placeholder="Enter Module Title" value=<?php
-                            if (isset($_REQUEST["edit_id"])) {
-                                echo $row["module_title"];
-                            }
-
-                            ?>>
+                            placeholder="Enter Module Title">
                     </div>
 
                     <div class="form-group">
                         <label>Short Order</label>
                         <input type="text" class="form-control" id="text_short_order" name="text_short_order"
-                            placeholder="Enter Short Order " value=<?php
-                            if (isset($_REQUEST["edit_id"])) {
-                                echo $row["short_order"];
-                            }
-
-                            ?>>
+                            placeholder="Enter Short Order ">
                     </div>
                     <div class="form-group">
                         <label>URL</label>
-                        <input type="text" class="form-control" id="text_url" name="txt_url" placeholder="Enter Url "
-                            value=<?php
-                            if (isset($_REQUEST["edit_id"])) {
-                                echo $row["module_url"];
-                            }
-
-                            ?>>
+                        <input type="text" class="form-control" id="text_url" name="txt_url" placeholder="Enter Url">
                     </div>
+                    <input type="button" id="submit" value="Submit" class="btn btn-primary">
 
-                    <?php
+                </div>
 
-                    if (isset($_REQUEST["edit_id"])) {
-                        ?>
-                        <button class="btn btn-primary" id="update">Update</button>
-                        <?php
 
-                    } else {
-                        ?>
-                        <button class="btn btn-primary" id="submit">Submit</button>
-                        <?php
+
+
+                <?php
+
 
                     }
-
                     ?>
 
 
-                </div>
-            </div>
         </div>
-        <?php
-        include("./footer.php");
-        ?>
-        <script>
+    </div>
+    <?php
+    include("./footer.php");
+    ?>
+    <script>
 
 
 
-            $("#manage").on("click", function (e) {
-                window.location.replace("./module_master_manage");
-            })
-            $("#add").on("click", function (e) {
-                window.location.replace("./module_master.php");
-            })
-            $("#authorization").on("click", function (e) {
-                window.location.replace("./employee_authorization.php");
-            })
+        $("#manage").on("click", function (e) {
+            window.location.replace("./module_master_manage.php");
+        })
+        $("#add").on("click", function (e) {
+            window.location.replace("./module_master.php");
+        })
 
-            // on click of submit button data have to save on module_master_do.php page here ||
-            //                                                                               \/
-            $("#submit").on("click", function (e) {
+        // on click of submit button data have to save on module_master_do.php page here ||
+        //                                                                               \/
+        $("#submit").on("click", function (e) {
 
-                const module_title = $("#text_module_title").val();
-                const short_order = $("#text_short_order").val();
-                const url = $("#text_url").val();
-                if (module_title == "" || module_title == null) {
-                    $("#text_module_title").focus();
-                }
-                else if (short_order == "" || short_order == null) {
-                    $("#text_short_order").focus();
-                }
-                else if (url == "" || url == null) {
-                    $("#text_url").focus();
-                } else {
-                    $.post("module_master_do.php",
-                        {
-                            text_module_title: module_title,
-                            text_short_order: short_order,
-                            text_url: url
-                        }, function (data, status) {
-                            if (status == "success") {
-                                alert("Module Added Successfully !....");
-                            }
+            const module_title = $("#text_module_title").val();
+            const short_order = $("#text_short_order").val();
+            const url = $("#text_url").val();
+            if (module_title == "" || module_title == null) {
+                $("#text_module_title").focus();
+            }
+            else if (short_order == "" || short_order == null) {
+                $("#text_short_order").focus();
+            }
+            else if (url == "" || url == null) {
+                $("#text_url").focus();
+            } else {
+                $.post("module_master_do.php",
+                    {
+                        text_module_title: module_title,
+                        text_short_order: short_order,
+                        text_url: url
+                    }, function (data, status) {
+                        if (status == "success") {
+                            alert("Module Added Successfully !....");
+                            window.location.replace(".module_master.php")
                         }
-                    );
+                    }
+                );
 
-                }
-            });
-
-
-            // on click of update button we have to fetch the text box datas and update into the database table
-
-            $("#update").on("click", function (e) {
-
-                const module_title = $("#text_module_title").val();
-                const short_order = $("#text_short_order").val();
-                const url = $("#text_url").val();
-                if (module_title == "" || module_title == null) {
-                    $("#text_module_title").focus();
-                }
-                else if (short_order == "" || short_order == null) {
-                    $("#text_short_order").focus();
-                }
-                else if (url == "" || url == null) {
-                    $("#text_url").focus();
-                } else {
-                    $.post("module_master_do.php",
-                        {   edit_id : <?php echo $row["id"]; ?> ,
-                            text_module_title: module_title,
-                            text_short_order: short_order,
-                            text_url: url
-                        }, function (data, status) {
-                            if (status == "success") {
-                                alert("Module Updated Successfully !....");
-                            }
-                        }
-                    );
-
-                }
-            });
-        
+            }
+        });
 
 
-        </script>
+    </script>

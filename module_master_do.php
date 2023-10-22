@@ -2,7 +2,7 @@
 require_once("./root/dbconnection.php");
 
 
-// isert login of module master 
+// insert logic of module master 
 if (isset($_REQUEST["text_module_title"]) && isset($_REQUEST["text_short_order"]) && isset($_REQUEST["text_url"])) {
 
     $text_module_title = $_REQUEST["text_module_title"];
@@ -15,7 +15,7 @@ if (isset($_REQUEST["text_module_title"]) && isset($_REQUEST["text_short_order"]
 
 
 
-// deleting login of module master 
+// deleting logic of module master 
 
 if (isset($_REQUEST["del_id"])) {
     $del_id = $_REQUEST["del_id"];
@@ -29,7 +29,9 @@ if (isset($_REQUEST["del_id"])) {
     </script>
     <?php
 }
+?>
 
+<?
 
 
 // updating logic here  
@@ -41,13 +43,5 @@ if (isset($_REQUEST["text_module_title"]) && isset($_REQUEST["text_short_order"]
     $text_url = $_REQUEST["text_url"];
 
     $qry=$db->query("UPDATE `module_master` SET `module_title`='$text_module_title',`short_order`='$text_short_order',`module_url`='$text_url' WHERE id = $edit_id") or die("");
-
-?>
-<script>
-    alert("Module Data Updated !....");
-    window.location.replace("./module_master_manage.php");
-</script>
-<?
-
 }
 ?>
