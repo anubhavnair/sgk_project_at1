@@ -35,10 +35,11 @@ include("./header.php");
                 <!-- Content for the first div -->
               </div>
               <div class="form-group col-md-6">
-                <input type="date" class="form-control p-0" name="date_enter_date" id="date_enter_date" value="">
+                <input type="text" class="form-control m-0" name="txt_enter_date" id="txt_enter_date"
+                   readonly>
               </div>
             </section>
-
+           
 
             <section class="d-flex align-items-center col-12 p-0">
               <div class="form-group col-md-6 d-flex flex-column justify-content-end">
@@ -131,9 +132,9 @@ include("./header.php");
       var year = currentDate.getFullYear();
       var month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
       var day = String(currentDate.getDate()).padStart(2, '0');
-      var formattedDate = year + '-' + month + '-' + day;
+      var formattedDate = day + '-' + month + '-' + year;
 
       // Set the value of the input to the current date
-      $('#date_enter_date').val(formattedDate);
+      $('#txt_enter_date').val(formattedDate);
     });
   </script>
