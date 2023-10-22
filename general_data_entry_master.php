@@ -50,28 +50,27 @@ include("./header.php");
     <div class="row">
       <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
-          <h4 class="header-title">Enter Details</h4>
           <form class="forms-sample">
-                  <div class="d-flex">
-                  <div class="form-group col-4">
+                  <div class="d-flex align-items-end col-12">
+                  <div class="form-group p-0 col-4 h-100 d-flex flex-column justify-content-end">
                     <label for="date_enter_date">Enter Date</label>
-                    <input type="date" class="form-control" name="date_enter_date" id="date_enter_date" placeholder="Enter Date">
+                    <input type="date" class="form-control " name="date_enter_date" id="date_enter_date" placeholder="Enter Date">
                   </div>
-                  <div class="form-group col-4">
+                  <div class="form-group col-4 h-100 d-flex flex-column justify-content-end">
                     <label for="txt_select_vehicle">Select vehicle</label>
-                    <select class="form-control" name="txt_select_vehicle" id="txt_select_vehicle">
+                    <select class="form-control " name="txt_select_vehicle" id="txt_select_vehicle">
                         <option value="1">JCB</option>
                         <option value="2">Truck</option>
                         <option value="3">Tractor</option>
                         <option value="4">Dumpher</option>
                     </select>
                   </div>
-                  <div class="form-group col-4">
+                  <div class="form-group p-0 col-4 h-100 d-flex flex-column justify-content-end">
                     <label for="txt_trips">Trips</label>
-                    <input type="text" class="form-control" id="txt_trips" name="txt_trips" placeholder="Enter No. of Trips">
+                    <input type="text" class="form-control " id="txt_trips" name="txt_trips" placeholder="Enter No. of Trips">
                   </div>
                   </div>
-                  <div class="form-group col-12">
+                  <div class="form-group  col-12">
                     <label for="txt_work_description">Work description</label>
                     <textarea class="form-control" id="txt_work_description" name="txt_work_description" placeholder="Enter Work Description" rows="3"></textarea>
 

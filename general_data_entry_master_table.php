@@ -15,15 +15,32 @@ include("./header.php");
         <path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"></path>
       </svg>Click to Filter</span>
     <div class="row filter_section" style="display:none;">
-      <div class="col-md-12">
-        <label>Enter Start Date</label>
-        <input type="date" name='date_start_date' id='date_start_date' class="form-control">
-        <label> Enter End Date</label>
-        <input type="date" name='date_end_date' id='date_end_date' class="form-control">
-        <label> Enter Vehical Number</label>
-        <input type="text" name="text_vehical_number" id='text_vehical_number' placeholder="Enter Vehical Number"
-          class="form-control">
+      <div class="row filter_section m-0 p-0 w-100" style="display: none;">
+
+        <section class="col-12 d-flex align-items-center p-0">
+          <div class="col-4 d-flex justify-content-end flex-column h-100">
+            <label for="date_start_date">Start Date</label>
+            <input type="date" name="date_start_date" id="date_start_date" class="form-control p-0">
+          </div>
+          <div class="col-4 d-flex justify-content-end flex-column h-100">
+            <label for="date_end_date">End Date</label>
+            <input type="date" name="date_end_date" id="date_end_date" class="form-control p-0">
+          </div>
+          <div class="col-4 d-flex justify-content-end flex-column h-100">
+            <label for="text_vehical_number p-0 m-0">Vehicle Number</label>
+            <input type="text" name="text_vehicle_number" id="text_vehicle_number" placeholder="Enter Vehicle Number"
+              class="form-control p-0">
+          </div>
+        </section>
+        <div class="col-12 p-0">
+          <form class="form-inline my-2 my-lg-0 col-12">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search">
+          </form>
+        </div>
+
       </div>
+
+
     </div>
 
     <!-- filter section end  -->
@@ -131,9 +148,9 @@ include("./header.php");
   ?>
 
   <script>
-      $("#filter_icon").on("click", function (e) {
+    $("#filter_icon").on("click", function (e) {
 
-$(".filter_section").slideToggle();
+      $(".filter_section").slideToggle();
 
-});
+    });
   </script>
