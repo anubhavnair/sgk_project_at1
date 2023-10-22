@@ -34,7 +34,7 @@ include("./header.php");
         </section>
         <div class="col-12 p-0">
           <form class="form-inline my-2 my-lg-0 col-12">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search">
+          <button id="search" class="btn btn-primary ml-auto mr-auto mt-1">Search</button>
           </form>
         </div>
 
