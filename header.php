@@ -112,7 +112,7 @@
           <li> <a href="dashboard.php" class=" active"> <i class="ti-home"></i> <span>Dashboard</span></a> </li>
           <li> <a href="employee_master.php" class=" active"> <i class="ti-home"></i> <span>Employee Master</span></a>
           </li>
-          <li> <a href="module_master.php" class=" active"> <i class="ti-home"></i> <span>Authorization Master</span></a>
+          <li> <a href="module_master.php" class=" active"> <i class="ti-home"></i> <span>Module Master</span></a>
           </li>
           <li> <a href="area_master.php" class=" active"> <i class="ti-home"></i> <span>Area Master</span></a> </li>
 

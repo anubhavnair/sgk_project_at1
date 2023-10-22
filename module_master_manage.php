@@ -11,7 +11,7 @@ include("./header.php");
             <!-- Start row -->
             <div class="row">
                 <div class="col-md-8 col-lg-8">
-                    <h4 class="page-title">Module Master Manage</h4>
+                    <h4 class="page-title">Manage Module Master </h4>
 
                 </div>
                 <div class="col-md-4 col-lg-4 mr-0">
@@ -28,7 +28,7 @@ include("./header.php");
         <div class="row">
             <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
-                    <h4 class="header-title">Module Details</h4>
+                    
                     <div class="table-responsive-xl">
                         <table class="table responsive-table">
                             <thead>

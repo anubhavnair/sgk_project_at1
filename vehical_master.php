@@ -30,8 +30,8 @@ require_once('./header.php');
                 <form class="forms-sample">
                 <div class="form-group row">
                     <label for="txt_select_area" class="col-md-3 col-form-label">Select Area</label>
-                    <div class="col-md-6">
-                        <select class="form-control custom-select" name="txt_select_area" id="txt_select_area">
+                    <div class="col-md-6" >
+                        <select class="form-control custom-select" name="txt_select_area" id="txt_select_area" style="height:50px !important">
                         <option value="1">Raipur</option>
                         <option value="2">Durg</option>
                         <option value="3">Bhilai</option>
@@ -64,7 +64,7 @@ require_once('./header.php');
                   </div>
                   <div class="form-group">
                     <label for="txt_description">Description</label>
-                    <textarea class="form-control" id="txt_description" name="txt_description" placeholder="Enter Description"></textarea>
+                    <textarea class="form-control" id="txt_description" rows="30" name="txt_description" placeholder="Enter Description" style="height:125px !important"></textarea>
                   </div>
 
                   <button type="submit" class="btn btn-primary mr-2">Submit</button>
