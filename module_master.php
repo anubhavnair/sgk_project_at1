@@ -34,7 +34,7 @@ if (isset($_REQUEST["edit_id"])) {
         <!-- End Breadcrumbbar -->
         <!-- state start-->
         <div class="row">
-            <div class="col-md-6 grid-margin stretch-card">
+            <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
 
                     <?php
