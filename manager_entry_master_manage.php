@@ -4,7 +4,17 @@ include("./header.php");
 include("./root/dbconnection.php");
 
 
-$qry = $db->query("select * from manager_entry_master") or die("");
+if (isset($_REQUEST["filter_by_date"])) {
+
+    $filter_by_date = $_REQUEST["filter_by_date"];
+
+    $qry = $db->query("SELECT * FROM manager_entry_master WHERE select_date = '$filter_by_date'") or die("");
+
+} else {
+
+    $qry = $db->query("select * from manager_entry_master") or die("");
+}
+
 
 
 
@@ -26,7 +36,7 @@ $qry = $db->query("select * from manager_entry_master") or die("");
         <div class="row filter_section" style="display:none;">
             <div class="col-md-12">
                 <label>Enter Date</label>
-                <input type="date" name='date_start_date' id='date_start_date' class="form-control">
+                <input type="date" name='dt_start_date' id='dt_start_date' class="form-control">
 
             </div>
             <button id="search" class="btn btn-primary ml-auto mr-auto mt-1">Search</button>
@@ -43,6 +53,7 @@ $qry = $db->query("select * from manager_entry_master") or die("");
             <div class="row">
                 <div class="col-md-8 col-lg-8">
                     <h4 class="page-title"> Manage Manager Entry Master</h4>
+
 
                 </div>
                 <div class="col-md-4 col-lg-4 mr-0">
@@ -134,17 +145,38 @@ $qry = $db->query("select * from manager_entry_master") or die("");
         include("./footer.php");
         ?>
         <script>
+            $(document).ready(function () {
+                $("#add").on("click", function (e) {
+                    window.location.replace("./manager_entry_master.php");
+                })
+                $("#manage").on("click", function (e) {
+                    window.location.replace("./manager_entry_master_manage.php");
+                })
+                $("#filter_icon").on("click", function (e) {
+
+                    $(".filter_section").slideToggle();
+
+                });
+
+                // search logic 
+                $('#search').on("click", function () {
+                    const filter_date = $("#dt_start_date").val();
+
+                    if (filter_date == "" || filter_date == null) {
+                        alert("Please Select a date first");
+                        $("$dt_start_date").focus();
+                    } else {
+
+                        // $.post("manager_entry_master_manager.php", { filter_by_date: filter_date }, function (data, status) { }) this is working but piche jakar ye vps aja rha isliye reflection dikh nahi rha hai so we have to use another technique
+
+                        window.location.replace("manager_entry_master_manage.php?filter_by_date=" + filter_date);
+                    }
+
+                });
 
 
-            $("#add").on("click", function (e) {
-                window.location.replace("./manager_entry_master.php");
+
             })
-            $("#manage").on("click", function (e) {
-                window.location.replace("./manager_entry_master_manage.php");
-            })
-            $("#filter_icon").on("click", function (e) {
 
-                $(".filter_section").slideToggle();
 
-            });
         </script>

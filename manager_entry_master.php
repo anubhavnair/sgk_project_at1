@@ -83,7 +83,7 @@ include("./root/dbconnection.php");
 <form class="forms-sample">
 
 <input type="date" class="form-control text-center form-group" id="dt_date" name="dt_date"
-    placeholder="Enter Date">
+     value='<?php echo date("Y-m-d") ?>'>
 
 <div class="form-group text-left">
     <label>Slip Number</label>
