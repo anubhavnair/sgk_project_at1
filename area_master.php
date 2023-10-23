@@ -1,5 +1,14 @@
 <?php
 require_once('./header.php');
+include("./root/dbconnection.php");
+
+if (isset($_REQUEST["edit_id"])) {
+
+    $edit_id = $_REQUEST["edit_id"];
+    $qry = $db->query("select * from area_master where id = $edit_id ") or die("");
+    $row = $qry->fetch(PDO::FETCH_ASSOC);
+
+}
 ?>
 <div class="content_wrapper bg_homebefore inner-wrapper forms-sec">
     <div class="container-fluid">
@@ -27,19 +36,64 @@ require_once('./header.php');
             <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
 
-                <form class="forms-sample">
-                        <div class="form-group">
-                            <label>Enter Area Name </label>
-                            <input type="text" class="form-control" id="txt_area_name" name="txt_area_name"
-                                placeholder="Enter Area Name">
-                        </div>
-                 
-                       
-                       
 
-                        <button type="submit" class="btn btn-primary mr-2" id="">Submit</button>
+                    <?php
+                    if (isset($_REQUEST["edit_id"])) {
+                        ?>
 
-                    </form>
+                        <form class="forms-sample">
+                            <div class="form-group">
+                                <label>Enter Area Name </label>
+                                <input type="text" class="form-control" id="text_area_name" name="text_area_name"
+                                    placeholder="Enter Area Name" value=<?php echo $row["area_name"] ?>>
+
+                                <input type="hidden" name="text_edit_id" id="text_edit_id" value=<?php echo $edit_id; ?>>
+                            </div>
+
+
+
+
+                            <input type="button" id="update" value="Update" class="btn btn-primary">
+
+                        </form>
+
+
+                        <?php
+
+
+
+
+                    } else {
+
+
+                        ?>
+
+
+
+                        <form class="forms-sample">
+                            <div class="form-group">
+                                <label>Enter Area Name </label>
+                                <input type="text" class="form-control" id="text_area_name" name="text_area_name"
+                                    placeholder="Enter Area Name">
+                            </div>
+
+
+
+
+                            <input type="button" id="submit" value="Submit" class="btn btn-primary">
+
+                        </form>
+
+
+
+
+                        <?php
+
+
+
+                    }
+                    ?>
+
                 </div>
             </div>
         </div>
@@ -49,16 +103,74 @@ require_once('./header.php');
         ?>
         <script>
 
-            $("#manage").on("click", function (e) {
-                window.location.replace("./area_master_manage.php");
-            })
-            $("#add").on("click", function (e) {
-                window.location.replace("./area_master.php");
-            })
-            $("#filter_icon").on("click", function (e) {
+            $(document).ready(function () {
+                $("#manage").on("click", function (e) {
+                    window.location.replace("./area_master_manage.php");
+                })
+                $("#add").on("click", function (e) {
+                    window.location.replace("./area_master.php");
+                })
+                $("#filter_icon").on("click", function (e) {
 
-                $(".filter_section").slideToggle();
+                    $(".filter_section").slideToggle();
 
-            });
+                });
+                // on click of submit button data have to save on area_master_do.php page here ||
+                //                                                                               \/
+                $("#submit").on("click", function (e) {
+
+
+                    const area_name = $("#text_area_name").val();
+
+                    if (area_name == "" || area_name == null) {
+
+                        $("#text_area_name").focus();
+                    }
+                    else {
+                        $.post("area_master_do.php",
+                            {
+
+                                text_area_name: area_name
+                            }, function (data, status) {
+                                if (status == "success") {
+                                    alert("Area Added Successfully !....");
+                                    window.location.replace("./area_master.php")
+                                }
+                            }
+                        );
+
+                    }
+                });
+                // on click of update button data have to update data on area_master_do.php page here ||
+                //                                                                               \/
+                $("#update").on("click", function (e) {
+                    const updt_id = $("#text_edit_id").val();
+                    const area_name = $("#text_area_name").val();
+
+                    if (area_name == "" || area_name == null) {
+
+                        $("#text_area_name").focus();
+                    }
+                    else {
+                        $.post("area_master_do.php",
+                            {
+                                edit_id: updt_id,
+                                text_area_name: area_name
+                            }, function (data, status) {
+                                if (status == "success") {
+                                    alert("Area Data Updated Successfully !....");
+                                    window.location.replace("./area_master_manage.php")
+                                }
+                            }
+                        );
+
+                    }
+                });
+
+
+
+            })
+
+
 
         </script>
