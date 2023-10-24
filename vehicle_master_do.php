@@ -15,14 +15,15 @@ if (isset($_REQUEST["edit_id"])) {
 
 
 
-} elseif (isset($_REQUEST["text_employee_name"]) && isset($_REQUEST["text_employee_mobile_number"]) && isset($_REQUEST["text_employee_password"])) {
+}
+ else if (isset($_REQUEST["txt_vehical_name"]) && isset($_REQUEST["txt_driver_name"]) && isset($_REQUEST["txt_vehical_number"]) && isset($_REQUEST["txt_driver_number"])) {
 
-    $emp_name = $_REQUEST["text_employee_name"];
-    $emp_mobile = $_REQUEST["text_employee_mobile_number"];
-    $emp_pass = $_REQUEST["text_employee_password"];
+    $vehicle_name = $_REQUEST["text_vehical_name"];
+    $driver_name = $_REQUEST["txt_driver_name"];
+    $vehical_number = $_REQUEST["txt_vehical_number"];
+    $driver_number = $_REQUEST["txt_driver_number"];
 
-    $qry = $db->query("INSERT INTO `employee_master`(`emp_name`, `emp_mono`, `emp_password`) VALUES ('$emp_name','$emp_mobile','$emp_pass')") or die("");
-
+    $qry = $db->query("INSERT INTO `vehical_master`(`vehical_name`,`vehicle_number`, `driver_name`, `driver_contactno`) VALUES ('$vehicle_name','$vehical_number','$driver_name','$driver_number'") or die("");
 }
 
 

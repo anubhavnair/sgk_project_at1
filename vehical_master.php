@@ -27,31 +27,35 @@ require_once('./header.php');
             <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
 
-                <form class="forms-sample">
-              
-                
-                
-                  <div class="form-group">
-                    <label for="date_enter_date">Enter Vehical Name</label>
-                    <input type="text" class="form-control" name="text_vehical_name" id="text_vehical_name" placeholder="Enter Name">
-                  </div>
-                  <div class="form-group">
-                    <label for="txt_total_refill">Driver Name</label>
-                    <input type="text" class="form-control" name="txt_driver_name" id="txt_driver_name" placeholder="Enter Driver Name">
-                  </div>
-                  <div class="form-group">
-                    <label for="txt_opening_meter">Vehical Number</label>
-                    <input type="text" class="form-control" id="txt_vehical_name" name="text_vehical_name" placeholder="Enter Vehical Number">
-                  </div>
-                  <div class="form-group">
-                    <label for="txt_closing_meter">Driver Number</label>
-                    <input type="text" class="form-control" id="txt_driver_number" name="txt_driver_number" placeholder="Enter Driver Number">
-                  </div>
-                
-              
+                    <form class="forms-sample">
 
-                  <button type="submit" class="btn btn-primary mr-2">Submit</button>
-                </form>
+
+
+                        <div class="form-group">
+                            <label for="txt_vehical_name">Enter Vehical Name</label>
+                            <input type="text" class="form-control" name="txt_vehical_name" id="txt_vehical_name"
+                                placeholder="Enter Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="txt_driver_name">Driver Name</label>
+                            <input type="text" class="form-control" name="txt_driver_name" id="txt_driver_name"
+                                placeholder="Enter Driver Name">
+                        </div>
+                        <div class="form-group">
+                            <label for="txt_vehical_number">Vehical Number</label>
+                            <input type="text" class="form-control" id="txt_vehical_number" name="txt_vehical_number"
+                                placeholder="Enter Vehical Number">
+                        </div>
+                        <div class="form-group">
+                            <label for="txt_closing_meter">Driver Number</label>
+                            <input type="text" class="form-control" id="txt_driver_number" name="txt_driver_number"
+                                placeholder="Enter Driver Number">
+                        </div>
+
+
+
+                        <button type="submit" id="submit" class="btn btn-primary mr-2">Submit</button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -72,5 +76,50 @@ require_once('./header.php');
                 $(".filter_section").slideToggle();
 
             });
+
+            // FORM VALIDATION SECTION 
+            $("#submit").on("click", function (e) {
+                e.preventDefault();
+                const vehicle_name = $("#txt_vehical_name").val();
+                const driver_name = $("#txt_driver_name").val();
+                const vehical_number = $("#txt_vehical_number").val();
+                const driver_number = $("#txt_driver_number").val();
+                if (vehicle_name == "" || vehicle_name == null) {
+
+                    $("#txt_vehical_name").focus();
+                }
+                else if (driver_name == "" || driver_name == null) {
+
+                    $("#txt_driver_name").focus();
+
+                }
+                else if (vehical_number == "" || vehical_number == null) {
+
+
+                    $("#txt_vehical_number").focus();
+                }
+                else if (driver_number == "" || driver_number == null) {
+
+
+                    $("#txt_driver_number").focus();
+                }
+                else {
+                    $.post("vehicle_master_do.php",
+                        {
+                            txt_vehical_name: vehicle_name,
+                            txt_driver_name: driver_name,
+                            txt_vehical_number: vehical_number,
+                            txt_driver_number: driver_number
+                        }, function (data, status) {
+                            if (status == "success") {
+                                alert("Vehicle Added Successfully !....");
+                                window.location.replace("./vehical_master.php")
+                            }
+                           
+                        }
+                    );
+                }
+
+            })
 
         </script>
