@@ -47,7 +47,21 @@ include("./header.php");
 
 
     <!-- Start Breadcrumbbar -->
+    <div class="breadcrumbbar">
+      <!-- Start row -->
+      <div class="row">
+        <div class="col-md-8 col-lg-8">
+          <h4 class="page-title">General data entry</h4>
 
+        </div>
+        <div class="col-md-4 col-lg-4 mr-0">
+          <div class="widgetbar">
+            <button id="add" class="btn btn-primary">Add</button>
+            <button id="manage" class="btn btn-primary">Manage</button>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- End Breadcrumbbar -->
     <!-- state start-->
     <div class="row">
@@ -148,9 +162,17 @@ include("./header.php");
   ?>
 
   <script>
+    $("#add").on("click", function (e) {
+        window.location.replace("./general_data_entry_master.php");
+      })
+      $("#manage").on("click", function (e) {
+        window.location.replace("./general_data_entry_master_table.php");
+      })
+      
     $("#filter_icon").on("click", function (e) {
 
       $(".filter_section").slideToggle();
 
     });
+
   </script>
