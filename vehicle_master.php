@@ -61,7 +61,7 @@ require_once('./header.php');
 
 
 
-                            <button type="submit" id="update" class="btn btn-primary mr-2">Submit</button>
+                            <button type="submit" id="update" class="btn btn-primary mr-2">Update</button>
                             <?php
                         } else {
                             ?>
@@ -88,7 +88,7 @@ require_once('./header.php');
 
 
 
-                            <button type="submit" id="submit" class="btn btn-primary mr-2">Update</button>
+                            <button type="submit" id="submit" class="btn btn-primary mr-2">Submit</button>
                             <?php
                         }
                         ?>

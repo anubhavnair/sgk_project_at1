@@ -28,9 +28,9 @@ include("./header.php");
                 <div class="card-body">
                   <div class="row align-items-center no-gutters">
                     <div class="col-12">
-                        <a href="vehical_master.php">
+                        <a href="vehicle_master.php">
                             <div class="fDesign" style="    background: #2099B6;">
-                                Vehicle Detail
+                                Vehical Detail
                             </div>  
                         </a>
                     </div>

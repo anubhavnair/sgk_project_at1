@@ -70,7 +70,7 @@ $qry = $db->query("select * from vehicle_master") or die("");
                                         </td>
                                         <td>
                                             <div class="d-flex justify-content-center align-items-center">
-                                                <a href="vehicle_master_do.php?del_id=<?= $id ?>"><svg
+                                                <a href="vehicle_master_do.php?del_id=<?=$id?>"><svg
                                                         xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                         fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
                                                         <path

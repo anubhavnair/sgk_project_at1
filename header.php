@@ -120,7 +120,7 @@
           </li>
           <li> <a href="area_master.php" class=" active"> <i class="ti-home"></i> <span>Area Master</span></a> </li>
 
-          <li> <a href="vehical_master.php" class=" active"> <i class="ti-home"></i> <span>Vehical Master</span></a> </li>
+          <li> <a href="vehicle_master.php" class=" active"> <i class="ti-home"></i> <span>Vehicle Master</span></a> </li>
           <li> <a href="general_data_entry_master.php" class=" active"> <i class="ti-home"></i> <span>General Data Entry Master</span></a>
           </li>
           <li> <a href="tank_master.php" class=" active"> <i class="ti-home"></i> <span>Tank Entry Master</span></a> </li>

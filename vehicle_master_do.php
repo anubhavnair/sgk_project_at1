@@ -15,16 +15,20 @@ if (isset($_REQUEST["edit_id"])) {
 
 
 
-}
- else if (isset($_REQUEST["txt_vehical_name"]) && isset($_REQUEST["txt_driver_name"]) && isset($_REQUEST["txt_vehical_number"]) && isset($_REQUEST["txt_driver_number"])) {
-
-    $vehicle_name = $_REQUEST["text_vehical_name"];
+} 
+else if (isset($_REQUEST["txt_vehical_name"]) && isset($_REQUEST["txt_driver_name"]) && isset($_REQUEST["txt_vehical_number"]) && isset($_REQUEST["txt_driver_number"])) {
+    $vehicle_name = $_REQUEST["txt_vehical_name"];
     $driver_name = $_REQUEST["txt_driver_name"];
     $vehical_number = $_REQUEST["txt_vehical_number"];
     $driver_number = $_REQUEST["txt_driver_number"];
 
-    $qry = $db->query("INSERT INTO `vehical_master`(`vehical_name`,`vehicle_number`, `driver_name`, `driver_contactno`) VALUES ('$vehicle_name','$vehical_number','$driver_name','$driver_number'") or die("");
+    // SQL query to insert data
+    $sql = "INSERT INTO `vehicle_master` (`vehical_name`, `vehicle_number`, `driver_name`, `driver_contactno`) VALUES ('$vehicle_name', '$vehical_number', '$driver_name', '$driver_number')";
+
+    // Execute the SQL query
+    $qry = $db->query($sql) or die("");
 }
+
 
 
 
@@ -32,13 +36,13 @@ if (isset($_REQUEST["edit_id"])) {
 
 if (isset($_REQUEST["del_id"])) {
     $del_id = $_REQUEST["del_id"];
-    $qry = $db->query("DELETE FROM `employee_master` WHERE id = $del_id") or die("");
+    $qry = $db->query("DELETE FROM `vehicle_master` WHERE id = $del_id") or die("");
 
 
     ?>
     <script>
-        alert("Employee Data Deleted !....");
-        window.location.replace("./employee_master_manage.php");
+        alert("Vehicle Data Deleted !....");
+        window.location.replace("./vehicle_master_manage.php");
     </script>
     <?php
 }
