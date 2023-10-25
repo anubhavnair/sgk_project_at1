@@ -33,16 +33,19 @@
                 <form action="#">
                   <div class="form-group">
                     <label class="float-left" for="emailaddress">Mobile Number</label>
-                    <input class="form-control" type="text" id="txt_mobile_number" name="txt_mobile_number"
-                      placeholder="Enter Your Mobile Number" >
+                    <input class="form-control" type="text" id="text_mobile_number" name="txt_mobile_number"
+                      placeholder="Enter Your Mobile Number">
                   </div>
                   <div class="form-group">
                     <label class="float-left" for="password">Password</label>
-                    <input class="form-control" type="password" id="password"  name="password" placeholder="Enter Your Mobile Number">
+                    <input class="form-control" type="password" id="pass_password" name="password"
+                      placeholder="Enter Your Mobile Number">
                   </div>
 
                   <div class="form-group text-center">
-                    <button class="btn btn-primary btn-block" type="button"  id="submitBtn" name="submitBtn"> Log In </button>
+
+                    <input class="btn btn-primary btn-block" type="button" id="submit" name="submit" value="Log In">
+
                   </div>
 
                   <div class="form-group text-center">
@@ -89,9 +92,47 @@
 
   <script>
 
-    $("#submitBtn").on("click",function(e){
-      window.location.replace("dashboard.php");
-    })
+
+
+    $("#submit").on("click", function (e) {
+      e.preventDefault();
+      const text_mobile_number = $("#text_mobile_number").val();
+      const pass_password = $("#pass_password").val();
+
+      if (text_mobile_number == "" || text_mobile_number == null) {
+        alert('Please Enter Your Registered Mobile Number !....');
+        $("#text_mobile_number").focus();
+      } else if (pass_password == "" || pass_password == null) {
+        alert("Please Enter Password !....")
+        $("#pass_password").focus();
+      } else {
+        // alert(text_mobile_number); // Display the mobile number
+        // alert(pass_password);     // Display the password
+        $.post("check_login.php", { mobile_number: text_mobile_number, password: pass_password }, function (data, status) {
+          if (status == "success") {
+
+            if (data == 1) {
+              alert("Invalid Mobile Number !....");
+
+            } else if (data == 2) {
+              alert("Invalid Password !...");
+
+            } else if (data == 3) {
+              alert("Login Successfull !....");
+              window.location.replace("home_page.php");
+            }
+
+
+
+          }
+
+        })
+      }
+
+    });
+
+
+
   </script>
 </body>
 
