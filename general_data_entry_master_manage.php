@@ -34,7 +34,7 @@ include("./header.php");
         </section>
         <div class="col-12 p-0">
           <form class="form-inline my-2 my-lg-0 col-12">
-          <button id="search" class="btn btn-primary ml-auto mr-auto mt-1">Search</button>
+            <button id="search" class="btn btn-primary ml-auto mr-auto mt-1">Search</button>
           </form>
         </div>
 
@@ -47,7 +47,21 @@ include("./header.php");
 
 
     <!-- Start Breadcrumbbar -->
+    <div class="breadcrumbbar">
+      <!-- Start row -->
+      <div class="row">
+        <div class="col-md-8 col-lg-8">
+          <h4 class="page-title">General data entry</h4>
 
+        </div>
+        <div class="col-md-4 col-lg-4 mr-0">
+          <div class="widgetbar">
+            <button id="add" class="btn btn-primary">Add</button>
+            <button id="manage" class="btn btn-primary">Manage</button>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- End Breadcrumbbar -->
     <!-- state start-->
     <div class="row">
@@ -148,9 +162,21 @@ include("./header.php");
   ?>
 
   <script>
-    $("#filter_icon").on("click", function (e) {
+    $(document).ready(function () {
+      $("#add").on("click", function (e) {
+        window.location.replace("./general_data_entry_master.php");
+      })
+      $("#manage").on("click", function (e) {
+        window.location.replace("./general_data_entry_master_manage.php");
+      })
 
-      $(".filter_section").slideToggle();
+      $("#filter_icon").on("click", function (e) {
 
-    });
+        $(".filter_section").slideToggle();
+
+      });
+
+
+      // FORM VALIDATION SECTION 
+    })
   </script>

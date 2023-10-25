@@ -1,5 +1,6 @@
 <?php
 include("./header.php");
+require_once("./root/dbconnection.php");
 ?>
 <div class="content_wrapper bg_homebefore inner-wrapper forms-sec">
   <div class="container-fluid">
@@ -30,76 +31,166 @@ include("./header.php");
         <div class="card">
 
           <form class="forms-sample">
-            <section class=" d-flex align-items-center col-12 p-0 ">
-              <div class="form-group col-md-6">
-                <!-- Content for the first div -->
-              </div>
-              <div class="form-group col-md-6">
-                <input type="text" class="form-control m-0" name="txt_enter_date" id="txt_enter_date"
-                   readonly>
-              </div>
-            </section>
-           
-
-            <section class="d-flex align-items-center col-12 p-0">
-              <div class="form-group col-md-6 d-flex flex-column justify-content-end">
-                <label for="txt_select_area" class="col-form-label col-md-4 pl-0 pr-0">Select Area</label>
-                <div class="col-md-8 p-0">
-                  <select class="form-control custom-select" name="txt_select_area" id="txt_select_area">
-                    <option value="1">Raipur</option>
-                    <option value="2">Durg</option>
-                    <option value="3">Bhilai</option>
-                    <option value="4">Rajnandgaon</option>
-                  </select>
+            <?php
+            if (isset($_REQUEST['edit_id'])) {
+              $edit_id = $_REQUEST["edit_id"];
+              $qry = $db->query("SELECT * FROM `tank_entry_master` where id = '$edit_id'") or die("");
+              $row = $qry->fetch(PDO::FETCH_ASSOC);
+              $dateString = $row['tank_entry_date']; // Replace with your date string
+              $date = new DateTime($dateString);
+              ?>
+              <input type="hidden" name="edit_id" id="edit_id" value="<?= $edit_id ?>">
+              <section class=" d-flex align-items-center col-12 p-0 ">
+                <div class="form-group col-md-6">
+                  <!-- Content for the first div -->
                 </div>
+                <div class="form-group col-md-6">
+                  <input type="date" class="form-control m-0" name="date_enter_date" id="date_enter_date"
+                    value="<?= $date->format("Y-m-d"); ?>">
+                </div>
+              </section>
 
+
+              <section class="d-flex align-items-center col-12 p-0">
+                <div class="form-group col-md-6 d-flex flex-column justify-content-end">
+                  <label for="txt_select_area" class="col-form-label col-md-4 pl-0 pr-0">Select Area</label>
+                  <div class="col-md-12 p-0">
+                    <select class="form-control custom-select" name="txt_select_area" id="txt_select_area"
+                      value="<?= $row['area_id'] ?>">
+                      <?php
+                      $qry2 = $db->query("SELECT * FROM `area_master`") or die("");
+                      while ($rowArea = $qry2->fetch(PDO::FETCH_ASSOC)) {
+                        $selected = ($rowArea['id'] == $row['area_id']) ? 'selected' : '';
+                        ?>
+                        <option value="<?= $rowArea['id'] ?>" <?= $selected ?>>
+                          <?= $rowArea['area_name'] ?>
+                        </option>
+                        <?php
+                      }
+                      ?>
+                    </select>
+                  </div>
+
+                </div>
+                <div class="form-group col-md-6 d-flex flex-column justify-content-end">
+                  <label for="txt_opening_meter pe-0">Opening meter</label>
+                  <input type="text" class="form-control" name="txt_opening_meter" id="txt_opening_meter"
+                    placeholder="Enter Opening Meter" value="<?= $row['opening_meter'] ?>">
+                </div>
+              </section>
+
+              <section class="d-flex align-items-center col-12 p-0">
+                <div class="form-group col-md-6">
+                  <label for="txt_total_refill">Total Refill</label>
+                  <input type="text" class="form-control" name="txt_total_refill" id="txt_total_refill"
+                    placeholder="Enter Total Refill" value="<?= $row['total_refil'] ?>">
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="txt_closing_meter">Closing meter</label>
+                  <input type="text" class="form-control" name="txt_closing_meter" id="txt_closing_meter"
+                    placeholder="Enter Closing Meter" value="<?= $row['closing_meter'] ?>">
+                </div>
+              </section>
+
+
+              <div class="form-group col-md-12">
+                <label for="txt_desel_out">Desel out</label>
+                <input type="text" class="form-control" id="txt_desel_out" name="txt_desel_out"
+                  placeholder="Enter Desel Out" value="<?= $row['diesel_out'] ?>">
               </div>
-              <div class="form-group col-md-6 d-flex flex-column justify-content-end">
-                <label for="txt_opening_meter pe-0">Opening meter</label>
-                <input type="text" class="form-control" name="txt_opening_meter" id="txt_opening_meter"
-                  placeholder="Enter Opening Meter">
+              <div class="form-group col-md-12">
+                <label for="txt_description">Description</label>
+                <textarea class="form-control" id="txt_description" name="txt_description"
+                  placeholder="Enter Description"><?= $row['tankentry_description'] ?></textarea>
               </div>
-            </section>
 
-            <section class="d-flex align-items-center col-12 p-0">
-              <div class="form-group col-md-6">
-                <label for="txt_total_refill">Total Refill</label>
-                <input type="text" class="form-control" name="txt_total_refill" id="txt_total_refill"
-                  placeholder="Enter Total Refill">
-              </div>
-              <div class="form-group col-md-6">
-                <label for="txt_closing_meter">Closing meter</label>
-                <input type="text" class="form-control" name="txt_closing_meter" id="txt_closing_meter"
-                  placeholder="Enter Closing Meter">
-              </div>
-            </section>
+              <section class="d-flex align-items-center col-md-12 p-0">
+                <div class="form-group col-md-6">
+                  <label for="txt_dip">DIP</label>
+                  <input type="text" class="form-control" id="txt_dip" name="txt_dip" placeholder="Enter DIP"
+                    value="<?= $row['tank_dip'] ?>">
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="txt_banance">Balance</label>
+                  <input type="text" class="form-control" id="txt_banance" name="txt_banance" placeholder="Enter Banance"
+                    value="<?= $row['tank_balance'] ?>">
+                </div>
+              </section>
+
+              <button type="submit" id="update" class="btn btn-primary mr-2">Update</button>
+              <?php
+            } else {
+              ?>
+              <section class=" d-flex align-items-center col-12 p-0 ">
+                <div class="form-group col-md-6">
+                  <!-- Content for the first div -->
+                </div>
+                <div class="form-group col-md-6">
+                  <input type="text" class="form-control m-0" name="txt_enter_date" id="txt_enter_date" readonly>
+                </div>
+              </section>
 
 
-            <div class="form-group col-md-12">
-              <label for="txt_desel_out">Desel out</label>
-              <input type="text" class="form-control" id="txt_desel_out" name="txt_desel_out"
-                placeholder="Enter Desel Out">
-            </div>
-            <div class="form-group col-md-12">
-              <label for="txt_description">Description</label>
-              <textarea class="form-control" id="txt_description" name="txt_description"
-                placeholder="Enter Description"></textarea>
-            </div>
+              <section class="d-flex align-items-center col-12 p-0">
+                <div class="form-group col-md-6 d-flex flex-column justify-content-end">
+                  <label for="txt_select_area" class="col-form-label col-md-4 pl-0 pr-0">Select Area</label>
+                  <div class="col-md-12 p-0">
+                    <select class="form-control custom-select" name="txt_select_area" id="txt_select_area">
+                      <option value="1">Raipur</option>
+                      <option value="2">Durg</option>
+                      <option value="3">Bhilai</option>
+                      <option value="4">Rajnandgaon</option>
+                    </select>
+                  </div>
 
-            <section class="d-flex align-items-center col-md-12 p-0">
-              <div class="form-group col-md-6">
-                <label for="txt_desel_out">DIP</label>
+                </div>
+                <div class="form-group col-md-6 d-flex flex-column justify-content-end">
+                  <label for="txt_opening_meter pe-0">Opening meter</label>
+                  <input type="text" class="form-control" name="txt_opening_meter" id="txt_opening_meter"
+                    placeholder="Enter Opening Meter">
+                </div>
+              </section>
+
+              <section class="d-flex align-items-center col-12 p-0">
+                <div class="form-group col-md-6">
+                  <label for="txt_total_refill">Total Refill</label>
+                  <input type="text" class="form-control" name="txt_total_refill" id="txt_total_refill"
+                    placeholder="Enter Total Refill">
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="txt_closing_meter">Closing meter</label>
+                  <input type="text" class="form-control" name="txt_closing_meter" id="txt_closing_meter"
+                    placeholder="Enter Closing Meter">
+                </div>
+              </section>
+
+
+              <div class="form-group col-md-12">
+                <label for="txt_desel_out">Desel out</label>
                 <input type="text" class="form-control" id="txt_desel_out" name="txt_desel_out"
                   placeholder="Enter Desel Out">
               </div>
-              <div class="form-group col-md-6">
-                <label for="txt_desel_out">Balance</label>
-                <input type="text" class="form-control" id="txt_desel_out" name="txt_desel_out"
-                  placeholder="Enter Desel Out">
+              <div class="form-group col-md-12">
+                <label for="txt_description">Description</label>
+                <textarea class="form-control" id="txt_description" name="txt_description"
+                  placeholder="Enter Description"></textarea>
               </div>
-            </section>
 
-            <button type="submit" class="btn btn-primary mr-2">Submit</button>
+              <section class="d-flex align-items-center col-md-12 p-0">
+                <div class="form-group col-md-6">
+                  <label for="txt_dip">DIP</label>
+                  <input type="text" class="form-control" id="txt_dip" name="txt_dip" placeholder="Enter DIP">
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="txt_banance">Balance</label>
+                  <input type="text" class="form-control" id="txt_banance" name="txt_banance" placeholder="Enter Banance">
+                </div>
+              </section>
+
+              <button type="submit" id="submit" class="btn btn-primary mr-2">Submit</button>
+              <?php
+            }
+            ?>
           </form>
         </div>
       </div>
@@ -111,20 +202,20 @@ include("./header.php");
   ?>
   <script>
 
-
-    $("#add").on("click", function (e) {
-      window.location.replace("./tank_master.php");
-    })
-    $("#manage").on("click", function (e) {
-      window.location.replace("./tank_master_table.php");
-    })
-    $("#filter_icon").on("click", function (e) {
-
-      $(".filter_section").slideToggle();
-
-    });
-
     $(document).ready(function () {
+      $("#add").on("click", function (e) {
+        window.location.replace("./tank_master.php");
+      })
+      $("#manage").on("click", function (e) {
+        window.location.replace("./tank_master_manage.php");
+      })
+      $("#filter_icon").on("click", function (e) {
+
+        $(".filter_section").slideToggle();
+
+      });
+
+
       // Get the current date
       var currentDate = new Date();
 
@@ -136,5 +227,161 @@ include("./header.php");
 
       // Set the value of the input to the current date
       $('#txt_enter_date').val(formattedDate);
+
+
+      // FORM VALIDATION SECTION 
+      $("#submit").on("click", function (e) {
+        e.preventDefault();
+        const date = $("#txt_enter_date").val();
+        const select_area = $("#txt_select_area").val();
+        const opening_meter = $("#txt_opening_meter").val();
+        const total_refill = $("#txt_total_refill").val();
+        const closing_meter = $("#txt_closing_meter").val();
+        const desel_out = $("#txt_desel_out").val();
+        const description = $("#txt_description").val();
+        const dip = $("#txt_dip").val();
+        const banance = $("#txt_banance").val();
+        if (select_area == "" || select_area == null) {
+
+          $("#txt_select_area").focus();
+        }
+        else if (opening_meter == "" || opening_meter == null) {
+
+          $("#txt_opening_meter").focus();
+
+        }
+        else if (total_refill == "" || total_refill == null) {
+
+
+          $("#txt_total_refill").focus();
+        }
+        else if (closing_meter == "" || closing_meter == null) {
+
+
+          $("#txt_closing_meter").focus();
+        }
+        else if (desel_out == "" || desel_out == null) {
+
+
+          $("#txt_desel_out").focus();
+        }
+        else if (description == "" || description == null) {
+
+
+          $("#txt_description").focus();
+        }
+        else if (dip == "" || dip == null) {
+
+
+          $("#txt_dip").focus();
+        }
+        else if (banance == "" || banance == null) {
+
+
+          $("#txt_banance").focus();
+        }
+        else {
+          $.post("tank_master_do.php",
+            {
+              txt_enter_date: date,
+              txt_select_area: select_area,
+              txt_opening_meter: opening_meter,
+              txt_total_refill: total_refill,
+              txt_closing_meter: closing_meter,
+              txt_desel_out: desel_out,
+              txt_description: description,
+              txt_dip: dip,
+              txt_banance: banance
+            }, function (data, status) {
+              if (status == "success") {
+                alert("New Record Added Successfully !....");
+                window.location.replace("./tank_master.php")
+              }
+
+            }
+          );
+        }
+
+      })
+
+      $("#update").on("click", function (e) {
+        e.preventDefault();
+        const edit_id = $('#edit_id').val();
+        const date = $("#date_enter_date").val();
+        const select_area = $("#txt_select_area").val();
+        const opening_meter = $("#txt_opening_meter").val();
+        const total_refill = $("#txt_total_refill").val();
+        const closing_meter = $("#txt_closing_meter").val();
+        const desel_out = $("#txt_desel_out").val();
+        const description = $("#txt_description").val();
+        const dip = $("#txt_dip").val();
+        const banance = $("#txt_banance").val();
+        if (date == "" || date == null) {
+
+          $("#date_enter_date").focus();
+        }
+        else if (select_area == "" || select_area == null) {
+
+          $("#txt_select_area").focus();
+        }
+        else if (opening_meter == "" || opening_meter == null) {
+
+          $("#txt_opening_meter").focus();
+
+        }
+        else if (total_refill == "" || total_refill == null) {
+
+
+          $("#txt_total_refill").focus();
+        }
+        else if (closing_meter == "" || closing_meter == null) {
+
+
+          $("#txt_closing_meter").focus();
+        }
+        else if (desel_out == "" || desel_out == null) {
+
+
+          $("#txt_desel_out").focus();
+        }
+        else if (description == "" || description == null) {
+
+
+          $("#txt_description").focus();
+        }
+        else if (dip == "" || dip == null) {
+
+
+          $("#txt_dip").focus();
+        }
+        else if (banance == "" || banance == null) {
+
+
+          $("#txt_banance").focus();
+        }
+        else {
+          $.post("tank_master_do.php",
+            {
+              edit_id: edit_id,
+              txt_enter_date: date,
+              txt_select_area: select_area,
+              txt_opening_meter: opening_meter,
+              txt_total_refill: total_refill,
+              txt_closing_meter: closing_meter,
+              txt_desel_out: desel_out,
+              txt_description: description,
+              txt_dip: dip,
+              txt_banance: banance
+            }, function (data, status) {
+              if (status == "success") {
+                alert("Record Updated Successfully !....");
+                window.location.replace("./tank_master_manage.php")
+              }
+
+            }
+          );
+        }
+
+      })
     });
   </script>
