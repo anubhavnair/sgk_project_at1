@@ -173,7 +173,10 @@ $qry_get_module_data = $db->query("Select * from module_master") or die("");
                 $("#select_emp").on("change", function () {
 
                     const selected_id = $(this).val();
-                    if (selected_id != "" || selected_id != null) {
+
+                    if (selected_id == "" || selected_id == null) {
+
+                    } else {
                         $.post("employee_authorization_do.php", { selected_emp_id: selected_id }, function (data, status) {
                             if (status == "success") {
                                 $(".auth_ul").html(data);
