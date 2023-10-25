@@ -131,10 +131,16 @@ require_once("./root/dbconnection.php");
                 <div class="form-group col-4 h-100 d-flex flex-column justify-content-end">
                   <label for="txt_select_vehicle">Select vehicle</label>
                   <select class="form-control " name="txt_select_vehicle" id="txt_select_vehicle">
-                    <option value="1">JCB</option>
-                    <option value="2">Truck</option>
-                    <option value="3">Tractor</option>
-                    <option value="4">Dumpher</option>
+                  <?php
+                    $qry2 = $db->query("SELECT * FROM `vehicle_master`") or die("");
+                    while ($rowVehicle = $qry2->fetch(PDO::FETCH_ASSOC)) {
+                      ?>
+                      <option value="<?= $rowVehicle['id'] ?>" >
+                        <?= $rowVehicle['vehical_name'] ?>
+                      </option>
+                      <?php
+                    }
+                    ?>
                   </select>
                 </div>
                 <div class="form-group p-0 col-4 h-100 d-flex flex-column justify-content-end">

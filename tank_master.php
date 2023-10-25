@@ -136,10 +136,17 @@ require_once("./root/dbconnection.php");
                   <label for="txt_select_area" class="col-form-label col-md-4 pl-0 pr-0">Select Area</label>
                   <div class="col-md-12 p-0">
                     <select class="form-control custom-select" name="txt_select_area" id="txt_select_area">
-                      <option value="1">Raipur</option>
-                      <option value="2">Durg</option>
-                      <option value="3">Bhilai</option>
-                      <option value="4">Rajnandgaon</option>
+                    <?php
+                      $qry2 = $db->query("SELECT * FROM `area_master`") or die("");
+                      while ($rowArea = $qry2->fetch(PDO::FETCH_ASSOC)) {
+                        $selected = ($rowArea['id'] == $row['area_id']) ? 'selected' : '';
+                        ?>
+                        <option value="<?= $rowArea['id'] ?>" <?= $selected ?>>
+                          <?= $rowArea['area_name'] ?>
+                        </option>
+                        <?php
+                      }
+                      ?>
                     </select>
                   </div>
 
