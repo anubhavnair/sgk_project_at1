@@ -125,15 +125,6 @@
         <ul id="dc_accordion" class="sidebar-menu tree">
           <!-- dynamic module as per employee authentication here  -->
 
-          <li> <a href="vehicle_master.php" class=" active"> <i class="ti-home"></i> <span>Vehicle Master</span></a>
-          </li>
-          <li> <a href="general_data_entry_master.php" class=" active"> <i class="ti-home"></i> <span>General Data Entry
-                Master</span></a>
-          </li>
-          <li> <a href="tank_master.php" class=" active"> <i class="ti-home"></i> <span>Tank Entry Master</span></a>
-          </li>
-          <li> <a href="manager_entry_master.php" class=" active"> <i class="ti-home"></i> <span>Manager Entry
-                Master</span></a> </li>
           <?php
           include("./root/dbconnection.php");
           $emp_id = $_COOKIE["emp_id"];
