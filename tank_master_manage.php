@@ -2,6 +2,8 @@
 
 include("./header.php");
 require_once('./root/dbconnection.php');
+$i = 1;
+
 ?>
 <div class="content_wrapper bg_homebefore inner-wrapper forms-sec">
   <div class="container-fluid">
@@ -15,19 +17,19 @@ require_once('./root/dbconnection.php');
     <div class="row filter_section" style="display: none;">
 
       <section class="col-12 d-flex align-items-center">
-        <div class="col-4 d-flex justify-content-end flex-column h-100">
+        <div class="col-6 d-flex justify-content-end flex-column h-100">
           <label for="date_start_date">Start Date</label>
           <input type="date" name="date_start_date" id="date_start_date" class="form-control p-0">
         </div>
-        <div class="col-4 d-flex justify-content-end flex-column h-100">
+        <div class="col-6 d-flex justify-content-end flex-column h-100">
           <label for="date_end_date">End Date</label>
           <input type="date" name="date_end_date" id="date_end_date" class="form-control p-0">
         </div>
-        <div class="col-4 d-flex justify-content-end flex-column h-100">
+        <!-- <div class="col-4 d-flex justify-content-end flex-column h-100">
           <label for="text_vehical_number p-0 m-0">Vehicle Number</label>
           <input type="text" name="text_vehicle_number" id="text_vehicle_number" placeholder="Enter Vehicle Number"
             class="form-control p-0">
-        </div>
+        </div> -->
       </section>
       <div class="col-12">
         <form class="form-inline my-2 my-lg-0 col-12">
@@ -83,8 +85,23 @@ require_once('./root/dbconnection.php');
               </thead>
               <tbody>
                 <?php
+                 if (isset($_REQUEST["start_date"]) && isset($_REQUEST["end_date"])) {
+
+
+
+                  $start_date = $_REQUEST["start_date"];
+                  $end_date = $_REQUEST["end_date"];
+                  // $vehicle_number = $_REQUEST["vehicle_number"];
+
+                  // Use the BETWEEN clause to filter records between the start and end dates
+                  $qry = $db->query("SELECT * FROM tank_entry_master WHERE 
+                  STR_TO_DATE(tank_entry_date, '%Y-%m-%d') BETWEEN STR_TO_DATE('$start_date', '%Y-%m-%d') AND STR_TO_DATE('$end_date', '%Y-%m-%d')")
+                    or die("");
+
+
+                } else {
                 $qry = $db->query("select * from `tank_entry_master`") or die("");
-                $i = 1;
+                }
                 while ($row = $qry->fetch(PDO::FETCH_ASSOC)) {
                   $id = $row['id'];
                   $area_id = $row['area_id'];
@@ -167,4 +184,28 @@ require_once('./root/dbconnection.php');
       $(".filter_section").slideToggle();
 
     });
+    // search logic 
+    $('#search').on("click", function (e) {
+        e.preventDefault();
+        const start_date = $("#date_start_date").val();
+        const end_date = $("#date_end_date").val();
+        const vehicle_number = $("#txt_vehicle_number").val();
+
+        if (start_date === "" || start_date === null) {
+          alert("Please Select a start date first");
+          $("#date_start_date").focus();
+        }
+        else if (end_date === "" || end_date === null) {
+          alert("Please Select an end date first");
+          $("#date_end_date").focus();
+        }
+        // else if (vehicle_number === "" || vehicle_number === null) {
+        //   alert("Please enter a vehicle number first");
+        //   $("#txt_vehicle_number").focus();
+        // }
+        else {
+          window.location.href = "tank_master_manage.php?start_date=" + start_date + "&end_date=" + end_date;
+        }
+      });
+
   </script>

@@ -1,6 +1,7 @@
 <?php
 include("./header.php");
 require_once('./root/dbconnection.php');
+$i = 1;
 ?>
 
 <style>
@@ -28,9 +29,21 @@ require_once('./root/dbconnection.php');
             <input type="date" name="date_end_date" id="date_end_date" class="form-control p-0">
           </div>
           <div class="col-4 d-flex justify-content-end flex-column h-100">
-            <label for="txt_vehical_number p-0 m-0">Vehicle Number</label>
-            <input type="text" name="txt_vehicle_number" id="txt_vehicle_number" placeholder="Enter Vehicle Number"
-              class="form-control p-0">
+            <label for="txt_vehical_number">Select vehicle</label>
+            <select class="form-control " name="txt_vehicle_number" id="txt_vehicle_number">
+              <?php
+              $qry2 = $db->query("SELECT * FROM `vehicle_master`") or die("");
+              while ($rowVehicle = $qry2->fetch(PDO::FETCH_ASSOC)) {
+                ?>
+                <option value="<?= $rowVehicle['id'] ?>">
+                  <?= $rowVehicle['vehical_name'] ?> &nbsp;&nbsp;&nbsp;
+                  <?= $rowVehicle['vehicle_number'] ?>
+                </option>
+                <?php
+              }
+              ?>
+            </select>
+
           </div>
         </section>
         <div class="col-12 p-0">
@@ -91,21 +104,23 @@ require_once('./root/dbconnection.php');
               </thead>
               <tbody>
                 <?php
-                if (isset($_REQUEST["start_date"]) && isset($_REQUEST["end_date"]) && isset($_REQUEST["vehical_number"])) {
+                if (isset($_REQUEST["start_date"]) && isset($_REQUEST["end_date"]) && isset($_REQUEST["vehicle_number"])) {
 
 
 
                   $start_date = $_REQUEST["start_date"];
                   $end_date = $_REQUEST["end_date"];
-                  $vehical_number = $_REQUEST["vehical_number"];
+                  $vehicle_number = $_REQUEST["vehicle_number"];
 
                   // Use the BETWEEN clause to filter records between the start and end dates
-                  $qry = $db->query("SELECT * FROM general_data_entry_master WHERE vehical_id = '$vehical_number' AND general_date BETWEEN '$start_date' AND '$end_date'") or die("");
+                  $qry = $db->query("SELECT * FROM general_data_entry_master WHERE vehical_id = '$vehicle_number' AND 
+                  STR_TO_DATE(general_date, '%Y-%m-%d') BETWEEN STR_TO_DATE('$start_date', '%Y-%m-%d') AND STR_TO_DATE('$end_date', '%Y-%m-%d')")
+                    or die("");
 
 
                 } else {
                   $qry = $db->query("select * from `general_data_entry_master`") or die("");
-                  $i = 1;
+                  
                 }
                 while ($row = $qry->fetch(PDO::FETCH_ASSOC)) {
                   $id = $row['id'];
@@ -212,7 +227,7 @@ require_once('./root/dbconnection.php');
         e.preventDefault();
         const start_date = $("#date_start_date").val();
         const end_date = $("#date_end_date").val();
-        const vehical_number = $("#txt_vehicle_number").val();
+        const vehicle_number = $("#txt_vehicle_number").val();
 
         if (start_date === "" || start_date === null) {
           alert("Please Select a start date first");
@@ -222,12 +237,13 @@ require_once('./root/dbconnection.php');
           alert("Please Select an end date first");
           $("#date_end_date").focus();
         }
-        else if (vehical_number === "" || vehical_number === null) {
+        else if (vehicle_number === "" || vehicle_number === null) {
           alert("Please enter a vehicle number first");
           $("#txt_vehicle_number").focus();
         }
         else {
-          window.location.href = "general_data_entry_master_manage.php?start_date=" + start_date + "&end_date=" + end_date + "&vehical_number=" + vehical_number;
+          console.log(vehicle_number)
+          window.location.href = "general_data_entry_master_manage.php?start_date=" + start_date + "&end_date=" + end_date + "&vehicle_number=" + vehicle_number;
         }
       });
 

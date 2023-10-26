@@ -131,11 +131,11 @@ require_once("./root/dbconnection.php");
                 <div class="form-group col-4 h-100 d-flex flex-column justify-content-end">
                   <label for="txt_select_vehicle">Select vehicle</label>
                   <select class="form-control " name="txt_select_vehicle" id="txt_select_vehicle">
-                  <?php
+                    <?php
                     $qry2 = $db->query("SELECT * FROM `vehicle_master`") or die("");
                     while ($rowVehicle = $qry2->fetch(PDO::FETCH_ASSOC)) {
                       ?>
-                      <option value="<?= $rowVehicle['id'] ?>" >
+                      <option value="<?= $rowVehicle['id'] ?>">
                         <?= $rowVehicle['vehical_name'] ?>
                       </option>
                       <?php
@@ -233,7 +233,7 @@ require_once("./root/dbconnection.php");
         var year = currentDate.getFullYear();
         var month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
         var day = String(currentDate.getDate()).padStart(2, '0');
-        var formattedDate = day + '-' + month + '-' + year;
+        var formattedDate = year + '-' + month + '-' + day;
 
         // Set the value of the input to the current date
         $('#txt_enter_date').val(formattedDate);

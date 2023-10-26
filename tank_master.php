@@ -136,7 +136,7 @@ require_once("./root/dbconnection.php");
                   <label for="txt_select_area" class="col-form-label col-md-4 pl-0 pr-0">Select Area</label>
                   <div class="col-md-12 p-0">
                     <select class="form-control custom-select" name="txt_select_area" id="txt_select_area">
-                    <?php
+                      <?php
                       $qry2 = $db->query("SELECT * FROM `area_master`") or die("");
                       while ($rowArea = $qry2->fetch(PDO::FETCH_ASSOC)) {
                         $selected = ($rowArea['id'] == $row['area_id']) ? 'selected' : '';
@@ -230,7 +230,7 @@ require_once("./root/dbconnection.php");
       var year = currentDate.getFullYear();
       var month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
       var day = String(currentDate.getDate()).padStart(2, '0');
-      var formattedDate = day + '-' + month + '-' + year;
+      var formattedDate = year + '-' + month + '-' + day;
 
       // Set the value of the input to the current date
       $('#txt_enter_date').val(formattedDate);
