@@ -1750,7 +1750,7 @@ body:not(.nav_small) .nav.nav-pills.nav-stacked.labels-info p {
 ================================================
 */
 .forms-sec .card {
-	padding: 20px;
+	padding: 10px 0px;
 	border-radius: 2px;
 	background-color: #ffffff;
 	margin-bottom: 30px;
@@ -2949,4 +2949,19 @@ input[type="checkbox"] {
 
 textarea{
 	height: 100px !important;
+}
+
+.form-control select{
+	padding: 0px;
+}
+
+.filter_section{
+	background: #fff;
+    margin: 1px;
+    padding: 15px 0px;
+    border-radius: 2px;
+    background-color: #ffffff;
+    margin-top: 10px;
+    border: 1px solid #d5dcec;
+    display: block;
 }

@@ -45,7 +45,7 @@ require_once("./root/dbconnection.php");
                 </div>
                 <div class="form-group col-4 h-100 d-flex flex-column justify-content-end">
                   <label for="txt_select_vehicle">Select vehicle</label>
-                  <select class="form-control " name="txt_select_vehicle" id="txt_select_vehicle">
+                  <select class="form-control p-0" name="txt_select_vehicle" id="txt_select_vehicle">
                     <?php
                     $qry2 = $db->query("SELECT * FROM `vehicle_master`") or die("");
                     while ($rowVehicle = $qry2->fetch(PDO::FETCH_ASSOC)) {
@@ -118,7 +118,8 @@ require_once("./root/dbconnection.php");
                   placeholder="Enter Remark"><?= $row['genral_remark'] ?></textarea>
               </div>
               <div class="d-flex col-8">
-                <button type="submit" id="update" class="btn btn-primary mr-2 ">Update</button>
+                <button type="submit" id="update" class="btn btn-warning mr-2 mb-2 ">Update</button>
+                <button type="button" id="preview" class="btn btn-primary mr-2 mb-2">Preview</button>
               </div>
               <?php
             } else {
@@ -130,7 +131,7 @@ require_once("./root/dbconnection.php");
                 </div>
                 <div class="form-group col-4 h-100 d-flex flex-column justify-content-end">
                   <label for="txt_select_vehicle">Select vehicle</label>
-                  <select class="form-control " name="txt_select_vehicle" id="txt_select_vehicle">
+                  <select class="form-control p-0 " name="txt_select_vehicle" id="txt_select_vehicle">
                     <?php
                     $qry2 = $db->query("SELECT * FROM `vehicle_master`") or die("");
                     while ($rowVehicle = $qry2->fetch(PDO::FETCH_ASSOC)) {
@@ -198,7 +199,8 @@ require_once("./root/dbconnection.php");
                 <textarea class="form-control" id="txt_remark" name="txt_remark" placeholder="Enter Remark"></textarea>
               </div>
               <div class="d-flex col-8">
-                <button type="submit" id="submit" class="btn btn-primary mr-2 ">Submit</button>
+                <button type="submit" id="submit" class="btn btn-success mr-2 mb-2">Submit</button>
+                <button type="button" id="preview" class="btn btn-primary mr-2 mb-2">Preview</button>
               </div>
               <?php
             }
