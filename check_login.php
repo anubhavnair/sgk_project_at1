@@ -5,7 +5,7 @@ if (isset($_REQUEST["mobile_number"]) && isset($_REQUEST["password"])) {
     $mobile_no = $_REQUEST["mobile_number"];
     $pass = $_REQUEST["password"];
 
-    // echo ($mobile_no . "  " . $pass);
+
 
     $qry = $db->query("select * from employee_master where emp_mono = '$mobile_no'") or die("");
     $row = $qry->fetch(PDO::FETCH_ASSOC);

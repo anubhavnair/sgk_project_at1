@@ -18,6 +18,8 @@
   <!-- jquery cdn  -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
+
+
 </head>
 
 <body>
@@ -156,11 +158,6 @@
 
 
           <li> <a href="logout_do.php" class=" active"> <i class="ti-home"></i> <span>Log Out</span></a> </li>
-
-
-
-
-
 
 
       </div>

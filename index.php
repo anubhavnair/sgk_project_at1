@@ -14,6 +14,11 @@
   <link href="css/style.css" rel="stylesheet">
   <!-- Favicon -->
   <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico">
+  <style>
+    .errorclass {
+      border: 1px solid red;
+    }
+  </style>
 </head>
 
 <body>
@@ -51,6 +56,21 @@
                   <div class="form-group text-center">
                     <a href="tel:+917869777758">Forgot Password</a>
 
+                  </div>
+                  <div>
+                    <p style="text-align:center; padding-top:5px; padding-bottom:5px; background-color:lightgreen; font-weight:bold; display:none; color:black;"
+                      id="success_promt">
+                      Login Successfull !....
+                    </p>
+                    <p style="text-align:center; padding-top:5px; padding-bottom:5px; background-color:lightcoral; font-weight:bold; display:none; color:black;"
+                      id="incorrect_mobile_number_promt">
+
+                      Invalid Mobile Number!....
+                    </p>
+                    <p style="text-align:center; padding-top:5px; padding-bottom:5px; background-color:lightcoral; font-weight:bold; display:none; color:black;"
+                      id="incorrect_password_promt">
+                      Invalid Password !....
+                    </p>
                   </div>
                 </form>
               </div>
@@ -100,11 +120,22 @@
       const pass_password = $("#pass_password").val();
 
       if (text_mobile_number == "" || text_mobile_number == null) {
-        alert('Please Enter Your Registered Mobile Number !....');
-        $("#text_mobile_number").focus();
+        //    alert('Please Enter Your Registered Mobile Number !....');
+        $("#text_mobile_number").css({ "border": "1px solid red" });
+        $("#text_mobile_number").focus(function () {
+          $("#text_mobile_number").css({ "border": "1px solid skyblue" });
+        });
+
+
+
       } else if (pass_password == "" || pass_password == null) {
-        alert("Please Enter Password !....")
-        $("#pass_password").focus();
+        // alert("Please Enter Password !....")
+        $("#pass_password").css({ "border": "1px solid red" });
+
+        $("#pass_password").focus(function () {
+          $("#pass_password").css({ "border": "1px solid skyblue" });
+
+        });
       } else {
         // alert(text_mobile_number); // Display the mobile number
         // alert(pass_password);     // Display the password
@@ -112,14 +143,31 @@
           if (status == "success") {
 
             if (data == 1) {
-              alert("Invalid Mobile Number !....");
+              $("#text_mobile_number").css({ "border": "1px solid red" });
+              $("#incorrect_mobile_number_promt").css("display", "block");
+              $("#text_mobile_number").focus(function () {
+                $("#text_mobile_number").css({ "border": "1px solid skyblue" });
+                $("#incorrect_mobile_number_promt").css("display", "none");
+
+
+              });
+
 
             } else if (data == 2) {
-              alert("Invalid Password !...");
+              // when password is incorect 
+              $("#pass_password").css({ "border": "1px solid red" });
+              $("#incorrect_password_promt").css("display", "block");
+              $("#pass_password").focus(function () {
+                $("#pass_password").css({ "border": "1px solid skyblue" });
+                $("#incorrect_password_promt").css("display", "none");
+
+              });
 
             } else if (data == 3) {
-              alert("Login Successfull !....");
-              window.location.replace("home_page.php");
+              // when the all detail is fine then success messege 
+              $("#success_promt").css("display", "block");
+              location.replace("home_page.php");
+
             }
 
 
