@@ -65,7 +65,7 @@ $i = 1;
     <div class="row">
       <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
-          <h4 class="header-title ml-2">Tank Details</h4>
+          <!-- <h4 class="header-title ml-2">Tank Details</h4> -->
           <div class="table-responsive-xl">
             <table class="table">
               <thead>
@@ -83,36 +83,11 @@ $i = 1;
                   <th scope="col">Operations</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody id="details_table_body">
                 <?php
-                if (isset($_REQUEST["start_date"]) && isset($_REQUEST["end_date"])) {
-                  $start_date = $_REQUEST["start_date"];
-                  $end_date = $_REQUEST["end_date"];
-
-                  if (($_REQUEST["start_date"]) != "" && ($_REQUEST["end_date"]) !="") {
-
-                    // Use the BETWEEN clause to filter records between the start and end dates
-                    $qry = $db->query("SELECT * FROM tank_entry_master WHERE 
-                  STR_TO_DATE(tank_entry_date, '%Y-%m-%d') BETWEEN STR_TO_DATE('$start_date', '%Y-%m-%d') AND STR_TO_DATE('$end_date', '%Y-%m-%d')")
-                      or die("");
-                  } 
-                  
-                  else if (($_REQUEST["start_date"]) != null) {
-
-                    $qry = $db->query("SELECT * FROM tank_entry_master WHERE 
-                  STR_TO_DATE(tank_entry_date, '%Y-%m-%d') >= STR_TO_DATE('$start_date', '%Y-%m-%d')")
-                      or die("");
-                  }
-                  
-                  else if (($_REQUEST['end_date']) != null) {
-                    $qry = $db->query("SELECT * FROM tank_entry_master WHERE 
-                  STR_TO_DATE(tank_entry_date, '%Y-%m-%d') <= STR_TO_DATE('$end_date', '%Y-%m-%d')")
-                      or die("");;
-                  }
-
-                } else {
+                
                   $qry = $db->query("select * from `tank_entry_master`") or die("");
-                }
+                
                 while ($row = $qry->fetch(PDO::FETCH_ASSOC)) {
                   $id = $row['id'];
                   $area_id = $row['area_id'];
@@ -201,10 +176,26 @@ $i = 1;
       const start_date = $("#date_start_date").val();
       const end_date = $("#date_end_date").val();
 
+      if ((start_date != "") || (end_date != "")) 
+        {
+          $.post("tank_master_do.php", {
+            start_date: start_date,
+            end_date: end_date,
+          }, function (data, status) {
+            if (status === "success") {
+             
+                $("#details_table_body").html(data);
+             
+            }
+          }).fail(function (xhr, status, error) {
+            
+          });
+        }
+      
 
 
 
-      window.location.href = "tank_master_manage.php?start_date=" + start_date + "&end_date=" + end_date;
+      // window.location.href = "tank_master_manage.php?start_date=" + start_date + "&end_date=" + end_date;
 
     });
 
