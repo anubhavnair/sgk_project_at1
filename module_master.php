@@ -13,6 +13,17 @@ if (isset($_REQUEST["edit_id"])) {
 
 ?>
 <div class="content_wrapper bg_homebefore inner-wrapper forms-sec">
+    <div>
+        <p style="text-align:center; padding-top:5px; padding-bottom:5px; background-color:lightgreen; font-weight:bold; display:none; color:black;"
+            id="success_promt">
+            Module Added Successfully !....
+        </p>
+        <p style="text-align:center; padding-top:5px; padding-bottom:5px; background-color:lightgreen; font-weight:bold; display:none; color:black;"
+            id="update_promt">
+            Module Updated Successfully !....
+        </p>
+
+    </div>
     <div class="container-fluid">
         <!-- Start Breadcrumbbar -->
         <div class="breadcrumbbar">
@@ -57,8 +68,8 @@ if (isset($_REQUEST["edit_id"])) {
                                 value=<?= $row["module_url"]; ?>>
                         </div>
                         <div class="form-group">
-                            
-                            <input type="hidden" class="form-control" id="text_edit_id" name="text_edit_id" 
+
+                            <input type="hidden" class="form-control" id="text_edit_id" name="text_edit_id"
                                 value=<?= $row["id"]; ?>>
                         </div>
                         <input type="button" id="update" value="Update" class="btn btn-primary">
@@ -127,17 +138,34 @@ if (isset($_REQUEST["edit_id"])) {
                 if (module_title == "" || module_title == null) {
 
 
+                    $("#text_module_title").css("border", "1.2px solid red");
                     $("#text_module_title").focus();
+                    $("#text_module_title").keydown(function () {
+                        $("#text_module_title").css("border", "1.2px solid skyblue");
+
+                    });
+
+
                 }
                 else if (short_order == "" || short_order == null) {
 
+                    $("#text_short_order").css("border", "1.2px solid red");
                     $("#text_short_order").focus();
+                    $("#text_short_order").keydown(function () {
+                        $(this).css("border", "1.2px solid skyblue");
+                    });
 
                 }
                 else if (url == "" || url == null) {
 
 
+                    $("#text_url").css("border", "1.2px solid red");
                     $("#text_url").focus();
+                    $("#text_url").keydown(function () {
+                        $(this).css("border", "1.2px solid skyblue");
+                    });
+
+
                 } else {
                     $.post("module_master_do.php",
                         {
@@ -146,8 +174,12 @@ if (isset($_REQUEST["edit_id"])) {
                             text_url: url
                         }, function (data, status) {
                             if (status == "success") {
-                                alert("Module Added Successfully !....");
-                                window.location.replace("./module_master.php")
+                                $("#success_promt").css("display", "block");
+
+                                setTimeout(function () {
+                                    $("#success_promt").css("display", "none");
+                                    location.reload();
+                                }, 1500);
                             }
                         }
                     );
@@ -168,26 +200,51 @@ if (isset($_REQUEST["edit_id"])) {
                 if (module_title == "" || module_title == null) {
 
 
+                    $("#text_module_title").css("border", "1.2px solid red");
                     $("#text_module_title").focus();
+                    $("#text_module_title").keydown(function () {
+                        $("#text_module_title").css("border", "1.2px solid skyblue");
+
+                    });
                 }
                 else if (short_order == "" || short_order == null) {
-
+                    $("#text_short_order").css("border", "1.2px solid red");
                     $("#text_short_order").focus();
+                    $("#text_short_order").keydown(function () {
+                        $(this).css("border", "1.2px solid skyblue");
+                    });
 
                 }
                 else if (url == "" || url == null) {
+
+
+                    $("#text_url").css("border", "1.2px solid red");
                     $("#text_url").focus();
+                    $("#text_url").keydown(function () {
+                        $(this).css("border", "1.2px solid skyblue");
+                    });
                 } else {
                     $.post("module_master_do.php",
-                        {  edit_id : updt_id,
+                        {
+                            edit_id: updt_id,
                             text_module_title: module_title,
                             text_short_order: short_order,
                             text_url: url
                         }, function (data, status) {
                             if (status == "success") {
-                                // alert(data);
-                                alert("Module Updated Successfully !....");
-                                window.location.replace("./module_master_manage.php")
+                                $("#update_promt").css("display", "block");
+
+                                setTimeout(function () {
+                                    $("#update_promt").css("display", "none");
+
+                                }, 1000);
+                                setTimeout(function () {
+                                    window.location.replace("./module_master_manage.php")
+
+
+                                }, 1002);
+
+
                             }
                         }
                     );

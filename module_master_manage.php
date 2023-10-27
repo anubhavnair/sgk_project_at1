@@ -7,10 +7,31 @@ include("./header.php");
 
 ?>
 <div class="content_wrapper bg_homebefore inner-wrapper forms-sec">
+
+<?php
+if(isset($_REQUEST["res"])){
+
+if($_REQUEST["res"]==3){
+?>
+<div>
+        <p style="text-align:center; padding-top:5px; padding-bottom:5px; background-color:lightcoral; font-weight:bold; display:block; color:black;"
+            id="delete_promt">
+            Module Deleted Successfully !....
+        </p>
+
+
+</div>
+
+
+
+<?php
+}
+
+
+}
+?>
+
     <div class="container-fluid">
-        
-
-
         <!-- Start Breadcrumbbar -->
         <div class="breadcrumbbar">
             <!-- Start row -->
@@ -98,13 +119,25 @@ include("./header.php");
 
         <script>
 
+$(document).ready(function(){
 
-            $("#manage").on("click", function (e) {
+    $("#manage").on("click", function (e) {
                 window.location.replace("./module_master_manage.php");
             })
             $("#add").on("click", function (e) {
                 window.location.replace("./module_master.php");
             })
           
+
+         
+            setTimeout(function(){
+
+               $("#delete_promt").css("display","none");
+               
+
+            },1000);
+
+})
+           
          
         </script>

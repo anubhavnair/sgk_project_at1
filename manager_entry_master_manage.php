@@ -10,17 +10,10 @@ $qry = $db->query("select * from manager_entry_master") or die("");
 
 
 
-
-
-
-
 ?>
 <div class="content_wrapper bg_homebefore inner-wrapper forms-sec">
+
     <div class="container-fluid">
-
-
-
-
         <!-- filter section start  -->
 
         <span id="filter_icon"><svg width="30" height="30" fill="none" stroke="#0d02b1" stroke-linecap="round"
