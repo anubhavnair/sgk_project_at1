@@ -7,6 +7,17 @@ include("./root/dbconnection.php");
 
 ?>
 <div class="content_wrapper bg_homebefore inner-wrapper forms-sec">
+<div>
+        <p style="text-align:center; padding-top:5px; padding-bottom:5px; background-color:lightgreen; font-weight:bold; display:none; color:black;"
+            id="success_promt">
+            Entry Added Successfully !....
+        </p>
+        <p style="text-align:center; padding-top:5px; padding-bottom:5px; background-color:lightgreen; font-weight:bold; display:none; color:black;"
+            id="update_promt">
+            Entry Updated Successfully !....
+        </p>
+
+    </div>
     <div class="container-fluid">
         <!-- Start Breadcrumbbar -->
         <div class="breadcrumbbar">
@@ -29,7 +40,7 @@ include("./root/dbconnection.php");
         <!-- state start-->
         <div class="row">
             <div class="col-md-12 grid-margin stretch-card">
-                <div class="card mr-auto">
+                <div class="card mr-auto ">
                     <?php
 
                     if (isset($_REQUEST["edit_id"])) {
@@ -39,9 +50,9 @@ include("./root/dbconnection.php");
                         $qry = $db->query("select * from manager_entry_master where id = $edit_id") or die("");
                         $row = $qry->fetch(PDO::FETCH_ASSOC);
                         ?>
-                        <form class="forms-sample">
+                        <form class="forms-sample p-3 ">
 
-                            <input type="date" class="form-control text-center form-group" id="dt_date" name="dt_date"
+                            <input type="date" class="form-control text-center form-group " id="dt_date" name="dt_date"
                                 placeholder="Enter Date" value=<?php echo $row["select_date"]; ?>>
 
                             <div class="form-group text-left">
@@ -80,9 +91,9 @@ include("./root/dbconnection.php");
                     }else{
 ?>
 
-<form class="forms-sample">
+<form class="forms-sample p-3">
 
-<input type="date" class="form-control text-center form-group" id="dt_date" name="dt_date"
+<input type="date" class="form-control text-center form-group " id="dt_date" name="dt_date"
      value='<?php echo date("Y-m-d") ?>'>
 
 <div class="form-group text-left">
@@ -160,18 +171,46 @@ include("./root/dbconnection.php");
 
                 if (date == "" || date == null) {
 
-                    alert("select Date")
+
+                    $("#dt_date").css("border", "1.2px solid red");
                     $("#dt_date").focus();
+                    $("#dt_date").keydown(function () {
+                        $("#dt_date").css("border", "1.2px solid skyblue");
+
+                    });
                 } else if (slip_number == "" || slip_number == null) {
 
 
+                   
+
+                    $("#text_slip_number").css("border", "1.2px solid red");
                     $("#text_slip_number").focus();
+                    $("#text_slip_number").keydown(function () {
+                        $("#text_slip_number").css("border", "1.2px solid skyblue");
+
+                    });
                 } else if (vehical_number == "" || vehical_number == null) {
 
+                 
+
+                    
+                    $("#text_vehical_number").css("border", "1.2px solid red");
                     $("#text_vehical_number").focus();
+                    $("#text_vehical_number").keydown(function () {
+                        $("#text_vehical_number").css("border", "1.2px solid skyblue");
+
+                    });
 
                 } else if (quantity == "" || quantity == null) {
+               
+
+                    $("#text_quantity").css("border", "1.2px solid red");
                     $("#text_quantity").focus();
+                    $("#text_quantity").keydown(function () {
+                        $("#text_quantity").css("border", "1.2px solid skyblue");
+
+                    });
+
                 }
                 else {
                     $.post("manager_entry_master_do.php",
@@ -182,8 +221,17 @@ include("./root/dbconnection.php");
                             text_quantity: quantity
                         }, function (data, status) {
                             if (status == "success") {
-                                alert("Entry Added Successfully !....");
-                                window.location.replace("./manager_entry_master.php");
+                                $("#success_promt").css("display", "block");
+
+setTimeout(function () {
+    $("#success_promt").css("display", "none");
+    location.reload();
+}, 1500);
+
+
+
+
+                                
                             }
                         }
                     );
@@ -212,18 +260,38 @@ const quantity = $("#text_quantity ").val();
 
 if (date == "" || date == null) {
 
-    alert("select Date")
-    $("#dt_date").focus();
+   
+    $("#dt_date").css("border", "1.2px solid red");
+                    $("#dt_date").focus();
+                    $("#dt_date").keydown(function () {
+                        $("#dt_date").css("border", "1.2px solid skyblue");
+
+                    });
 } else if (slip_number == "" || slip_number == null) {
 
+    $("#text_slip_number").css("border", "1.2px solid red");
+                    $("#text_slip_number").focus();
+                    $("#text_slip_number").keydown(function () {
+                        $("#text_slip_number").css("border", "1.2px solid skyblue");
 
-    $("#text_slip_number").focus();
+                    });
 } else if (vehical_number == "" || vehical_number == null) {
 
-    $("#text_vehical_number").focus();
+    $("#text_vehical_number").css("border", "1.2px solid red");
+                    $("#text_vehical_number").focus();
+                    $("#text_vehical_number").keydown(function () {
+                        $("#text_vehical_number").css("border", "1.2px solid skyblue");
+
+                    });
+
 
 } else if (quantity == "" || quantity == null) {
-    $("#text_quantity").focus();
+    $("#text_quantity").css("border", "1.2px solid red");
+                    $("#text_quantity").focus();
+                    $("#text_quantity").keydown(function () {
+                        $("#text_quantity").css("border", "1.2px solid skyblue");
+
+                    });
 }
 else {
     $.post("manager_entry_master_do.php",
@@ -234,8 +302,21 @@ else {
             text_quantity: quantity
         }, function (data, status) {
             if (status == "success") {
-                alert("Entry Updated Successfully !....");
-                window.location.replace("./manager_entry_master_manage.php");
+
+                $("#update_promt").css("display", "block");
+
+setTimeout(function () {
+    $("#update_promt").css("display", "none");
+
+}, 1000);
+setTimeout(function () {
+    window.location.replace("./manager_entry_master_manage.php");
+   
+
+
+}, 1002);
+
+                
             }
         }
     );

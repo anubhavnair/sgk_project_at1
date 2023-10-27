@@ -13,6 +13,30 @@ $qry = $db->query("select * from manager_entry_master") or die("");
 ?>
 <div class="content_wrapper bg_homebefore inner-wrapper forms-sec">
 
+    <?php
+    if (isset($_REQUEST["res"])) {
+
+        if ($_REQUEST["res"] == 3) {
+            ?>
+            <div>
+                <p style="text-align:center; padding-top:5px; padding-bottom:5px; background-color:lightcoral; font-weight:bold; display:block; color:black;"
+                    id="delete_promt">
+                    Entry Deleted !....
+                </p>
+
+
+            </div>
+
+
+
+            <?php
+        }
+
+
+    }
+    ?>
+
+
     <div class="container-fluid">
         <!-- filter section start  -->
 
