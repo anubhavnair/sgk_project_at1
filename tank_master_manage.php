@@ -65,7 +65,7 @@ $i = 1;
     <div class="row">
       <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
-          <h4 class="header-title">Tank Details</h4>
+          <h4 class="header-title ml-2">Tank Details</h4>
           <div class="table-responsive-xl">
             <table class="table">
               <thead>
@@ -85,22 +85,33 @@ $i = 1;
               </thead>
               <tbody>
                 <?php
-                 if (isset($_REQUEST["start_date"]) && isset($_REQUEST["end_date"])) {
-
-
-
+                if (isset($_REQUEST["start_date"]) && isset($_REQUEST["end_date"])) {
                   $start_date = $_REQUEST["start_date"];
                   $end_date = $_REQUEST["end_date"];
-                  // $vehicle_number = $_REQUEST["vehicle_number"];
 
-                  // Use the BETWEEN clause to filter records between the start and end dates
-                  $qry = $db->query("SELECT * FROM tank_entry_master WHERE 
+                  if (($_REQUEST["start_date"]) != "" && ($_REQUEST["end_date"]) !="") {
+
+                    // Use the BETWEEN clause to filter records between the start and end dates
+                    $qry = $db->query("SELECT * FROM tank_entry_master WHERE 
                   STR_TO_DATE(tank_entry_date, '%Y-%m-%d') BETWEEN STR_TO_DATE('$start_date', '%Y-%m-%d') AND STR_TO_DATE('$end_date', '%Y-%m-%d')")
-                    or die("");
+                      or die("");
+                  } 
+                  
+                  else if (($_REQUEST["start_date"]) != null) {
 
+                    $qry = $db->query("SELECT * FROM tank_entry_master WHERE 
+                  STR_TO_DATE(tank_entry_date, '%Y-%m-%d') >= STR_TO_DATE('$start_date', '%Y-%m-%d')")
+                      or die("");
+                  }
+                  
+                  else if (($_REQUEST['end_date']) != null) {
+                    $qry = $db->query("SELECT * FROM tank_entry_master WHERE 
+                  STR_TO_DATE(tank_entry_date, '%Y-%m-%d') <= STR_TO_DATE('$end_date', '%Y-%m-%d')")
+                      or die("");;
+                  }
 
                 } else {
-                $qry = $db->query("select * from `tank_entry_master`") or die("");
+                  $qry = $db->query("select * from `tank_entry_master`") or die("");
                 }
                 while ($row = $qry->fetch(PDO::FETCH_ASSOC)) {
                   $id = $row['id'];
@@ -149,8 +160,8 @@ $i = 1;
                             <path
                               d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z" />
                           </svg></a> &nbsp;&nbsp;<a href="tank_master.php?edit_id=<?= $id ?>"><svg
-                            xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="blue"
-                            class="bi bi-pen-fill" viewBox="0 0 16 16">
+                            xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="blue" class="bi bi-pen-fill"
+                            viewBox="0 0 16 16">
                             <path
                               d="m13.498.795.149-.149a1.207 1.207 0 1 1 1.707 1.708l-.149.148a1.5 1.5 0 0 1-.059 2.059L4.854 14.854a.5.5 0 0 1-.233.131l-4 1a.5.5 0 0 1-.606-.606l1-4a.5.5 0 0 1 .131-.232l9.642-9.642a.5.5 0 0 0-.642.056L6.854 4.854a.5.5 0 1 1-.708-.708L9.44.854A1.5 1.5 0 0 1 11.5.796a1.5 1.5 0 0 1 1.998-.001z" />
                           </svg></a></div>
@@ -186,26 +197,15 @@ $i = 1;
     });
     // search logic 
     $('#search').on("click", function (e) {
-        e.preventDefault();
-        const start_date = $("#date_start_date").val();
-        const end_date = $("#date_end_date").val();
-        const vehicle_number = $("#txt_vehicle_number").val();
+      e.preventDefault();
+      const start_date = $("#date_start_date").val();
+      const end_date = $("#date_end_date").val();
 
-        if (start_date === "" || start_date === null) {
-          alert("Please Select a start date first");
-          $("#date_start_date").focus();
-        }
-        else if (end_date === "" || end_date === null) {
-          alert("Please Select an end date first");
-          $("#date_end_date").focus();
-        }
-        // else if (vehicle_number === "" || vehicle_number === null) {
-        //   alert("Please enter a vehicle number first");
-        //   $("#txt_vehicle_number").focus();
-        // }
-        else {
-          window.location.href = "tank_master_manage.php?start_date=" + start_date + "&end_date=" + end_date;
-        }
-      });
+
+
+
+      window.location.href = "tank_master_manage.php?start_date=" + start_date + "&end_date=" + end_date;
+
+    });
 
   </script>

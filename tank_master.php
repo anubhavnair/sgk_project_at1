@@ -55,7 +55,7 @@ require_once("./root/dbconnection.php");
                 <div class="form-group col-md-6 d-flex flex-column justify-content-end">
                   <label for="txt_select_area" class="col-form-label col-md-4 pl-0 pr-0">Select Area</label>
                   <div class="col-md-12 p-0">
-                    <select class="form-control custom-select" name="txt_select_area" id="txt_select_area"
+                    <select class="form-control custom-select p-1" name="txt_select_area" id="txt_select_area"
                       value="<?= $row['area_id'] ?>">
                       <?php
                       $qry2 = $db->query("SELECT * FROM `area_master`") or die("");
@@ -116,8 +116,10 @@ require_once("./root/dbconnection.php");
                     value="<?= $row['tank_balance'] ?>">
                 </div>
               </section>
-
-              <button type="submit" id="update" class="btn btn-primary mr-2">Update</button>
+              <div class="d-flex flex-col pl-3">
+                <button type="submit" id="update" class="btn btn-warning mr-2">Update</button>
+                <button type="button" id="preview" class="btn btn-primary mr-2 ">Preview</button>
+              </div>
               <?php
             } else {
               ?>
@@ -135,7 +137,7 @@ require_once("./root/dbconnection.php");
                 <div class="form-group col-md-6 d-flex flex-column justify-content-end">
                   <label for="txt_select_area" class="col-form-label col-md-4 pl-0 pr-0">Select Area</label>
                   <div class="col-md-12 p-0">
-                    <select class="form-control custom-select" name="txt_select_area" id="txt_select_area">
+                    <select class="form-control custom-select p-1" name="txt_select_area" id="txt_select_area">
                       <?php
                       $qry2 = $db->query("SELECT * FROM `area_master`") or die("");
                       while ($rowArea = $qry2->fetch(PDO::FETCH_ASSOC)) {
@@ -193,8 +195,11 @@ require_once("./root/dbconnection.php");
                   <input type="text" class="form-control" id="txt_banance" name="txt_banance" placeholder="Enter Banance">
                 </div>
               </section>
+              <div class="d-flex flex-col pl-3">
 
-              <button type="submit" id="submit" class="btn btn-primary mr-2">Submit</button>
+                <button type="submit" id="submit" class="btn btn-success mr-2">Submit</button>
+                <button type="button" id="preview" class="btn btn-primary mr-2">Preview</button>
+              </div>
               <?php
             }
             ?>

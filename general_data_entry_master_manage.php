@@ -16,7 +16,6 @@ $i = 1;
         stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
         <path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"></path>
       </svg>Click to Filter</span>
-    <div class="row filter_section" style="display:none;">
       <div class="row filter_section m-0 p-0 w-100" style="display: none;">
 
         <section class="col-12 d-flex align-items-center p-0">
@@ -55,7 +54,7 @@ $i = 1;
       </div>
 
 
-    </div>
+    
 
     <!-- filter section end  -->
 
@@ -81,7 +80,7 @@ $i = 1;
     <div class="row">
       <div class="col-md-12 grid-margin stretch-card">
         <div class="card rotateclass">
-          <h4 class="header-title">General Data</h4>
+          <h4 class="header-title ml-2">General Data</h4>
           <div class="table-responsive-xl">
             <table class="table">
               <thead>
@@ -106,21 +105,65 @@ $i = 1;
                 <?php
                 if (isset($_REQUEST["start_date"]) && isset($_REQUEST["end_date"]) && isset($_REQUEST["vehicle_number"])) {
 
-
-
+                  
                   $start_date = $_REQUEST["start_date"];
                   $end_date = $_REQUEST["end_date"];
                   $vehicle_number = $_REQUEST["vehicle_number"];
 
-                  // Use the BETWEEN clause to filter records between the start and end dates
-                  $qry = $db->query("SELECT * FROM general_data_entry_master WHERE vehical_id = '$vehicle_number' AND 
+                
+                  if (($_REQUEST["start_date"]) != null && ($_REQUEST["end_date"]) != null && ($_REQUEST["vehicle_number"]) != null) {
+
+                    // Use the BETWEEN clause to filter records between the start and end dates
+                    $qry = $db->query("SELECT * FROM general_data_entry_master WHERE vehical_id = '$vehicle_number' AND 
                   STR_TO_DATE(general_date, '%Y-%m-%d') BETWEEN STR_TO_DATE('$start_date', '%Y-%m-%d') AND STR_TO_DATE('$end_date', '%Y-%m-%d')")
-                    or die("");
+                      or die("");
+                  }
+
+                  else if(($_REQUEST["start_date"]) != null && ($_REQUEST["end_date"]) != null)
+                  {
+                    $qry = $db->query("SELECT * FROM general_data_entry_master WHERE  
+                    STR_TO_DATE(general_date, '%Y-%m-%d') BETWEEN STR_TO_DATE('$start_date', '%Y-%m-%d') AND STR_TO_DATE('$end_date', '%Y-%m-%d')")
+                        or die("");
+                  }
+                  
+                  else if(($_REQUEST["end_date"]) != null && ($_REQUEST["vehicle_number"]) != null)
+                  {
+                    $qry = $db->query("SELECT * FROM general_data_entry_master WHERE vehical_id = '$vehicle_number' AND 
+                    STR_TO_DATE(general_date, '%Y-%m-%d') <= STR_TO_DATE('$end_date', '%Y-%m-%d')")
+                        or die("");
+                  }
+                  
+                  else if(($_REQUEST["start_date"]) != null && ($_REQUEST["vehicle_number"]) != null)
+                  {
+                    $qry = $db->query("SELECT * FROM general_data_entry_master WHERE vehical_id = '$vehicle_number' AND 
+                    STR_TO_DATE(general_date, '%Y-%m-%d') >= STR_TO_DATE('$start_date', '%Y-%m-%d')")
+                        or die("");
+                  }
+                  
+                  else if(($_REQUEST["start_date"]) != null)
+                  {
+                    $qry = $db->query("SELECT * FROM general_data_entry_master WHERE
+                    STR_TO_DATE(general_date, '%Y-%m-%d') >= STR_TO_DATE('$start_date', '%Y-%m-%d')")
+                        or die("");
+                  }
+                  
+                  else if(($_REQUEST["end_date"]) != null)
+                  {
+                    $qry = $db->query("SELECT * FROM general_data_entry_master WHERE 
+                    STR_TO_DATE(general_date, '%Y-%m-%d') <= STR_TO_DATE('$end_date', '%Y-%m-%d')")
+                        or die("");
+                  }
+                  
+                  else if(($_REQUEST["vehicle_number"]) != null)
+                  {
+                    $qry = $db->query("SELECT * FROM general_data_entry_master WHERE vehical_id = '$vehicle_number'")
+                        or die("");
+                  }
 
 
                 } else {
                   $qry = $db->query("select * from `general_data_entry_master`") or die("");
-                  
+
                 }
                 while ($row = $qry->fetch(PDO::FETCH_ASSOC)) {
                   $id = $row['id'];
@@ -229,22 +272,10 @@ $i = 1;
         const end_date = $("#date_end_date").val();
         const vehicle_number = $("#txt_vehicle_number").val();
 
-        if (start_date === "" || start_date === null) {
-          alert("Please Select a start date first");
-          $("#date_start_date").focus();
-        }
-        else if (end_date === "" || end_date === null) {
-          alert("Please Select an end date first");
-          $("#date_end_date").focus();
-        }
-        else if (vehicle_number === "" || vehicle_number === null) {
-          alert("Please enter a vehicle number first");
-          $("#txt_vehicle_number").focus();
-        }
-        else {
-          console.log(vehicle_number)
-          window.location.href = "general_data_entry_master_manage.php?start_date=" + start_date + "&end_date=" + end_date + "&vehicle_number=" + vehicle_number;
-        }
+
+
+        window.location.href = "general_data_entry_master_manage.php?start_date=" + start_date + "&end_date=" + end_date + "&vehicle_number=" + vehicle_number;
+
       });
 
 
