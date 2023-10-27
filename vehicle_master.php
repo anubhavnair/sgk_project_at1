@@ -37,58 +37,60 @@ require_once('./header.php');
                             $qry = $db->query("select * from vehicle_master where id = $edit_id ") or die("");
                             $row = $qry->fetch(PDO::FETCH_ASSOC);
                             ?>
-                            <input type="hidden" id="edit_id" value="<?=$edit_id?>">
-                            <div class="form-group">
+                            <input type="hidden" id="edit_id" value="<?= $edit_id ?>">
+                            <div class="form-group col-12">
                                 <label for="txt_vehical_name">Enter Vehical Name</label>
                                 <input type="text" class="form-control" name="txt_vehical_name" id="txt_vehical_name"
                                     value="<?= $row['vehical_name'] ?>" placeholder="Enter Name">
                             </div>
-                            <div class="form-group">
+                            <div class="form-group col-12">
                                 <label for="txt_driver_name">Driver Name</label>
                                 <input type="text" class="form-control" name="txt_driver_name" id="txt_driver_name"
                                     value="<?= $row['driver_name'] ?>" placeholder="Enter Driver Name">
                             </div>
-                            <div class="form-group">
+                            <div class="form-group col-12">
                                 <label for="txt_vehical_number">Vehical Number</label>
                                 <input type="text" class="form-control" id="txt_vehical_number" name="txt_vehical_number"
                                     value="<?= $row['vehicle_number'] ?>" placeholder="Enter Vehical Number">
                             </div>
-                            <div class="form-group">
+                            <div class="form-group col-12">
                                 <label for="txt_closing_meter">Driver Number</label>
                                 <input type="text" class="form-control" id="txt_driver_number" name="txt_driver_number"
                                     value="<?= $row['driver_contactno'] ?>" placeholder="Enter Driver Number">
                             </div>
 
 
-
-                            <button type="submit" id="update" class="btn btn-primary mr-2">Update</button>
+                            <div class="col-12">
+                            <button type="submit" id="update" class="btn btn-primary mr-2 ">Update</button>
+                            </div>
                             <?php
                         } else {
                             ?>
-                            <div class="form-group">
+                            <div class="form-group col-12">
                                 <label for="txt_vehical_name">Enter Vehical Name</label>
                                 <input type="text" class="form-control" name="txt_vehical_name" id="txt_vehical_name"
                                     placeholder="Enter Name">
                             </div>
-                            <div class="form-group">
+                            <div class="form-group col-12">
                                 <label for="txt_driver_name">Driver Name</label>
                                 <input type="text" class="form-control" name="txt_driver_name" id="txt_driver_name"
                                     placeholder="Enter Driver Name">
                             </div>
-                            <div class="form-group">
+                            <div class="form-group col-12">
                                 <label for="txt_vehical_number">Vehical Number</label>
                                 <input type="text" class="form-control" id="txt_vehical_number" name="txt_vehical_number"
                                     placeholder="Enter Vehical Number">
                             </div>
-                            <div class="form-group">
+                            <div class="form-group col-12">
                                 <label for="txt_closing_meter">Driver Number</label>
                                 <input type="text" class="form-control" id="txt_driver_number" name="txt_driver_number"
                                     placeholder="Enter Driver Number">
                             </div>
 
 
-
-                            <button type="submit" id="submit" class="btn btn-primary mr-2">Submit</button>
+                            <div class="col-12">
+                                <button type="submit" id="submit" class="btn btn-primary mr-2 ">Submit</button>
+                            </div>
                             <?php
                         }
                         ?>

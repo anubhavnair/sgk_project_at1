@@ -2,15 +2,8 @@
 require_once('./root/dbconnection.php');
 require_once('./header.php');
 
-if (isset($_REQUEST["filter_by_date"])) {
 
-    $filter_by_date = $_REQUEST["filter_by_date"];
-
-    $qry = $db->query("SELECT * FROM manager_entry_master WHERE select_date = '$filter_by_date'") or die("");
-
-} else {
 $qry = $db->query("select * from vehicle_master") or die("");
-}
 
 ?>
 <div class="content_wrapper bg_homebefore inner-wrapper forms-sec">
