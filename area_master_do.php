@@ -36,8 +36,8 @@ if (isset($_REQUEST["del_id"])) {
 
     ?>
     <script>
-        alert("Area Data Deleted !....");
-        window.location.replace("./area_master_manage.php");
+
+        window.location.replace("./area_master_manage.php?res=3");
     </script>
     <?php
 }

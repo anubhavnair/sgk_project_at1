@@ -11,6 +11,17 @@ if (isset($_REQUEST["edit_id"])) {
 }
 ?>
 <div class="content_wrapper bg_homebefore inner-wrapper forms-sec">
+    <div>
+        <p style="text-align:center; padding-top:5px; padding-bottom:5px; background-color:lightgreen; font-weight:bold; display:none; color:black;"
+            id="success_promt">
+            Area Added Successfully !....
+        </p>
+        <p style="text-align:center; padding-top:5px; padding-bottom:5px; background-color:lightgreen; font-weight:bold; display:none; color:black;"
+            id="update_promt">
+            Area Data Updated Successfully !....
+        </p>
+
+    </div>
     <div class="container-fluid">
 
 
@@ -124,7 +135,13 @@ if (isset($_REQUEST["edit_id"])) {
 
                     if (area_name == "" || area_name == null) {
 
+
+
+                        $("#text_area_name").css("border", "1.2px solid red");
                         $("#text_area_name").focus();
+                        $("#text_area_name").keydown(function () {
+                            $(this).css("border", "1.2px solid skyblue");
+                        });
                     }
                     else {
                         $.post("area_master_do.php",
@@ -133,8 +150,14 @@ if (isset($_REQUEST["edit_id"])) {
                                 text_area_name: area_name
                             }, function (data, status) {
                                 if (status == "success") {
-                                    alert("Area Added Successfully !....");
-                                    window.location.replace("./area_master.php")
+
+                                    $("#success_promt").css("display", "block");
+
+                                    setTimeout(function () {
+                                        $("#success_promt").css("display", "none");
+                                        location.reload();
+                                    }, 1500);
+
                                 }
                             }
                         );
@@ -158,8 +181,23 @@ if (isset($_REQUEST["edit_id"])) {
                                 text_area_name: area_name
                             }, function (data, status) {
                                 if (status == "success") {
-                                    alert("Area Data Updated Successfully !....");
-                                    window.location.replace("./area_master_manage.php")
+
+                                    $("#update_promt").css("display", "block");
+
+                                    setTimeout(function () {
+                                        $("#update_promt").css("display", "none");
+
+                                    }, 1000);
+                                    setTimeout(function () {
+                                        window.location.replace("./area_master_manage.php")
+
+
+
+                                    }, 1002);
+
+
+
+
                                 }
                             }
                         );
