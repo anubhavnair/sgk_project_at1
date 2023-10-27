@@ -59,8 +59,9 @@ else if (isset($_REQUEST["del_id"])) {
 
     ?>
             <script>
-                alert("General Data Deleted !....");
-                window.location.replace("./general_data_entry_master_manage.php");
+                // alert("General Data Deleted !....");
+                let message = "General Data Deleted !....";
+                window.location.replace("./general_data_entry_master_manage.php?message="+message);
             </script>
     <?php
 }

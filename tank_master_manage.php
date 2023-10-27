@@ -61,6 +61,9 @@ $i = 1;
       </div>
     </div>
     <!-- End Breadcrumbbar -->
+    <div class="notification" id="myNotification">
+
+</div>
     <!-- state start-->
     <div class="row">
       <div class="col-md-12 grid-margin stretch-card">
@@ -85,9 +88,9 @@ $i = 1;
               </thead>
               <tbody id="details_table_body">
                 <?php
-                
-                  $qry = $db->query("select * from `tank_entry_master`") or die("");
-                
+
+                $qry = $db->query("select * from `tank_entry_master`") or die("");
+
                 while ($row = $qry->fetch(PDO::FETCH_ASSOC)) {
                   $id = $row['id'];
                   $area_id = $row['area_id'];
@@ -170,28 +173,53 @@ $i = 1;
       $(".filter_section").slideToggle();
 
     });
+    // notification section
+
+    function showNotification(message) {
+      var notification = $("#myNotification");
+      notification.css("opacity", "1");
+      notification.css("pointer-events", "auto");
+      notification.html(message);
+      setTimeout(function () {
+        hideNotification();
+      }, 2000); // Auto-close after 2 seconds
+    }
+
+    function hideNotification() {
+      var notification = $("#myNotification");
+      notification.css("opacity", "0");
+      notification.css("pointer-events", "none");
+    }
+
+    $(document).on('click', function () {
+      hideNotification();
+    });
+    const urlParams = new URLSearchParams(window.location.search);
+    let message = urlParams.get("message");
+    if (message) {
+      showNotification(message);
+    }
     // search logic 
     $('#search').on("click", function (e) {
       e.preventDefault();
       const start_date = $("#date_start_date").val();
       const end_date = $("#date_end_date").val();
 
-      if ((start_date != "") || (end_date != "")) 
-        {
-          $.post("tank_master_do.php", {
-            start_date: start_date,
-            end_date: end_date,
-          }, function (data, status) {
-            if (status === "success") {
-             
-                $("#details_table_body").html(data);
-             
-            }
-          }).fail(function (xhr, status, error) {
-            
-          });
-        }
-      
+      if ((start_date != "") || (end_date != "")) {
+        $.post("tank_master_do.php", {
+          start_date: start_date,
+          end_date: end_date,
+        }, function (data, status) {
+          if (status === "success") {
+
+            $("#details_table_body").html(data);
+
+          }
+        }).fail(function (xhr, status, error) {
+
+        });
+      }
+
 
 
 

@@ -22,6 +22,9 @@ require_once("./root/dbconnection.php");
       </div>
     </div>
     <!-- End Breadcrumbbar -->
+    <div class="notification" id="myNotification">
+
+        </div>
     <!-- state start-->
     <div class="row">
       <div class="col-md-12 grid-margin stretch-card">
@@ -240,7 +243,32 @@ require_once("./root/dbconnection.php");
         // Set the value of the input to the current date
         $('#txt_enter_date').val(formattedDate);
 
+        // notification section
 
+        function showNotification(message) {
+          var notification = $("#myNotification");
+          notification.css("opacity", "1");
+          notification.css("pointer-events", "auto");
+          notification.html(message);
+          setTimeout(function () {
+            hideNotification();
+          }, 2000); // Auto-close after 2 seconds
+        }
+
+        function hideNotification() {
+          var notification = $("#myNotification");
+          notification.css("opacity", "0");
+          notification.css("pointer-events", "none");
+        }
+
+        $(document).on('click', function () {
+          hideNotification();
+        });
+        const urlParams = new URLSearchParams(window.location.search);
+        let message = urlParams.get("message");
+        if (message) {
+          showNotification(message);
+        }
         // FORM VALIDATION SECTION 
         $("#submit").on("click", function (e) {
           e.preventDefault();
@@ -271,60 +299,94 @@ require_once("./root/dbconnection.php");
 
 
           if (select_vehicle == "" || select_vehicle == null) {
-
+            $("#txt_select_vehicle").css("border", "1.2px solid red");
             $("#txt_select_vehicle").focus();
+            $("#txt_select_vehicle").keydown(function () {
+              $(this).css("border", "1.2px solid skyblue");
+            });
           }
           else if (trips == "" || trips == null) {
-
+            $("#txt_trips").css("border", "1.2px solid red");
             $("#txt_trips").focus();
+            $("#txt_trips").keydown(function () {
+              $(this).css("border", "1.2px solid skyblue");
+            });
 
           }
           else if (work_description == "" || work_description == null) {
 
-
+            $("#txt_work_description").css("border", "1.2px solid red");
             $("#txt_work_description").focus();
+            $("#txt_work_description").keydown(function () {
+              $(this).css("border", "1.2px solid skyblue");
+            });
           }
 
           else if (opening_meter == "" || opening_meter == null) {
 
-
+            $("#txt_opening_meter").css("border", "1.2px solid red");
             $("#txt_opening_meter").focus();
+            $("#txt_opening_meter").keydown(function () {
+              $(this).css("border", "1.2px solid skyblue");
+            });
           }
           else if (opening_dip == "" || opening_dip == null) {
 
-
+            $("#txt_opening_dip").css("border", "1.2px solid red");
             $("#txt_opening_dip").focus();
+            $("#txt_opening_dip").keydown(function () {
+              $(this).css("border", "1.2px solid skyblue");
+            });
           }
 
           else if (closing_meter == "" || closing_meter == null) {
 
-
+            $("#txt_closing_meter").css("border", "1.2px solid red");
             $("#txt_closing_meter").focus();
+            $("#txt_closing_meter").keydown(function () {
+              $(this).css("border", "1.2px solid skyblue");
+            });
           }
           else if (closing_dip == "" || closing_dip == null) {
 
-
+            $("#txt_closing_dip").css("border", "1.2px solid red");
             $("#txt_closing_dip").focus();
+            $("#txt_closing_dip").keydown(function () {
+              $(this).css("border", "1.2px solid skyblue");
+            });
           }
           else if (km == "" || km == null) {
 
-
+            $("#txt_km").css("border", "1.2px solid red");
             $("#txt_km").focus();
+            $("#txt_km").keydown(function () {
+              $(this).css("border", "1.2px solid skyblue");
+            });
           }
           else if (desel == "" || desel == null) {
 
-
+            $("#txt_desel").css("border", "1.2px solid red");
             $("#txt_desel").focus();
+            $("#txt_desel").keydown(function () {
+              $(this).css("border", "1.2px solid skyblue");
+            });
           }
           else if (average == "" || average == null) {
 
-
+            $("#txt_average").css("border", "1.2px solid red");
+            $("#txt_average").focus();
+            $("#txt_average").keydown(function () {
+              $(this).css("border", "1.2px solid skyblue");
+            });
             $("#txt_average").focus();
           }
           else if (remark == "" || remark == null) {
 
-
+            $("#txt_remark").css("border", "1.2px solid red");
             $("#txt_remark").focus();
+            $("#txt_remark").keydown(function () {
+              $(this).css("border", "1.2px solid skyblue");
+            });
           }
 
 
@@ -345,8 +407,9 @@ require_once("./root/dbconnection.php");
                 txt_remark: remark
               }, function (data, status) {
                 if (status == "success") {
-                  alert("New Record Added Successfully !....");
-                  window.location.replace("./general_data_entry_master.php")
+                  // alert("New Record Added Successfully !....");
+                  let message = "New Record Added Successfully !....";
+                  window.location.replace("./general_data_entry_master.php?message=" + message)
                 }
 
               }
@@ -371,28 +434,96 @@ require_once("./root/dbconnection.php");
           const desel = $("#txt_desel").val();
           const average = $("#txt_average").val();
           const remark = $("#txt_remark").val();
-          if (select_vehicle === "" || select_vehicle === null) {
+
+          if (select_vehicle == "" || select_vehicle == null) {
+            $("#txt_select_vehicle").css("border", "1.2px solid red");
             $("#txt_select_vehicle").focus();
-          } else if (trips === "" || trips === null) {
+            $("#txt_select_vehicle").keydown(function () {
+              $(this).css("border", "1.2px solid skyblue");
+            });
+          }
+          else if (trips == "" || trips == null) {
+            $("#txt_trips").css("border", "1.2px solid red");
             $("#txt_trips").focus();
-          } else if (work_description === "" || work_description === null) {
+            $("#txt_trips").keydown(function () {
+              $(this).css("border", "1.2px solid skyblue");
+            });
+
+          }
+          else if (work_description == "" || work_description == null) {
+
+            $("#txt_work_description").css("border", "1.2px solid red");
             $("#txt_work_description").focus();
-          } else if (opening_meter === "" || opening_meter === null) {
+            $("#txt_work_description").keydown(function () {
+              $(this).css("border", "1.2px solid skyblue");
+            });
+          }
+
+          else if (opening_meter == "" || opening_meter == null) {
+
+            $("#txt_opening_meter").css("border", "1.2px solid red");
             $("#txt_opening_meter").focus();
-          } else if (opening_dip === "" || opening_dip === null) {
+            $("#txt_opening_meter").keydown(function () {
+              $(this).css("border", "1.2px solid skyblue");
+            });
+          }
+          else if (opening_dip == "" || opening_dip == null) {
+
+            $("#txt_opening_dip").css("border", "1.2px solid red");
             $("#txt_opening_dip").focus();
-          } else if (closing_meter === "" || closing_meter === null) {
+            $("#txt_opening_dip").keydown(function () {
+              $(this).css("border", "1.2px solid skyblue");
+            });
+          }
+
+          else if (closing_meter == "" || closing_meter == null) {
+
+            $("#txt_closing_meter").css("border", "1.2px solid red");
             $("#txt_closing_meter").focus();
-          } else if (closing_dip === "" || closing_dip === null) {
+            $("#txt_closing_meter").keydown(function () {
+              $(this).css("border", "1.2px solid skyblue");
+            });
+          }
+          else if (closing_dip == "" || closing_dip == null) {
+
+            $("#txt_closing_dip").css("border", "1.2px solid red");
             $("#txt_closing_dip").focus();
-          } else if (km === "" || km === null) {
+            $("#txt_closing_dip").keydown(function () {
+              $(this).css("border", "1.2px solid skyblue");
+            });
+          }
+          else if (km == "" || km == null) {
+
+            $("#txt_km").css("border", "1.2px solid red");
             $("#txt_km").focus();
-          } else if (desel === "" || desel === null) {
+            $("#txt_km").keydown(function () {
+              $(this).css("border", "1.2px solid skyblue");
+            });
+          }
+          else if (desel == "" || desel == null) {
+
+            $("#txt_desel").css("border", "1.2px solid red");
             $("#txt_desel").focus();
-          } else if (average === "" || average === null) {
+            $("#txt_desel").keydown(function () {
+              $(this).css("border", "1.2px solid skyblue");
+            });
+          }
+          else if (average == "" || average == null) {
+
+            $("#txt_average").css("border", "1.2px solid red");
             $("#txt_average").focus();
-          } else if (remark === "" || remark === null) {
+            $("#txt_average").keydown(function () {
+              $(this).css("border", "1.2px solid skyblue");
+            });
+            $("#txt_average").focus();
+          }
+          else if (remark == "" || remark == null) {
+
+            $("#txt_remark").css("border", "1.2px solid red");
             $("#txt_remark").focus();
+            $("#txt_remark").keydown(function () {
+              $(this).css("border", "1.2px solid skyblue");
+            });
           } else {
             $.post("general_data_entry_master_do.php", {
               edit_id: edit_id,
@@ -410,8 +541,9 @@ require_once("./root/dbconnection.php");
               txt_remark: remark
             }, function (data, status) {
               if (status === "success") {
-                alert("Record Updated Successfully!");
-                window.location.replace("./general_data_entry_master_manage.php");
+                // alert("Record Updated Successfully!");
+                let message = "Record Updated Successfully!";
+                window.location.replace("./general_data_entry_master_manage.php?message=" + message);
               }
             }
             );

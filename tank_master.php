@@ -25,6 +25,9 @@ require_once("./root/dbconnection.php");
       </div>
     </div>
     <!-- End Breadcrumbbar -->
+    <div class="notification" id="myNotification">
+
+    </div>
     <!-- state start-->
     <div class="row">
       <div class="col-md-12 grid-margin stretch-card">
@@ -240,7 +243,32 @@ require_once("./root/dbconnection.php");
       // Set the value of the input to the current date
       $('#txt_enter_date').val(formattedDate);
 
+      // notification section
 
+      function showNotification(message) {
+        var notification = $("#myNotification");
+        notification.css("opacity", "1");
+        notification.css("pointer-events", "auto");
+        notification.html(message);
+        setTimeout(function () {
+          hideNotification();
+        }, 2000); // Auto-close after 2 seconds
+      }
+
+      function hideNotification() {
+        var notification = $("#myNotification");
+        notification.css("opacity", "0");
+        notification.css("pointer-events", "none");
+      }
+
+      $(document).on('click', function () {
+        hideNotification();
+      });
+      const urlParams = new URLSearchParams(window.location.search);
+      let message = urlParams.get("message");
+      if (message) {
+        showNotification(message);
+      }
       // FORM VALIDATION SECTION 
       $("#submit").on("click", function (e) {
         e.preventDefault();
@@ -254,43 +282,73 @@ require_once("./root/dbconnection.php");
         const dip = $("#txt_dip").val();
         const banance = $("#txt_banance").val();
         if (select_area == "" || select_area == null) {
+          $("#txt_select_area").css("border", "1.2px solid red");
 
           $("#txt_select_area").focus();
+          $("#txt_select_area").keydown(function () {
+            $(this).css("border", "1.2px solid skyblue");
+          });
         }
         else if (opening_meter == "" || opening_meter == null) {
+          $("#txt_opening_meter").css("border", "1.2px solid red");
 
           $("#txt_opening_meter").focus();
+          $("#txt_opening_meter").keydown(function () {
+            $(this).css("border", "1.2px solid skyblue");
+          });
 
         }
         else if (total_refill == "" || total_refill == null) {
 
+          $("#txt_total_refill").css("border", "1.2px solid red");
 
           $("#txt_total_refill").focus();
+          $("#txt_total_refill").keydown(function () {
+            $(this).css("border", "1.2px solid skyblue");
+          });
         }
         else if (closing_meter == "" || closing_meter == null) {
 
 
+          $("#txt_closing_meter").css("border", "1.2px solid red");
           $("#txt_closing_meter").focus();
+          $("#txt_closing_meter").keydown(function () {
+            $(this).css("border", "1.2px solid skyblue");
+          });
         }
         else if (desel_out == "" || desel_out == null) {
 
 
+          $("#txt_desel_out").css("border", "1.2px solid red");
           $("#txt_desel_out").focus();
+          $("#txt_desel_out").keydown(function () {
+            $(this).css("border", "1.2px solid skyblue");
+          });
         }
         else if (description == "" || description == null) {
 
 
+          $("#txt_description").css("border", "1.2px solid red");
           $("#txt_description").focus();
+          $("#txt_description").keydown(function () {
+            $(this).css("border", "1.2px solid skyblue");
+          });
         }
         else if (dip == "" || dip == null) {
 
-
+          $("#txt_dip").css("border", "1.2px solid red");
           $("#txt_dip").focus();
+          $("#txt_dip").keydown(function () {
+            $(this).css("border", "1.2px solid skyblue");
+          });
         }
         else if (banance == "" || banance == null) {
 
-
+          $("#txt_banance").css("border", "1.2px solid red");
           $("#txt_banance").focus();
+          $("#txt_banance").keydown(function () {
+            $(this).css("border", "1.2px solid skyblue");
+          });
         }
         else {
           $.post("tank_master_do.php",
@@ -306,8 +364,9 @@ require_once("./root/dbconnection.php");
               txt_banance: banance
             }, function (data, status) {
               if (status == "success") {
-                alert("New Record Added Successfully !....");
-                window.location.replace("./tank_master.php")
+                // alert("New Record Added Successfully !....");
+                let message = "New Record Added Successfully !....";
+                window.location.replace("./tank_master.php?message="+message);
               }
 
             }
@@ -328,48 +387,74 @@ require_once("./root/dbconnection.php");
         const description = $("#txt_description").val();
         const dip = $("#txt_dip").val();
         const banance = $("#txt_banance").val();
-        if (date == "" || date == null) {
-
-          $("#date_enter_date").focus();
-        }
-        else if (select_area == "" || select_area == null) {
+        if (select_area == "" || select_area == null) {
+          $("#txt_select_area").css("border", "1.2px solid red");
 
           $("#txt_select_area").focus();
+          $("#txt_select_area").keydown(function () {
+            $(this).css("border", "1.2px solid skyblue");
+          });
         }
         else if (opening_meter == "" || opening_meter == null) {
+          $("#txt_opening_meter").css("border", "1.2px solid red");
 
           $("#txt_opening_meter").focus();
+          $("#txt_opening_meter").keydown(function () {
+            $(this).css("border", "1.2px solid skyblue");
+          });
 
         }
         else if (total_refill == "" || total_refill == null) {
 
+          $("#txt_total_refill").css("border", "1.2px solid red");
 
           $("#txt_total_refill").focus();
+          $("#txt_total_refill").keydown(function () {
+            $(this).css("border", "1.2px solid skyblue");
+          });
         }
         else if (closing_meter == "" || closing_meter == null) {
 
 
+          $("#txt_closing_meter").css("border", "1.2px solid red");
           $("#txt_closing_meter").focus();
+          $("#txt_closing_meter").keydown(function () {
+            $(this).css("border", "1.2px solid skyblue");
+          });
         }
         else if (desel_out == "" || desel_out == null) {
 
 
+          $("#txt_desel_out").css("border", "1.2px solid red");
           $("#txt_desel_out").focus();
+          $("#txt_desel_out").keydown(function () {
+            $(this).css("border", "1.2px solid skyblue");
+          });
         }
         else if (description == "" || description == null) {
 
 
+          $("#txt_description").css("border", "1.2px solid red");
           $("#txt_description").focus();
+          $("#txt_description").keydown(function () {
+            $(this).css("border", "1.2px solid skyblue");
+          });
         }
         else if (dip == "" || dip == null) {
 
-
+          $("#txt_dip").css("border", "1.2px solid red");
           $("#txt_dip").focus();
+          $("#txt_dip").keydown(function () {
+            $(this).css("border", "1.2px solid skyblue");
+          });
         }
         else if (banance == "" || banance == null) {
 
-
+          $("#txt_banance").css("border", "1.2px solid red");
           $("#txt_banance").focus();
+          $("#txt_banance").keydown(function () {
+            $(this).css("border", "1.2px solid skyblue");
+          });
         }
         else {
           $.post("tank_master_do.php",
@@ -386,8 +471,9 @@ require_once("./root/dbconnection.php");
               txt_banance: banance
             }, function (data, status) {
               if (status == "success") {
-                alert("Record Updated Successfully !....");
-                window.location.replace("./tank_master_manage.php")
+                // alert("Record Updated Successfully !....");
+                let message = "Record Updated Successfully !....";
+                window.location.replace("./tank_master_manage.php?message="+message)
               }
 
             }

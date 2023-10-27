@@ -46,8 +46,9 @@ else if (isset($_REQUEST["del_id"])) {
 
     ?>
             <script>
-                alert("Tank data Deleted !....");
-                window.location.replace("./tank_master_manage.php");
+                // alert("Tank data Deleted !....");
+                let message = "Tank data Deleted !....";
+                window.location.replace("./tank_master_manage.php?message="+message);
             </script>
     <?php
 } else if (isset($_REQUEST["start_date"]) && isset($_REQUEST["end_date"])) {

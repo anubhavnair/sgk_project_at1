@@ -59,7 +59,9 @@ $i = 1;
 
 
     <!-- filter section end  -->
+    <div class="notification" id="myNotification">
 
+</div>
 
     <!-- Start Breadcrumbbar -->
     <div class="breadcrumbbar">
@@ -215,25 +217,45 @@ $i = 1;
         const end_date = $("#date_end_date").val();
         const vehicle_number = $("#txt_vehicle_number").val();
 
-        if ((start_date != "") || (end_date != "") || (vehicle_number != "")) 
-        {
+        if ((start_date != "") || (end_date != "") || (vehicle_number != "")) {
           $.post("general_data_entry_master_do.php", {
             start_date: start_date,
             end_date: end_date,
             vehicle_number: vehicle_number
           }, function (data, status) {
             if (status === "success") {
-             
-                $("#details_table_body").html(data);
-             
+
+              $("#details_table_body").html(data);
+
             }
           }).fail(function (xhr, status, error) {
-            
+
           });
         }
       });
 
+      // notification section
 
+      function showNotification(message) {
+        var notification = $("#myNotification");
+        notification.css("opacity", "1");
+        notification.css("pointer-events", "auto");
+        notification.html(message);
+        setTimeout(function () {
+          hideNotification();
+        }, 2000); // Auto-close after 2 seconds
+      }
+
+      function hideNotification() {
+        var notification = $("#myNotification");
+        notification.css("opacity", "0");
+        notification.css("pointer-events", "none");
+      }
+      const urlParams = new URLSearchParams(window.location.search);
+      let message = urlParams.get("message");
+      if (message) {
+        showNotification(message);
+      }
 
     })
   </script>

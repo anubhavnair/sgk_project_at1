@@ -41,8 +41,8 @@ if (isset($_REQUEST["del_id"])) {
 
     ?>
     <script>
-        alert("Vehicle Data Deleted !....");
-        window.location.replace("./vehicle_master_manage.php");
+        let message = "Vehicle Deleted Successfully";
+        window.location.replace("./vehicle_master_manage.php?message="+message);
     </script>
     <?php
 }

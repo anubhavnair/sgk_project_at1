@@ -27,6 +27,9 @@ $qry = $db->query("select * from vehicle_master") or die("");
             </div>
         </div>
         <!-- End Breadcrumbbar -->
+        <div class="notification" id="myNotification">
+
+        </div>
         <!-- state start-->
         <div class="row">
             <div class="col-md-12 grid-margin stretch-card">
@@ -72,9 +75,9 @@ $qry = $db->query("select * from vehicle_master") or die("");
                                         </td>
                                         <td>
                                             <div class="d-flex justify-content-center align-items-center">
-                                                <a href="vehicle_master_do.php?del_id=<?=$id?>"><svg
-                                                        xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                                        fill="red" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+                                                <a href="vehicle_master_do.php?del_id=<?= $id ?>"><svg
+                                                        xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red"
+                                                        class="bi bi-trash3-fill" viewBox="0 0 16 16">
                                                         <path
                                                             d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z" />
                                                     </svg></a> &nbsp;&nbsp;<a
@@ -114,5 +117,27 @@ $qry = $db->query("select * from vehicle_master") or die("");
                 $(".filter_section").slideToggle();
 
             });
+            // notification section
+
+            function showNotification(message) {
+                var notification = $("#myNotification");
+                notification.css("opacity", "1");
+                notification.css("pointer-events", "auto");
+                notification.html(message);
+                setTimeout(function () {
+                    hideNotification();
+                }, 2000); // Auto-close after 2 seconds
+            }
+
+            function hideNotification() {
+                var notification = $("#myNotification");
+                notification.css("opacity", "0");
+                notification.css("pointer-events", "none");
+            }
+            const urlParams = new URLSearchParams(window.location.search);
+            let message = urlParams.get("message");
+            if (message) {
+                showNotification(message);
+            }
 
         </script>

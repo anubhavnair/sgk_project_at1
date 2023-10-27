@@ -24,6 +24,9 @@ require_once('./header.php');
             </div>
         </div>
         <!-- End Breadcrumbbar -->
+        <div class="notification" id="myNotification">
+
+        </div>
         <!-- state start-->
         <div class="row">
             <div class="col-md-12 grid-margin stretch-card">
@@ -61,7 +64,7 @@ require_once('./header.php');
 
 
                             <div class="col-12">
-                            <button type="submit" id="update" class="btn btn-primary mr-2 ">Update</button>
+                                <button type="submit" id="update" class="btn btn-primary mr-2 ">Update</button>
                             </div>
                             <?php
                         } else {
@@ -104,6 +107,7 @@ require_once('./header.php');
         ?>
         <script>
             $(document).ready(function () {
+
                 $("#vehical_manag_btn").on("click", function (e) {
                     window.location.replace("./vehicle_master_manage.php");
                 })
@@ -117,6 +121,33 @@ require_once('./header.php');
                 });
             })
 
+            // notification section
+
+            function showNotification(message) {
+                var notification = $("#myNotification");
+                notification.css("opacity", "1");
+                notification.css("pointer-events", "auto");
+                notification.html(message);
+                setTimeout(function () {
+                    hideNotification();
+                }, 2000); // Auto-close after 2 seconds
+            }
+
+            function hideNotification() {
+                var notification = $("#myNotification");
+                notification.css("opacity", "0");
+                notification.css("pointer-events", "none");
+            }
+
+            $(document).on('click', function () {
+                hideNotification();
+            });
+            const urlParams = new URLSearchParams(window.location.search);
+            let message = urlParams.get("message");
+            if (message) {
+                showNotification(message);
+            }
+
             // FORM VALIDATION SECTION 
             $("#submit").on("click", function (e) {
                 e.preventDefault();
@@ -125,23 +156,36 @@ require_once('./header.php');
                 const vehical_number = $("#txt_vehical_number").val();
                 const driver_number = $("#txt_driver_number").val();
                 if (vehicle_name == "" || vehicle_name == null) {
-
+                    $("#txt_vehical_name").css("border", "1.2px solid red");
                     $("#txt_vehical_name").focus();
+                    $("#txt_vehical_name").keydown(function () {
+                        $(this).css("border", "1.2px solid skyblue");
+                    });
                 }
                 else if (driver_name == "" || driver_name == null) {
-
+                    $("#txt_driver_name").css("border", "1.2px solid red");
                     $("#txt_driver_name").focus();
-
+                    $("#txt_driver_name").keydown(function () {
+                        $(this).css("border", "1.2px solid skyblue");
+                    });
                 }
                 else if (vehical_number == "" || vehical_number == null) {
 
+                    $("#txt_vehical_number").css("border", "1.2px solid red");
 
                     $("#txt_vehical_number").focus();
+                    $("#txt_vehical_number").keydown(function () {
+                        $(this).css("border", "1.2px solid skyblue");
+                    });
                 }
                 else if (driver_number == "" || driver_number == null) {
 
+                    $("#txt_driver_number").css("border", "1.2px solid red");
 
                     $("#txt_driver_number").focus();
+                    $("#txt_driver_number").keydown(function () {
+                        $(this).css("border", "1.2px solid skyblue");
+                    });
                 }
                 else {
                     $.post("vehicle_master_do.php",
@@ -152,8 +196,10 @@ require_once('./header.php');
                             txt_driver_number: driver_number
                         }, function (data, status) {
                             if (status == "success") {
-                                alert("Vehicle Added Successfully !....");
-                                window.location.replace("./vehicle_master.php")
+                                // alert("Vehicle Added Successfully !....");
+                                let message = "Vehicle Added Successfully !....";
+                                window.location.replace("./vehicle_master.php?message=" + message);
+
                             }
 
                         }
@@ -170,23 +216,36 @@ require_once('./header.php');
                 const vehical_number = $("#txt_vehical_number").val();
                 const driver_number = $("#txt_driver_number").val();
                 if (vehicle_name == "" || vehicle_name == null) {
-
+                    $("#txt_vehical_name").css("border", "1.2px solid red");
                     $("#txt_vehical_name").focus();
+                    $("#txt_vehical_name").keydown(function () {
+                        $(this).css("border", "1.2px solid skyblue");
+                    });
                 }
                 else if (driver_name == "" || driver_name == null) {
-
+                    $("#txt_driver_name").css("border", "1.2px solid red");
                     $("#txt_driver_name").focus();
-
+                    $("#txt_driver_name").keydown(function () {
+                        $(this).css("border", "1.2px solid skyblue");
+                    });
                 }
                 else if (vehical_number == "" || vehical_number == null) {
 
+                    $("#txt_vehical_number").css("border", "1.2px solid red");
 
                     $("#txt_vehical_number").focus();
+                    $("#txt_vehical_number").keydown(function () {
+                        $(this).css("border", "1.2px solid skyblue");
+                    });
                 }
                 else if (driver_number == "" || driver_number == null) {
 
+                    $("#txt_driver_number").css("border", "1.2px solid red");
 
                     $("#txt_driver_number").focus();
+                    $("#txt_driver_number").keydown(function () {
+                        $(this).css("border", "1.2px solid skyblue");
+                    });
                 }
                 else {
                     $.post("vehicle_master_do.php",
@@ -198,8 +257,10 @@ require_once('./header.php');
                             txt_driver_number: driver_number
                         }, function (data, status) {
                             if (status == "success") {
-                                alert("Vehicle Updated Successfully !....");
-                                window.location.replace("./vehicle_master_manage.php")
+                                // alert("Vehicle Updated Successfully !....");
+                                let message = "Vehicle Updated Successfully !....";
+                                window.location.replace("./vehicle_master_manage.php?message=" + message);
+                               
                             }
 
                         }

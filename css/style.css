@@ -1750,7 +1750,7 @@ body:not(.nav_small) .nav.nav-pills.nav-stacked.labels-info p {
 ================================================
 */
 .forms-sec .card {
-	padding: 10px 0px;
+	padding: 10px 5px;
 	border-radius: 2px;
 	background-color: #ffffff;
 	margin-bottom: 30px;
@@ -2964,4 +2964,23 @@ textarea{
     margin-top: 10px;
     border: 1px solid #d5dcec;
     display: block;
+}
+.notification {
+    position: fixed;
+    top: 75px;
+    right: 10px;
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 10px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease-in-out;
+    z-index: 9999;
+    cursor: pointer;
+    border-radius: 5px; /* Rounded corners */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Box shadow for depth */
+    max-width: 300px; /* Set a maximum width for the notification */
+    white-space: nowrap; /* Prevent text from wrapping */
+    overflow: hidden; /* Hide overflowing text */
+    text-overflow: ellipsis; /* Display ellipsis for long text */
 }
