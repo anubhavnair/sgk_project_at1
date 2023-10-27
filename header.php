@@ -42,8 +42,9 @@
                     <div class="right_bar_top d-flex align-items-center">
 
                       <!-- notification_Start -->
-                      <div class="dropdown dropdown-notification"> <a href="javascript:void(0)" class="dropdown-toggle"
-                          data-toggle="dropdown" data-hover="dropdown" data-close-others="true" aria-expanded="false">
+                      <div class="dropdown dropdown-notification" style="display:none;"> <a href="javascript:void(0)"
+                          class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true"
+                          aria-expanded="false">
                           <i class="fa fa-bell"></i> <span class="badge_coun"> 6 </span> </a>
                         <ul class="dropdown-menu scroll_auto height_fixed">
                           <li class="bigger">

@@ -122,9 +122,11 @@
       if (text_mobile_number == "" || text_mobile_number == null) {
         //    alert('Please Enter Your Registered Mobile Number !....');
         $("#text_mobile_number").css({ "border": "1px solid red" });
-        $("#text_mobile_number").focus(function () {
-          $("#text_mobile_number").css({ "border": "1px solid skyblue" });
+        $("#text_mobile_number").focus();
+        $("#text_mobile_number").keydown(function () {
+          $("#text_mobile_number").css({ "border": "1.2px solid skyblue" });
         });
+
 
 
 
@@ -132,36 +134,39 @@
         // alert("Please Enter Password !....")
         $("#pass_password").css({ "border": "1px solid red" });
 
-        $("#pass_password").focus(function () {
-          $("#pass_password").css({ "border": "1px solid skyblue" });
-
+        $("#pass_password").focus();
+        $("#pass_password").keydown(function () {
+          $("#pass_password").css({ "border": "1.2px solid skyblue" });
         });
+
       } else {
-        // alert(text_mobile_number); // Display the mobile number
-        // alert(pass_password);     // Display the password
         $.post("check_login.php", { mobile_number: text_mobile_number, password: pass_password }, function (data, status) {
           if (status == "success") {
 
             if (data == 1) {
               $("#text_mobile_number").css({ "border": "1px solid red" });
               $("#incorrect_mobile_number_promt").css("display", "block");
-              $("#text_mobile_number").focus(function () {
-                $("#text_mobile_number").css({ "border": "1px solid skyblue" });
+              $("#text_mobile_number").focus();
+              $("#text_mobile_number").keydown(function () {
+                $("#text_mobile_number").css({ "border": "1.2px solid skyblue" });
                 $("#incorrect_mobile_number_promt").css("display", "none");
 
 
-              });
+
+              })
 
 
             } else if (data == 2) {
               // when password is incorect 
               $("#pass_password").css({ "border": "1px solid red" });
               $("#incorrect_password_promt").css("display", "block");
-              $("#pass_password").focus(function () {
-                $("#pass_password").css({ "border": "1px solid skyblue" });
+              $("#pass_password").focus();
+              $("#pass_password").keydown(function () {
+                $("#pass_password").css({ "border": "1.2px solid skyblue" });
                 $("#incorrect_password_promt").css("display", "none");
 
-              });
+
+              })
 
             } else if (data == 3) {
               // when the all detail is fine then success messege 
