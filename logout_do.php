@@ -7,6 +7,5 @@ unset($_COOKIE["emp_id"]);
 
 ?>
 <script>
-    alert("Loged Out !....");
     window.location.replace("index.php");
 </script>
