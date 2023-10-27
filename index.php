@@ -60,7 +60,7 @@
                   <div>
                     <p style="text-align:center; padding-top:5px; padding-bottom:5px; background-color:lightgreen; font-weight:bold; display:none; color:black;"
                       id="success_promt">
-                      Login Successfull !....
+                      Login Successfully !....
                     </p>
                     <p style="text-align:center; padding-top:5px; padding-bottom:5px; background-color:lightcoral; font-weight:bold; display:none; color:black;"
                       id="incorrect_mobile_number_promt">
