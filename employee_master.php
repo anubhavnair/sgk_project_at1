@@ -11,6 +11,17 @@ if(isset($_REQUEST["edit_id"])){
 
 ?>
 <div class="content_wrapper bg_homebefore inner-wrapper forms-sec">
+<div>
+        <p style="text-align:center; padding-top:5px; padding-bottom:5px; background-color:lightgreen; font-weight:bold; display:none; color:black;"
+            id="success_promt">
+            Employee Added Successfully !....
+        </p>
+        <p style="text-align:center; padding-top:5px; padding-bottom:5px; background-color:lightgreen; font-weight:bold; display:none; color:black;"
+            id="update_promt">
+            Employee Data Updated Successfully !....
+        </p>
+
+    </div>
     <div class="container-fluid">
         <!-- Start Breadcrumbbar -->
         <div class="breadcrumbbar">
@@ -33,7 +44,7 @@ if(isset($_REQUEST["edit_id"])){
         <!-- state start-->
         <div class="row">
             <div class="col-md-12 grid-margin stretch-card">
-                <div class="card">
+                <div class="card p-3">
 
 
                     <?php
@@ -126,17 +137,39 @@ if(isset($_REQUEST["edit_id"])){
                     const emp_password = $("#text_employee_password").val();
                     if (emp_name == "" || emp_name == null) {
 
-                        $("#text_employee_name").focus();
+                        
+                        $("#text_employee_name").css("border", "1.2px solid red");
+                    $("#text_employee_name").focus();
+                    $("#text_employee_name").keydown(function () {
+                        $("#text_employee_name").css("border", "1.2px solid skyblue");
+
+                    });
                     }
                     else if (emp_mobile == "" || emp_mobile == null) {
 
-                        $("#text_employee_mobile_number").focus();
+                    
+
+                        $("#text_employee_mobile_number").css("border", "1.2px solid red");
+                    $("#text_employee_mobile_number").focus();
+                    $("#text_employee_mobile_number").keydown(function () {
+                        $("#text_employee_mobile_number").css("border", "1.2px solid skyblue");
+
+                    });
 
                     }
                     else if (emp_password == "" || emp_password == null) {
 
 
-                        $("#text_employee_password").focus();
+                        
+
+
+                        
+                        $("#text_employee_password").css("border", "1.2px solid red");
+                    $("#text_employee_password").focus();
+                    $("#text_employee_password").keydown(function () {
+                        $("#text_employee_password").css("border", "1.2px solid skyblue");
+
+                    });
                     } else {
                         $.post("employee_master_do.php",
                             {
@@ -145,8 +178,12 @@ if(isset($_REQUEST["edit_id"])){
                                 text_employee_password: emp_password
                             }, function (data, status) {
                                 if (status == "success") {
-                                    alert("Employee Added Successfully !....");
-                                    window.location.replace("./employee_master.php")
+                                    $("#success_promt").css("display", "block");
+
+                                setTimeout(function () {
+                                    $("#success_promt").css("display", "none");
+                                    location.reload();
+                                }, 1500);
                                 }
                             }
                         );
@@ -163,17 +200,38 @@ if(isset($_REQUEST["edit_id"])){
 
                     if (emp_name == "" || emp_name == null) {
 
-                        $("#text_employee_name").focus();
+                         
+                        $("#text_employee_name").css("border", "1.2px solid red");
+                    $("#text_employee_name").focus();
+                    $("#text_employee_name").keydown(function () {
+                        $("#text_employee_name").css("border", "1.2px solid skyblue");
+
+                    });
                     }
                     else if (emp_mobile == "" || emp_mobile == null) {
 
-                        $("#text_employee_mobile_number").focus();
+                        $("#text_employee_mobile_number").css("border", "1.2px solid red");
+                    $("#text_employee_mobile_number").focus();
+                    $("#text_employee_mobile_number").keydown(function () {
+                        $("#text_employee_mobile_number").css("border", "1.2px solid skyblue");
+
+                    });
 
                     }
                     else if (emp_password == "" || emp_password == null) {
 
 
-                        $("#text_employee_password").focus();
+                        
+                        
+                        $("#text_employee_password").css("border", "1.2px solid red");
+                    $("#text_employee_password").focus();
+                    $("#text_employee_password").keydown(function () {
+                        $("#text_employee_password").css("border", "1.2px solid skyblue");
+
+                    });
+
+                      
+                      
                     } else {
                         $.post("employee_master_do.php",
                             {   edit_id : updt_id,
@@ -182,8 +240,18 @@ if(isset($_REQUEST["edit_id"])){
                                 text_employee_password: emp_password
                             }, function (data, status) {
                                 if (status == "success") {
-                                    alert("Employee Data Updated Successfully !....");
-                                    window.location.replace("./employee_master_manage.php")
+                                    $("#update_promt").css("display", "block");
+
+setTimeout(function () {
+    $("#update_promt").css("display", "none");
+
+}, 1000);
+setTimeout(function () {
+    window.location.replace("./employee_master_manage.php")
+   
+
+
+}, 1002);
                                 }
                             }
                         );

@@ -46,7 +46,7 @@ if (isset($_REQUEST["edit_id"])) {
         <!-- state start-->
         <div class="row">
             <div class="col-md-12 grid-margin stretch-card">
-                <div class="card">
+                <div class="card p-3">
 
                     <?php
                     if (isset($_REQUEST["edit_id"])) {

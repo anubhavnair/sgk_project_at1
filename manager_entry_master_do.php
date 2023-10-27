@@ -38,8 +38,8 @@ if (isset($_REQUEST["del_id"])) {
 
     ?>
     <script>
-        alert("Data Deleted !....");
-        window.location.replace("./manager_entry_master_manage.php");
+
+        window.location.replace("./manager_entry_master_manage.php?res=3");
     </script>
     <?php
 }

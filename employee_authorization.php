@@ -9,7 +9,13 @@ $qry_get_module_data = $db->query("Select * from module_master") or die("");
 
 ?>
 <div class="content_wrapper bg_homebefore inner-wrapper forms-sec mr-auto">
+
+
+
+
     <div class="container-fluid">
+
+
         <!-- Start Breadcrumbbar -->
         <div class="breadcrumbbar">
             <!-- Start row -->
@@ -30,7 +36,25 @@ $qry_get_module_data = $db->query("Select * from module_master") or die("");
         <!-- End Breadcrumbbar -->
         <!-- state start-->
         <div class="row">
+
+
+
             <div class="col-md-12 grid-margin stretch-card">
+                <div>
+                    <p style="text-align:center; padding-top:5px; padding-bottom:5px; background-color:lightgreen; font-weight:bold; display:none; color:black;"
+                        id="success_promt">
+                        Employee Authorization Added Successfully !....
+                    </p>
+                    <p style="text-align:center; padding-top:5px; padding-bottom:5px; background-color:lightcoral; font-weight:bold; display:none; color:black;"
+                        id="select_module_promt">
+                        Please Select the Modules !....
+                    </p>
+                    <p style="text-align:center; padding-top:5px; padding-bottom:5px; background-color:lightcoral; font-weight:bold; display:none; color:black;"
+                        id="select_employee_promt">
+                        Please Select Employee !....
+                    </p>
+
+                </div>
                 <div class="card">
 
 
@@ -102,8 +126,13 @@ $qry_get_module_data = $db->query("Select * from module_master") or die("");
                     <button style="margin-top: 20px;" class="btn btn-primary mr-2" id="submit">Submit</button>
 
 
+
                 </div>
+
+
+
             </div>
+
 
 
         </div>
@@ -128,7 +157,15 @@ $qry_get_module_data = $db->query("Select * from module_master") or die("");
                     // getting the value of selected employee in the checkbox the value is employee's id whome we are getting
                     const select_emp_id = $("#select_emp").val();
                     if (select_emp_id == null || select_emp_id == "") {
-                        alert("Please Select Employee !.....")
+
+
+
+                        $("#select_employee_promt").css("display", "block");
+
+                        setTimeout(function () {
+                            $("#select_employee_promt").css("display", "none");
+
+                        }, 1000);
                     } else {
 
                         // now we are  geeting the authorization of employee which are in the checkbox 
@@ -139,7 +176,12 @@ $qry_get_module_data = $db->query("Select * from module_master") or die("");
                         });
 
                         if (checked_values.length == 0) {
-                            alert("Please Select the modules !.....");
+                            $("#select_module_promt").css("display", "block");
+
+                            setTimeout(function () {
+                                $("#select_module_promt").css("display", "none");
+
+                            }, 1000);
                         } else {
 
                             select_emp_id
@@ -154,8 +196,12 @@ $qry_get_module_data = $db->query("Select * from module_master") or die("");
                                 function (data, status) {
                                     if (status == "success") {
 
-                                        alert("Employee Authorization has been saved !...");
-                                        // alert(data);
+                                        $("#success_promt").css("display", "block");
+
+                                        setTimeout(function () {
+                                            $("#success_promt").css("display", "none");
+                                            location.reload();
+                                        }, 1000);
                                     }
                                 }
                             )

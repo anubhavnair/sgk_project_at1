@@ -6,6 +6,32 @@ $qry=$db->query("select * from employee_master") or die("");
 
 ?>
 <div class="content_wrapper bg_homebefore inner-wrapper forms-sec">
+
+<?php
+if(isset($_REQUEST["res"])){
+
+if($_REQUEST["res"]==3){
+?>
+<div>
+        <p style="text-align:center; padding-top:5px; padding-bottom:5px; background-color:lightcoral; font-weight:bold; display:block; color:black;"
+            id="delete_promt">
+            Employee Deleted Successfully !....
+        </p>
+
+
+</div>
+
+
+
+<?php
+}
+
+
+}
+?>
+
+
+
     <div class="container-fluid">
 
 
@@ -97,16 +123,27 @@ $i++;
         ?>
 
         <script>
+$(document).ready(function(){
+
+                $("#manage").on("click", function (e) {
+                    window.location.replace("./employee_master_manage.php");
+                })
+                $("#add").on("click", function (e) {
+                    window.location.replace("./employee_master.php");
+                })
+                $("#authorization").on("click", function (e) {
+                    window.location.replace("./employee_authorization.php");
+                })
 
 
-            $("#manage").on("click", function (e) {
-                window.location.replace("./employee_master_manage.php");
-            })
-            $("#add").on("click", function (e) {
-                window.location.replace("./employee_master.php");
-            })
-            $("#authorization").on("click", function (e) {
-                window.location.replace("./employee_authorization.php");
-            })
+                // deleting promt ko 1 sec bad display none krrhe ux increses 
+                setTimeout(function(){
+
+$("#delete_promt").css("display","none");
+
+
+},1000);
+
+})
          
         </script>

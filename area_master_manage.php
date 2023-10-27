@@ -9,6 +9,28 @@ $qry = $db->query("select * from area_master") or die("");
 ?>
 <div class="content_wrapper bg_homebefore inner-wrapper forms-sec">
     <div class="container-fluid">
+        <?php
+        if (isset($_REQUEST["res"])) {
+
+            if ($_REQUEST["res"] == 3) {
+                ?>
+                <div>
+                    <p style="text-align:center; padding-top:5px; padding-bottom:5px; background-color:lightcoral; font-weight:bold; display:block; color:black;"
+                        id="delete_promt">
+                        Area Deleted !....
+                    </p>
+
+
+                </div>
+
+
+
+                <?php
+            }
+
+
+        }
+        ?>
 
 
         <!-- Start Breadcrumbbar -->
@@ -117,16 +139,30 @@ $qry = $db->query("select * from area_master") or die("");
         ?>
         <script>
 
-            $("#manage").on("click", function (e) {
-                window.location.replace("./area_master_manage.php");
-            })
-            $("#add").on("click", function (e) {
-                window.location.replace("./area_master.php");
-            })
-            $("#filter_icon").on("click", function (e) {
+            $(document).ready(function () {
 
-                $(".filter_section").slideToggle();
 
-            });
+
+
+                $("#manage").on("click", function (e) {
+                    window.location.replace("./area_master_manage.php");
+                })
+                $("#add").on("click", function (e) {
+                    window.location.replace("./area_master.php");
+                })
+                $("#filter_icon").on("click", function (e) {
+
+                    $(".filter_section").slideToggle();
+
+                });
+                setTimeout(function () {
+
+                    $("#delete_promt").css("display", "none");
+
+
+                }, 1000);
+
+            })
+
 
         </script>

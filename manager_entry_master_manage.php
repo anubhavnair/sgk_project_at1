@@ -13,6 +13,30 @@ $qry = $db->query("select * from manager_entry_master") or die("");
 ?>
 <div class="content_wrapper bg_homebefore inner-wrapper forms-sec">
 
+    <?php
+    if (isset($_REQUEST["res"])) {
+
+        if ($_REQUEST["res"] == 3) {
+            ?>
+            <div>
+                <p style="text-align:center; padding-top:5px; padding-bottom:5px; background-color:lightcoral; font-weight:bold; display:block; color:black;"
+                    id="delete_promt">
+                    Entry Deleted !....
+                </p>
+
+
+            </div>
+
+
+
+            <?php
+        }
+
+
+    }
+    ?>
+
+
     <div class="container-fluid">
         <!-- filter section start  -->
 
@@ -20,23 +44,14 @@ $qry = $db->query("select * from manager_entry_master") or die("");
                 stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"></path>
             </svg>Click to Filter</span>
-        <div class="row filter_section d-flex justify-content-center " style="display:block; 
-        background:#fff;
-        margin:1px;
-        padding-top:15px;
-        padding-bottom:15px;
-        border-radius:2pxpx;
-        background-color:#ffffff;
-        border:1px solid #d5dcec;
-        margin-top:10px;">
-
+        <div class="row filter_section" style="display: none;">
 
             <div class="col-md-12">
                 <label>Enter Date</label>
                 <input type="date" name='dt_start_date' id='dt_start_date' class="form-control">
 
             </div>
-            <div class="ml-auto mr-auto">
+            <div class="ml-auto mr-auto d-flex justify-content-center">
 
                 <button id="search" class="btn btn-primary ml-auto mr-auto mt-1 text-center">Search</button>
             </div>
