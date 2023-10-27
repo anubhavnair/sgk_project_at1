@@ -4,16 +4,10 @@ include("./header.php");
 include("./root/dbconnection.php");
 
 
-if (isset($_REQUEST["filter_by_date"])) {
 
-    $filter_by_date = $_REQUEST["filter_by_date"];
 
-    $qry = $db->query("SELECT * FROM manager_entry_master WHERE select_date = '$filter_by_date'") or die("");
+$qry = $db->query("select * from manager_entry_master") or die("");
 
-} else {
-
-    $qry = $db->query("select * from manager_entry_master") or die("");
-}
 
 
 
@@ -33,13 +27,26 @@ if (isset($_REQUEST["filter_by_date"])) {
                 stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"></path>
             </svg>Click to Filter</span>
-        <div class="row filter_section" style="display:none;">
+        <div class="row filter_section d-flex justify-content-center " style="display:block; 
+        background:#fff;
+        margin:1px;
+        padding-top:15px;
+        padding-bottom:15px;
+        border-radius:2pxpx;
+        background-color:#ffffff;
+        border:1px solid #d5dcec;
+        margin-top:10px;">
+
+
             <div class="col-md-12">
                 <label>Enter Date</label>
                 <input type="date" name='dt_start_date' id='dt_start_date' class="form-control">
 
             </div>
-            <button id="search" class="btn btn-primary ml-auto mr-auto mt-1">Search</button>
+            <div class="ml-auto mr-auto">
+
+                <button id="search" class="btn btn-primary ml-auto mr-auto mt-1 text-center">Search</button>
+            </div>
         </div>
 
         <!-- filter section end  -->
@@ -70,7 +77,7 @@ if (isset($_REQUEST["filter_by_date"])) {
             <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
 
-                    <div class="table-responsive-xl">
+                    <div class="table-responsive-xl manage_table_div">
                         <table class="table text-center ">
                             <thead>
                                 <tr>
@@ -167,9 +174,14 @@ if (isset($_REQUEST["filter_by_date"])) {
                         $("$dt_start_date").focus();
                     } else {
 
-                        // $.post("manager_entry_master_manager.php", { filter_by_date: filter_date }, function (data, status) { }) this is working but piche jakar ye vps aja rha isliye reflection dikh nahi rha hai so we have to use another technique
+                        $.post("manager_entry_master_do.php", { filter_by_date: filter_date }, function (data, status) {
 
-                        window.location.replace("manager_entry_master_manage.php?filter_by_date=" + filter_date);
+
+                            if (status == "success") {
+                                $(".manage_table_div").html(data);
+                            }
+                        })
+                        // window.location.replace("manager_entry_master_manage.php?filter_by_date=" + filter_date);
                     }
 
                 });
