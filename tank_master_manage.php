@@ -63,7 +63,7 @@ $i = 1;
     <!-- End Breadcrumbbar -->
     <div class="notification" id="myNotification">
 
-</div>
+    </div>
     <!-- state start-->
     <div class="row">
       <div class="col-md-12 grid-margin stretch-card">
@@ -196,6 +196,10 @@ $i = 1;
     });
     const urlParams = new URLSearchParams(window.location.search);
     let message = urlParams.get("message");
+    let color = urlParams.get("color");
+    if (color) {
+      notification.css("background-color", color)
+    }
     if (message) {
       showNotification(message);
     }

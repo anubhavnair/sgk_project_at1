@@ -124,6 +124,10 @@ $qry = $db->query("select * from vehicle_master") or die("");
                 notification.css("opacity", "1");
                 notification.css("pointer-events", "auto");
                 notification.html(message);
+                let color = urlParams.get("color");
+                if (color) {
+                    notification.css("background-color",color )
+                }
                 setTimeout(function () {
                     hideNotification();
                 }, 2000); // Auto-close after 2 seconds
@@ -136,8 +140,10 @@ $qry = $db->query("select * from vehicle_master") or die("");
             }
             const urlParams = new URLSearchParams(window.location.search);
             let message = urlParams.get("message");
+            let color = urlParams.get("color");
             if (message) {
                 showNotification(message);
             }
+
 
         </script>

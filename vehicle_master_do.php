@@ -42,7 +42,8 @@ if (isset($_REQUEST["del_id"])) {
     ?>
     <script>
         let message = "Vehicle Deleted Successfully";
-        window.location.replace("./vehicle_master_manage.php?message="+message);
+        let color = "red";
+        window.location.replace("./vehicle_master_manage.php?message="+message+"&color="+color);
     </script>
     <?php
 }

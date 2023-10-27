@@ -249,6 +249,10 @@ require_once("./root/dbconnection.php");
           var notification = $("#myNotification");
           notification.css("opacity", "1");
           notification.css("pointer-events", "auto");
+          let color = urlParams.get("color");
+                if (color) {
+                    notification.css("background-color",color )
+                }
           notification.html(message);
           setTimeout(function () {
             hideNotification();
