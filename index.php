@@ -1,3 +1,15 @@
+<?php
+if (isset($_COOKIE["emp_name"]) || isset($_COOKIE["emp_id"]) || isset($_COOKIE["emp_mono"])) {
+  ?>
+
+  <script>
+    window.location.replace("home_page.php");
+  </script>
+
+  <?php
+}
+
+?>
 <!doctype html>
 <html>
 

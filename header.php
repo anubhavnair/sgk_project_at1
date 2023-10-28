@@ -106,7 +106,7 @@
                             </div>
                           </li>
 
-                          <li> <a href="#"> <i class="icon-settings"></i> Settings </a> </li>
+                          <!-- <li> <a href="#"> <i class="icon-settings"></i> Settings </a> </li> -->
                           <li> <a href="logout_do.php"> <i class="icon-logout"></i> Log Out </a> </li>
                         </ul>
                       </div>
