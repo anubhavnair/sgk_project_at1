@@ -85,7 +85,7 @@ $qry = $db->query("select * from manager_entry_master") or die("");
             <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
 
-                    <div class="table-responsive-xl data_table_div">
+                    <div class="table-responsive-xl data_table_div ">
 
                     </div>
                 </div>
@@ -114,17 +114,17 @@ $qry = $db->query("select * from manager_entry_master") or die("");
 
                     if (filter_date == "" || filter_date == null) {
                         alert("Please Select a date first");
-                        $("$dt_start_date").focus();
+                        $("#dt_start_date").focus();
                     } else {
 
                         $.post("manager_entry_master_do.php", { filter_by_date: filter_date }, function (data, status) {
 
 
                             if (status == "success") {
-                                $(".manage_table_div").html(data);
+                                $(".data_table_div").html(data);
                             }
                         })
-                        // window.location.replace("manager_entry_master_manage.php?filter_by_date=" + filter_date);
+
                     }
 
                 });

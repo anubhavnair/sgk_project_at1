@@ -51,7 +51,7 @@ if (isset($_REQUEST["del_id"])) {
 if (isset($_REQUEST["filter_by_date"])) {
     $filter_by_date = $_REQUEST["filter_by_date"];
 
-    $qry = $db->query("SELECT * FROM manager_entry_master WHERE select_date = '$filter_by_date'") or die("");
+    $qry = $db->query("SELECT * FROM manager_entry_master WHERE select_date = '$filter_by_date' LIMIT ") or die("");
 
     ?>
 
