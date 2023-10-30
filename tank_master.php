@@ -121,89 +121,96 @@ require_once("./root/dbconnection.php");
               </section>
               <div class="d-flex flex-col pl-3">
                 <button type="submit" id="update" class="btn btn-warning mr-2">Update</button>
-                <button type="button" id="preview" class="btn btn-primary mr-2 ">Preview</button>
-              </div>
-              <?php
+                <div class="popup">
+                  <button type="button" id="preview" class="btn btn-primary mr-2 mb-2">Preview</button>
+                  <span class="popuptext" id="myPopup"></span>
+                </div>
+                <?php
             } else {
               ?>
-              <section class=" d-flex align-items-center col-12 p-0 ">
-                <div class="form-group col-md-6">
-                  <!-- Content for the first div -->
-                </div>
-                <div class="form-group col-md-6">
-                  <input type="text" class="form-control m-0" name="txt_enter_date" id="txt_enter_date" readonly>
-                </div>
-              </section>
-
-
-              <section class="d-flex align-items-center col-12 p-0">
-                <div class="form-group col-md-6 d-flex flex-column justify-content-end">
-                  <label for="txt_select_area" class="col-form-label col-md-4 pl-0 pr-0">Select Area</label>
-                  <div class="col-md-12 p-0">
-                    <select class="form-control custom-select p-1" name="txt_select_area" id="txt_select_area">
-                      <?php
-                      $qry2 = $db->query("SELECT * FROM `area_master`") or die("");
-                      while ($rowArea = $qry2->fetch(PDO::FETCH_ASSOC)) {
-                        $selected = ($rowArea['id'] == $row['area_id']) ? 'selected' : '';
-                        ?>
-                        <option value="<?= $rowArea['id'] ?>" <?= $selected ?>>
-                          <?= $rowArea['area_name'] ?>
-                        </option>
-                        <?php
-                      }
-                      ?>
-                    </select>
+                <section class=" d-flex align-items-center col-12 p-0 ">
+                  <div class="form-group col-md-6">
+                    <!-- Content for the first div -->
                   </div>
-
-                </div>
-                <div class="form-group col-md-6 d-flex flex-column justify-content-end">
-                  <label for="txt_opening_meter pe-0">Opening meter</label>
-                  <input type="text" class="form-control" name="txt_opening_meter" id="txt_opening_meter"
-                    placeholder="Enter Opening Meter">
-                </div>
-              </section>
-
-              <section class="d-flex align-items-center col-12 p-0">
-                <div class="form-group col-md-6">
-                  <label for="txt_total_refill">Total Refill</label>
-                  <input type="text" class="form-control" name="txt_total_refill" id="txt_total_refill"
-                    placeholder="Enter Total Refill">
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="txt_closing_meter">Closing meter</label>
-                  <input type="text" class="form-control" name="txt_closing_meter" id="txt_closing_meter"
-                    placeholder="Enter Closing Meter">
-                </div>
-              </section>
+                  <div class="form-group col-md-6">
+                    <input type="text" class="form-control m-0" name="txt_enter_date" id="txt_enter_date" readonly>
+                  </div>
+                </section>
 
 
-              <div class="form-group col-md-12">
-                <label for="txt_desel_out">Desel out</label>
-                <input type="text" class="form-control" id="txt_desel_out" name="txt_desel_out"
-                  placeholder="Enter Desel Out">
-              </div>
-              <div class="form-group col-md-12">
-                <label for="txt_description">Description</label>
-                <textarea class="form-control" id="txt_description" name="txt_description"
-                  placeholder="Enter Description"></textarea>
-              </div>
+                <section class="d-flex align-items-center col-12 p-0">
+                  <div class="form-group col-md-6 d-flex flex-column justify-content-end">
+                    <label for="txt_select_area" class="col-form-label col-md-4 pl-0 pr-0">Select Area</label>
+                    <div class="col-md-12 p-0">
+                      <select class="form-control custom-select p-1" name="txt_select_area" id="txt_select_area">
+                        <?php
+                        $qry2 = $db->query("SELECT * FROM `area_master`") or die("");
+                        while ($rowArea = $qry2->fetch(PDO::FETCH_ASSOC)) {
+                          $selected = ($rowArea['id'] == $row['area_id']) ? 'selected' : '';
+                          ?>
+                          <option value="<?= $rowArea['id'] ?>" <?= $selected ?>>
+                            <?= $rowArea['area_name'] ?>
+                          </option>
+                          <?php
+                        }
+                        ?>
+                      </select>
+                    </div>
 
-              <section class="d-flex align-items-center col-md-12 p-0">
-                <div class="form-group col-md-6">
-                  <label for="txt_dip">DIP</label>
-                  <input type="text" class="form-control" id="txt_dip" name="txt_dip" placeholder="Enter DIP">
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="txt_banance">Balance</label>
-                  <input type="text" class="form-control" id="txt_banance" name="txt_banance" placeholder="Enter Banance">
-                </div>
-              </section>
-              <div class="d-flex flex-col pl-3">
+                  </div>
+                  <div class="form-group col-md-6 d-flex flex-column justify-content-end">
+                    <label for="txt_opening_meter pe-0">Opening meter</label>
+                    <input type="text" class="form-control" name="txt_opening_meter" id="txt_opening_meter"
+                      placeholder="Enter Opening Meter">
+                  </div>
+                </section>
 
-                <button type="submit" id="submit" class="btn btn-success mr-2">Submit</button>
-                <button type="button" id="preview" class="btn btn-primary mr-2">Preview</button>
-              </div>
-              <?php
+                <section class="d-flex align-items-center col-12 p-0">
+                  <div class="form-group col-md-6">
+                    <label for="txt_total_refill">Total Refill</label>
+                    <input type="text" class="form-control" name="txt_total_refill" id="txt_total_refill"
+                      placeholder="Enter Total Refill">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="txt_closing_meter">Closing meter</label>
+                    <input type="text" class="form-control" name="txt_closing_meter" id="txt_closing_meter"
+                      placeholder="Enter Closing Meter">
+                  </div>
+                </section>
+
+
+                <div class="form-group col-md-12">
+                  <label for="txt_desel_out">Desel out</label>
+                  <input type="text" class="form-control" id="txt_desel_out" name="txt_desel_out"
+                    placeholder="Enter Desel Out">
+                </div>
+                <div class="form-group col-md-12">
+                  <label for="txt_description">Description</label>
+                  <textarea class="form-control" id="txt_description" name="txt_description"
+                    placeholder="Enter Description"></textarea>
+                </div>
+
+                <section class="d-flex align-items-center col-md-12 p-0">
+                  <div class="form-group col-md-6">
+                    <label for="txt_dip">DIP</label>
+                    <input type="text" class="form-control" id="txt_dip" name="txt_dip" placeholder="Enter DIP">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="txt_banance">Balance</label>
+                    <input type="text" class="form-control" id="txt_banance" name="txt_banance"
+                      placeholder="Enter Banance">
+                  </div>
+                </section>
+                <div class="d-flex flex-col pl-3">
+
+                  <button type="submit" id="submit" class="btn btn-success mr-2">Submit</button>
+
+                  <div class="popup">
+                    <button type="button" id="preview" class="btn btn-primary mr-2">Preview</button>
+                    <span class="popuptext" id="myPopup"></span>
+                  </div>
+                </div>
+                <?php
             }
             ?>
           </form>
@@ -218,6 +225,16 @@ require_once("./root/dbconnection.php");
   <script>
 
     $(document).ready(function () {
+      // TAKING PREVIEW DATA FROM THE DATABASE 
+      $.post("tank_master_do.php", {
+        preview: "preview"
+      }, function (data, status) {
+        if (status === "success") {
+          $("#myPopup").html(data);
+        }
+      }
+      );
+
       $("#add").on("click", function (e) {
         window.location.replace("./tank_master.php");
       })
@@ -229,6 +246,8 @@ require_once("./root/dbconnection.php");
         $(".filter_section").slideToggle();
 
       });
+
+
 
 
       // Get the current date
@@ -366,7 +385,7 @@ require_once("./root/dbconnection.php");
               if (status == "success") {
                 // alert("New Record Added Successfully !....");
                 let message = "New Record Added Successfully !....";
-                window.location.replace("./tank_master.php?message="+message);
+                window.location.replace("./tank_master.php?message=" + message);
               }
 
             }
@@ -473,12 +492,19 @@ require_once("./root/dbconnection.php");
               if (status == "success") {
                 // alert("Record Updated Successfully !....");
                 let message = "Record Updated Successfully !....";
-                window.location.replace("./tank_master_manage.php?message="+message)
+                window.location.replace("./tank_master_manage.php?message=" + message)
               }
 
             }
           );
         }
+
+      })
+
+      // POPUP SECTION 
+      $("#preview").on("click", function (e) {
+        var popup = document.getElementById("myPopup");
+        popup.classList.toggle("show");
 
       })
     });

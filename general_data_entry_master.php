@@ -24,7 +24,7 @@ require_once("./root/dbconnection.php");
     <!-- End Breadcrumbbar -->
     <div class="notification" id="myNotification">
 
-        </div>
+    </div>
     <!-- state start-->
     <div class="row">
       <div class="col-md-12 grid-margin stretch-card">
@@ -122,8 +122,10 @@ require_once("./root/dbconnection.php");
               </div>
               <div class="d-flex col-8">
                 <button type="submit" id="update" class="btn btn-warning mr-2 mb-2 ">Update</button>
-                <button type="button" id="preview" class="btn btn-primary mr-2 mb-2">Preview</button>
-              </div>
+                <div class="popup">
+                  <button type="button" id="preview" class="btn btn-primary mr-2 mb-2">Preview</button>
+                  <span class="popuptext" id="myPopup"></span>
+                </div>
               <?php
             } else {
               ?>
@@ -203,7 +205,11 @@ require_once("./root/dbconnection.php");
               </div>
               <div class="d-flex col-8">
                 <button type="submit" id="submit" class="btn btn-success mr-2 mb-2">Submit</button>
-                <button type="button" id="preview" class="btn btn-primary mr-2 mb-2">Preview</button>
+                <div class="popup">
+                  <button type="button" id="preview" class="btn btn-primary mr-2 mb-2">Preview</button>
+                  <span class="popuptext" id="myPopup"></span>
+                </div>
+
               </div>
               <?php
             }
@@ -217,7 +223,18 @@ require_once("./root/dbconnection.php");
     include("./footer.php");
     ?>
     <script>
+
       $(document).ready(function () {
+
+        // TAKING PREVIEW DATA FROM THE DATABASE 
+        $.post("general_data_entry_master_do.php", {
+          preview: "preview"
+        }, function (data, status) {
+          if (status === "success") {
+            $("#myPopup").html(data);
+          }
+        }
+        );
 
         $("#add").on("click", function (e) {
           window.location.replace("./general_data_entry_master.php");
@@ -243,6 +260,7 @@ require_once("./root/dbconnection.php");
         // Set the value of the input to the current date
         $('#txt_enter_date').val(formattedDate);
 
+
         // notification section
 
         function showNotification(message) {
@@ -250,9 +268,9 @@ require_once("./root/dbconnection.php");
           notification.css("opacity", "1");
           notification.css("pointer-events", "auto");
           let color = urlParams.get("color");
-                if (color) {
-                    notification.css("background-color",color )
-                }
+          if (color) {
+            notification.css("background-color", color)
+          }
           notification.html(message);
           setTimeout(function () {
             hideNotification();
@@ -273,6 +291,10 @@ require_once("./root/dbconnection.php");
         if (message) {
           showNotification(message);
         }
+
+
+
+
         // FORM VALIDATION SECTION 
         $("#submit").on("click", function (e) {
           e.preventDefault();
@@ -552,6 +574,12 @@ require_once("./root/dbconnection.php");
             }
             );
           }
+
+        })
+        // POPUP SECTION 
+        $("#preview").on("click", function (e) {
+          var popup = document.getElementById("myPopup");
+          popup.classList.toggle("show");
 
         })
 
