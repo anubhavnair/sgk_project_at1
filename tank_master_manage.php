@@ -67,9 +67,9 @@ $i = 1;
     <!-- state start-->
     <div class="row">
       <div class="col-md-12 grid-margin stretch-card">
-        <div class="card">
+        <div class="card" >
           <!-- <h4 class="header-title ml-2">Tank Details</h4> -->
-          <div class="table-responsive-xl">
+          <div class="table-responsive-xl" id="details_table_body">
             <table class="table">
               <thead>
                 <tr>
@@ -86,10 +86,34 @@ $i = 1;
                   <th scope="col">Operations</th>
                 </tr>
               </thead>
-              <tbody id="details_table_body">
+              <tbody>
                 <?php
+                $limit = 20;
 
-                $qry = $db->query("select * from `tank_entry_master`") or die("");
+                $getQuery = "select * from tank_entry_master";
+
+                $qry2 = $db->query($getQuery);
+
+                $total_rows = $qry2->rowCount(); // Use rowCount to get the number of rows
+                
+                // Get the required number of pages
+                $total_pages = ceil($total_rows / $limit);
+
+                // Update the active page number
+                if (!isset($_GET['page'])) {
+                  $page_number = 1;
+                } else {
+                  $page_number = $_GET['page'];
+                }
+
+                // Get the initial page number
+                $initial_page = ($page_number - 1) * $limit;
+
+                // Get data of selected rows per page
+                $getQuery = "SELECT * FROM tank_entry_master LIMIT " . $initial_page . ',' . $limit;
+
+                $qry = $db->query($getQuery) or die("");
+
 
                 while ($row = $qry->fetch(PDO::FETCH_ASSOC)) {
                   $id = $row['id'];
@@ -151,6 +175,19 @@ $i = 1;
                 ?>
               </tbody>
             </table>
+            <div class='pages'>
+            <?php
+            // show page number with link   
+            
+            for ($page_number = 1; $page_number <= $total_pages; $page_number++) {
+              
+              echo '<a href = "tank_master_manage.php?page=' . $page_number . '">' . $page_number . ' </a>';
+              
+            }
+            ?>
+            </div>
+          </div>
+          <div class='pages'>
           </div>
         </div>
       </div>
@@ -161,74 +198,174 @@ $i = 1;
   ?>
   <script>
 
+    $(document).ready(function () {
+      $("#add").on("click", function (e) {
+        window.location.replace("./tank_master.php");
+      })
+      $("#manage").on("click", function (e) {
+        window.location.replace("./tank_master_manage.php");
+      })
+      $("#filter_icon").on("click", function (e) {
 
-    $("#add").on("click", function (e) {
-      window.location.replace("./tank_master.php");
-    })
-    $("#manage").on("click", function (e) {
-      window.location.replace("./tank_master_manage.php");
-    })
-    $("#filter_icon").on("click", function (e) {
+        $(".filter_section").slideToggle();
 
-      $(".filter_section").slideToggle();
+      });
+      // notification section
 
-    });
-    // notification section
-
-    function showNotification(message) {
-      var notification = $("#myNotification");
-      notification.css("opacity", "1");
-      notification.css("pointer-events", "auto");
-      notification.html(message);
-      setTimeout(function () {
-        hideNotification();
-      }, 2000); // Auto-close after 2 seconds
-    }
-
-    function hideNotification() {
-      var notification = $("#myNotification");
-      notification.css("opacity", "0");
-      notification.css("pointer-events", "none");
-    }
-
-    $(document).on('click', function () {
-      hideNotification();
-    });
-    const urlParams = new URLSearchParams(window.location.search);
-    let message = urlParams.get("message");
-    let color = urlParams.get("color");
-    if (color) {
-      notification.css("background-color", color)
-    }
-    if (message) {
-      showNotification(message);
-    }
-    // search logic 
-    $('#search').on("click", function (e) {
-      e.preventDefault();
-      const start_date = $("#date_start_date").val();
-      const end_date = $("#date_end_date").val();
-
-      if ((start_date != "") || (end_date != "")) {
-        $.post("tank_master_do.php", {
-          start_date: start_date,
-          end_date: end_date,
-        }, function (data, status) {
-          if (status === "success") {
-
-            $("#details_table_body").html(data);
-
-          }
-        }).fail(function (xhr, status, error) {
-
-        });
+      function showNotification(message) {
+        var notification = $("#myNotification");
+        notification.css("opacity", "1");
+        notification.css("pointer-events", "auto");
+        notification.html(message);
+        setTimeout(function () {
+          hideNotification();
+        }, 2000); // Auto-close after 2 seconds
       }
 
+      function hideNotification() {
+        var notification = $("#myNotification");
+        notification.css("opacity", "0");
+        notification.css("pointer-events", "none");
+      }
 
+      $(document).on('click', function () {
+        hideNotification();
+      });
+      const urlParams = new URLSearchParams(window.location.search);
+      let message = urlParams.get("message");
+      let color = urlParams.get("color");
+      if (color) {
+        notification.css("background-color", color)
+      }
+      if (message) {
+        showNotification(message);
+      }
+      // search logic 
+      $('#search').on("click", function (e) {
+        e.preventDefault();
+        const start_date = $("#date_start_date").val();
+        const end_date = $("#date_end_date").val();
 
+        // Check if at least one of the date inputs is not empty
+        if (start_date !== "" || end_date !== "") {
+          $.post("tank_master_do.php", {
+            start_date: start_date,
+            end_date: end_date,
+          }, function (data, status) {
+            if (status === "success") {
+             $("#details_table_body").html(data);
+              searchButton();
+            }
+          }).fail(function (xhr, status, error) {
+            console.log(error);
+          });
+        }
+      });
 
-      // window.location.href = "tank_master_manage.php?start_date=" + start_date + "&end_date=" + end_date;
+      // SEARCH PAGINATION LOGIC
+      // Event delegation for the "Previous" button
+$('.pages').on("click", "#previous", function () {
+    var page_number = parseInt($("#page_number").val()) - 1;
+    if (page_number < 1) {
+        return; // Prevent going to negative page numbers
+    }
+    const start_date = $("#date_start_date").val();
+    const end_date = $("#date_end_date").val();
 
+    $.post("tank_master_do.php", {
+        page: page_number,
+        start_date: start_date,
+        end_date: end_date
+    }, function (data, status) {
+        if (status === "success") {
+            $("#details_table_body").html(data);
+        }
+    }).fail(function (xhr, status, error) {
+        console.log(error);
+    });
+});
+
+      // $('#previous').on("click", function () {
+      //   var page_number = parseInt($("#page_number").val()) - 1;
+      //   if (page_number < 1) {
+      //     return; // Prevent going to negative page numbers
+      //   }
+      //   const start_date = $("#date_start_date").val();
+      //   const end_date = $("#date_end_date").val();
+
+      //   $.post("tank_master_do.php", {
+      //     page: page_number,
+      //     start_date: start_date,
+      //     end_date: end_date
+      //   }, function (data, status) {
+      //     if (status === "success") {
+      //       $("#details_table_body").html(data);
+      //     }
+      //   }).fail(function (xhr, status, error) {
+      //     console.log(error);
+      //   });
+      // });
+
+      $('#next').on("click", function () {
+        console.log("bhai")
+        var page_number = parseInt($("#page_number").val()) + 1;
+        const start_date = $("#date_start_date").val();
+        const end_date = $("#date_end_date").val();
+
+        $.post("tank_master_do.php", {
+          page: page_number,
+          start_date: start_date,
+          end_date: end_date
+        }, function (data, status) {
+          if (status === "success") {
+            $("#details_table_body").html(data);
+          }
+        }).fail(function (xhr, status, error) {
+          console.log(error);
+        });
+      });
+// Event delegation for the "Next" button
+$('.pages').on("click", "#next", function () {
+    console.log("bhai");
+    var page_number = parseInt($("#page_number").val()) + 1;
+    const start_date = $("#date_start_date").val();
+    const end_date = $("#date_end_date").val();
+
+    $.post("tank_master_do.php", {
+        page: page_number,
+        start_date: start_date,
+        end_date: end_date
+    }, function (data, status) {
+        if (status === "success") {
+            $("#details_table_body").html(data);
+        }
+    }).fail(function (xhr, status, error) {
+        console.log(error);
+    });
+});
+
+// FUNCTION FOR DYNAMICALLY CREATE BUTTON FOR SEARCH PAGINATION 
+function searchButton() {
+    // Create the "Previous" button
+    var previousButton = $('<button>', {
+        'type': 'button',
+        'class': 'btn btn-primary mr-2',
+        'id': 'previous',
+        'text': '<< Pre'
     });
 
+    // Create the "Next" button
+    var nextButton = $('<button>', {
+        'type': 'button',
+        'class': 'btn btn-primary mr-2',
+        'id': 'next',
+        'text': 'Next >>'
+    });
+
+    // Append the buttons to a container element (e.g., a div with class="pages")
+    $('.pages').append(previousButton, nextButton);
+}
+
+
+    });
   </script>
