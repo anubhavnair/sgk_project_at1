@@ -95,7 +95,7 @@ $qry = $db->query("select * from employee_master") or die("");
                 $(document).ready(function () {
                     function loadTable(page) {
                         $.ajax({
-                            url: "module_master_manage_do.php",
+                            url: "employee_master_manage_do.php",
                             type: "POST",
                             data: { page_no: page },
                             success: function (data) {
