@@ -131,7 +131,10 @@ $i = 1;
                 $initial_page = ($page_number - 1) * $limit;
 
                 // Get data of selected rows per page
-                $getQuery = "SELECT * FROM general_data_entry_master LIMIT $initial_page,$limit";
+                $getQuery = "SELECT * FROM general_data_entry_master
+            ORDER BY STR_TO_DATE(general_date, '%Y-%m-%d') DESC
+            LIMIT $initial_page, $limit";
+
 
                 $qry = $db->query($getQuery) or die("");
 

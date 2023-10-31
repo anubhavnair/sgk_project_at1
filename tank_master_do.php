@@ -218,7 +218,7 @@ else if (isset($_REQUEST["del_id"])) {
                                                         <?php
 } else if (isset($_REQUEST['preview'])) {
         ?>
-                                                                                                                                                                                                                                                                                        <table class="table" style="color:#ffffff;">
+                                                                                                                                                                                                                                                                                        <table class="table">
                                                                                                                                                                                                                                                                                                 <thead>
                                                                                                                                                                                                                                                                                                         <tr>
                                                                                                                                                                                                                                                                                                                 <th scope="col">S.no</th>
@@ -236,8 +236,8 @@ else if (isset($_REQUEST["del_id"])) {
                                                                                                                                                                                                                                                                                                 <tbody id="details_table_body">
                                                                                                                                 <?php
 
-                                                                                                                                $qry = $db->query("select * from `tank_entry_master`") or die("");
-                                                                                                                                $i = 1;
+                                                                                                                                $qry = $db->query("select * from `tank_entry_master` ORDER BY STR_TO_DATE(tank_entry_date, '%Y-%m-%d') DESC LIMIT 0,14") or die("");
+                                                                                                                                $i = 2;
                                                                                                                                 while ($row = $qry->fetch(PDO::FETCH_ASSOC)) {
                                                                                                                                         $id = $row['id'];
                                                                                                                                         $area_id = $row['area_id'];

@@ -206,12 +206,12 @@ else if (isset($_REQUEST["start_date"]) && isset($_REQUEST["end_date"]) && isset
                         $i++;
                 }
                 ?>
- <input type="hidden" id="page_number" name="page_number" value="<?= $page_number ?>">
+                                <input type="hidden" id="page_number" name="page_number" value="<?= $page_number ?>">
 
         <?php
 } else if (isset($_REQUEST['preview'])) {
         ?>
-                                        <table class="table" style="color:#ffffff;">
+                                        <table class="table">
                                                 <thead>
                                                         <tr>
                                                                 <th scope="col">S.no</th>
@@ -232,9 +232,10 @@ else if (isset($_REQUEST["start_date"]) && isset($_REQUEST["end_date"]) && isset
                                                 <tbody id="details_table_body">
                                 <?php
 
-                                $qry = $db->query("select * from `general_data_entry_master`") or die("");
+                                $qry = $db->query("SELECT * FROM `general_data_entry_master` ORDER BY STR_TO_DATE(general_date, '%Y-%m-%d') DESC LIMIT 0,14") or die("");
 
-                                $i=1;
+
+                                $i = 2;
                                 while ($row = $qry->fetch(PDO::FETCH_ASSOC)) {
                                         $id = $row['id'];
                                         $vehicle_id = $row['vehical_id'];
