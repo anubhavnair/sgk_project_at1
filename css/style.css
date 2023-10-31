@@ -3053,3 +3053,10 @@ textarea{
     border: 2px solid black;
     margin-left: 5px;
   }
+  .pages a:active{
+	background-color: #0442ba;
+  }
+
+  .pages a:visited{
+	background-color: #1087e2;
+  }

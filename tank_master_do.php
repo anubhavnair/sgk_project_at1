@@ -62,8 +62,10 @@ else if (isset($_REQUEST["del_id"])) {
         // Update the active page number
         if (!isset($_REQUEST['page'])) {
                 $page_number = 1;
+                $i = 1;
         } else {
                 $page_number = $_REQUEST['page'];
+                $i = $limit * ($page_number - 1) + 1;
         }
         if (($_REQUEST["start_date"]) != "" && ($_REQUEST["end_date"]) != "") {
 
@@ -82,8 +84,8 @@ else if (isset($_REQUEST["del_id"])) {
                 $initial_page = ($page_number - 1) * $limit;
 
                 // Get data of selected rows per page
-                $getQuery = "SELECT * FROM tank_entry_master WHERE 
-    STR_TO_DATE(tank_entry_date, '%Y-%m-%d') BETWEEN STR_TO_DATE('$start_date', '%Y-%m-%d') AND STR_TO_DATE('$end_date', '%Y-%m-%d') LIMIT $initial_page , $limit";
+                $qry = $db->query("SELECT * FROM tank_entry_master WHERE 
+    STR_TO_DATE(tank_entry_date, '%Y-%m-%d') BETWEEN STR_TO_DATE('$start_date', '%Y-%m-%d') AND STR_TO_DATE('$end_date', '%Y-%m-%d') LIMIT $initial_page , $limit");
 
 
         } else if (($_REQUEST["start_date"]) != null) {
@@ -144,7 +146,7 @@ else if (isset($_REQUEST["del_id"])) {
                                                                                                                                                                                                                                                 </thead>
                                                                                                                                                                                                                                                 <tbody>
                                                                                                                                         <?php
-                                                                                                                                        $i = 1;
+                                                                                                                                        
                                                                                                                                         while ($row = $qry->fetch(PDO::FETCH_ASSOC)) {
                                                                                                                                                 $id = $row['id'];
                                                                                                                                                 $area_id = $row['area_id'];

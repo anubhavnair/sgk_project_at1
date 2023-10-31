@@ -61,7 +61,7 @@ $i = 1;
     <!-- filter section end  -->
     <div class="notification" id="myNotification">
 
-</div>
+    </div>
 
     <!-- Start Breadcrumbbar -->
     <div class="breadcrumbbar">
@@ -107,8 +107,33 @@ $i = 1;
               </thead>
               <tbody id="details_table_body">
                 <?php
+                $limit = 20;
 
                 $qry = $db->query("select * from `general_data_entry_master`") or die("");
+
+
+                $total_rows = $qry->rowCount(); // Use rowCount to get the number of rows
+                
+                // Get the required number of pages
+                $total_pages = ceil($total_rows / $limit);
+
+                // Update the active page number
+                if (!isset($_REQUEST['page'])) {
+                  $page_number = 1;
+                  $i = 1;
+                } else {
+                  $page_number = $_REQUEST['page'];
+                  $i = $limit * ($page_number - 1) + 1;
+
+                }
+
+                // Get the initial page number
+                $initial_page = ($page_number - 1) * $limit;
+
+                // Get data of selected rows per page
+                $getQuery = "SELECT * FROM general_data_entry_master LIMIT $initial_page,$limit";
+
+                $qry = $db->query($getQuery) or die("");
 
                 while ($row = $qry->fetch(PDO::FETCH_ASSOC)) {
                   $id = $row['id'];
@@ -185,6 +210,17 @@ $i = 1;
               </tbody>
             </table>
           </div>
+          <div class='pages'>
+            <?php
+            // show page number with link   
+            
+            for ($page_number = 1; $page_number <= $total_pages; $page_number++) {
+
+              echo '<a href = "general_data_entry_master_manage.php?page=' . $page_number . '">' . $page_number . ' </a>';
+
+            }
+            ?>
+          </div>
         </div>
       </div>
     </div>
@@ -226,6 +262,7 @@ $i = 1;
             if (status === "success") {
 
               $("#details_table_body").html(data);
+              searchButton();
 
             }
           }).fail(function (xhr, status, error) {
@@ -258,4 +295,75 @@ $i = 1;
       }
 
     })
+    // SEARCH PAGINATION LOGIC
+    // Event delegation for the "Previous" button
+    $('.pages').on("click", "#previous", function () {
+      var page_number = parseInt($("#page_number").val()) - 1;
+      if (page_number < 1) {
+        return; // Prevent going to negative page numbers
+      }
+      const start_date = $("#date_start_date").val();
+      const end_date = $("#date_end_date").val();
+      const vehicle_number = $("#txt_vehicle_number").val();
+
+      $.post("general_data_entry_master_do.php", {
+        page: page_number,
+        start_date: start_date,
+        end_date: end_date,
+        vehicle_number: vehicle_number
+
+      }, function (data, status) {
+        if (status === "success") {
+          $("#details_table_body").html(data);
+        }
+      }).fail(function (xhr, status, error) {
+        console.log(error);
+      });
+    });
+
+    // Event delegation for the "Next" button
+    $('.pages').on("click", "#next", function () {
+      var page_number = parseInt($("#page_number").val()) + 1;
+      const start_date = $("#date_start_date").val();
+      const end_date = $("#date_end_date").val();
+      const vehicle_number = $("#txt_vehicle_number").val();
+
+      $.post("general_data_entry_master_do.php", {
+        page: page_number,
+        start_date: start_date,
+        end_date: end_date,
+        vehicle_number: vehicle_number
+
+      }, function (data, status) {
+        if (status === "success") {
+          $("#details_table_body").html(data);
+        }
+      }).fail(function (xhr, status, error) {
+        console.log(error);
+      });
+    });
+
+    // FUNCTION FOR DYNAMICALLY CREATE BUTTON FOR SEARCH PAGINATION 
+    function searchButton() {
+      // Create the "Previous" button
+      $('.pages').html("");
+      var previousButton = $('<button>', {
+        'type': 'button',
+        'class': 'btn btn-primary mr-2',
+        'id': 'previous',
+        'text': '<< Pre'
+      });
+
+      // Create the "Next" button
+      var nextButton = $('<button>', {
+        'type': 'button',
+        'class': 'btn btn-primary mr-2',
+        'id': 'next',
+        'text': 'Next >>'
+      });
+
+      // Append the buttons to a container element (e.g., a div with class="pages")
+      $('.pages').append(previousButton, nextButton);
+    }
+
   </script>

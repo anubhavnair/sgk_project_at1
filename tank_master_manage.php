@@ -2,7 +2,6 @@
 
 include("./header.php");
 require_once('./root/dbconnection.php');
-$i = 1;
 
 ?>
 <div class="content_wrapper bg_homebefore inner-wrapper forms-sec">
@@ -25,11 +24,7 @@ $i = 1;
           <label for="date_end_date">End Date</label>
           <input type="date" name="date_end_date" id="date_end_date" class="form-control p-0">
         </div>
-        <!-- <div class="col-4 d-flex justify-content-end flex-column h-100">
-          <label for="text_vehical_number p-0 m-0">Vehicle Number</label>
-          <input type="text" name="text_vehicle_number" id="text_vehicle_number" placeholder="Enter Vehicle Number"
-            class="form-control p-0">
-        </div> -->
+      
       </section>
       <div class="col-12">
         <form class="form-inline my-2 my-lg-0 col-12">
@@ -100,10 +95,13 @@ $i = 1;
                 $total_pages = ceil($total_rows / $limit);
 
                 // Update the active page number
-                if (!isset($_GET['page'])) {
+                if (!isset($_REQUEST['page'])) {
                   $page_number = 1;
+                  $i = 1;
                 } else {
-                  $page_number = $_GET['page'];
+                  $page_number = $_REQUEST['page'];
+                  $i = $limit * ($page_number - 1) + 1;
+
                 }
 
                 // Get the initial page number
@@ -175,20 +173,19 @@ $i = 1;
                 ?>
               </tbody>
             </table>
-            <div class='pages'>
-            <?php
-            // show page number with link   
-            
-            for ($page_number = 1; $page_number <= $total_pages; $page_number++) {
-              
-              echo '<a href = "tank_master_manage.php?page=' . $page_number . '">' . $page_number . ' </a>';
-              
-            }
-            ?>
-            </div>
           </div>
           <div class='pages'>
+          <?php
+          // show page number with link   
+          
+          for ($page_number = 1; $page_number <= $total_pages; $page_number++) {
+            
+            echo '<a href = "tank_master_manage.php?page=' . $page_number . '">' . $page_number . ' </a>';
+            
+          }
+          ?>
           </div>
+          
         </div>
       </div>
     </div>
@@ -285,48 +282,8 @@ $('.pages').on("click", "#previous", function () {
     });
 });
 
-      // $('#previous').on("click", function () {
-      //   var page_number = parseInt($("#page_number").val()) - 1;
-      //   if (page_number < 1) {
-      //     return; // Prevent going to negative page numbers
-      //   }
-      //   const start_date = $("#date_start_date").val();
-      //   const end_date = $("#date_end_date").val();
-
-      //   $.post("tank_master_do.php", {
-      //     page: page_number,
-      //     start_date: start_date,
-      //     end_date: end_date
-      //   }, function (data, status) {
-      //     if (status === "success") {
-      //       $("#details_table_body").html(data);
-      //     }
-      //   }).fail(function (xhr, status, error) {
-      //     console.log(error);
-      //   });
-      // });
-
-      $('#next').on("click", function () {
-        console.log("bhai")
-        var page_number = parseInt($("#page_number").val()) + 1;
-        const start_date = $("#date_start_date").val();
-        const end_date = $("#date_end_date").val();
-
-        $.post("tank_master_do.php", {
-          page: page_number,
-          start_date: start_date,
-          end_date: end_date
-        }, function (data, status) {
-          if (status === "success") {
-            $("#details_table_body").html(data);
-          }
-        }).fail(function (xhr, status, error) {
-          console.log(error);
-        });
-      });
 // Event delegation for the "Next" button
 $('.pages').on("click", "#next", function () {
-    console.log("bhai");
     var page_number = parseInt($("#page_number").val()) + 1;
     const start_date = $("#date_start_date").val();
     const end_date = $("#date_end_date").val();
@@ -347,6 +304,7 @@ $('.pages').on("click", "#next", function () {
 // FUNCTION FOR DYNAMICALLY CREATE BUTTON FOR SEARCH PAGINATION 
 function searchButton() {
     // Create the "Previous" button
+    $('.pages').html("");
     var previousButton = $('<button>', {
         'type': 'button',
         'class': 'btn btn-primary mr-2',

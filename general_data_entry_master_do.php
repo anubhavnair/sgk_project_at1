@@ -75,36 +75,58 @@ else if (isset($_REQUEST["start_date"]) && isset($_REQUEST["end_date"]) && isset
         $start_date = $_REQUEST["start_date"];
         $end_date = $_REQUEST["end_date"];
         $vehicle_number = $_REQUEST["vehicle_number"];
+        $limit = 20;
 
+        // Update the active page number
+        if (!isset($_REQUEST['page'])) {
+                $page_number = 1;
+                $i = 1;
+        } else {
+                $page_number = $_REQUEST['page'];
+                $i = $limit * ($page_number - 1) + 1;
+        }
 
         if (($_REQUEST["start_date"]) != null && ($_REQUEST["end_date"]) != null && ($_REQUEST["vehicle_number"]) != null) {
+                $initial_page = ($page_number - 1) * $limit;
 
                 // Use the BETWEEN clause to filter records between the start and end dates
                 $qry = $db->query("SELECT * FROM general_data_entry_master WHERE vehical_id = '$vehicle_number' AND 
-    STR_TO_DATE(general_date, '%Y-%m-%d') BETWEEN STR_TO_DATE('$start_date', '%Y-%m-%d') AND STR_TO_DATE('$end_date', '%Y-%m-%d')")
+    STR_TO_DATE(general_date, '%Y-%m-%d') BETWEEN STR_TO_DATE('$start_date', '%Y-%m-%d') AND STR_TO_DATE('$end_date', '%Y-%m-%d') LIMIT $initial_page , $limit")
                         or die("");
+
         } else if (($_REQUEST["start_date"]) != null && ($_REQUEST["end_date"]) != null) {
+                $initial_page = ($page_number - 1) * $limit;
+
                 $qry = $db->query("SELECT * FROM general_data_entry_master WHERE  
-      STR_TO_DATE(general_date, '%Y-%m-%d') BETWEEN STR_TO_DATE('$start_date', '%Y-%m-%d') AND STR_TO_DATE('$end_date', '%Y-%m-%d')")
+      STR_TO_DATE(general_date, '%Y-%m-%d') BETWEEN STR_TO_DATE('$start_date', '%Y-%m-%d') AND STR_TO_DATE('$end_date', '%Y-%m-%d') LIMIT $initial_page , $limit")
                         or die("");
         } else if (($_REQUEST["end_date"]) != null && ($_REQUEST["vehicle_number"]) != null) {
+                $initial_page = ($page_number - 1) * $limit;
+
                 $qry = $db->query("SELECT * FROM general_data_entry_master WHERE vehical_id = '$vehicle_number' AND 
-      STR_TO_DATE(general_date, '%Y-%m-%d') <= STR_TO_DATE('$end_date', '%Y-%m-%d')")
+      STR_TO_DATE(general_date, '%Y-%m-%d') <= STR_TO_DATE('$end_date', '%Y-%m-%d') LIMIT $initial_page , $limit")
                         or die("");
         } else if (($_REQUEST["start_date"]) != null && ($_REQUEST["vehicle_number"]) != null) {
+                $initial_page = ($page_number - 1) * $limit;
+
                 $qry = $db->query("SELECT * FROM general_data_entry_master WHERE vehical_id = '$vehicle_number' AND 
-      STR_TO_DATE(general_date, '%Y-%m-%d') >= STR_TO_DATE('$start_date', '%Y-%m-%d')")
+      STR_TO_DATE(general_date, '%Y-%m-%d') >= STR_TO_DATE('$start_date', '%Y-%m-%d') LIMIT $initial_page , $limit")
                         or die("");
         } else if (($_REQUEST["start_date"]) != null) {
+                $initial_page = ($page_number - 1) * $limit;
+
                 $qry = $db->query("SELECT * FROM general_data_entry_master WHERE
-      STR_TO_DATE(general_date, '%Y-%m-%d') >= STR_TO_DATE('$start_date', '%Y-%m-%d')")
+      STR_TO_DATE(general_date, '%Y-%m-%d') >= STR_TO_DATE('$start_date', '%Y-%m-%d') LIMIT $initial_page , $limit")
                         or die("");
         } else if (($_REQUEST["end_date"]) != null) {
+                $initial_page = ($page_number - 1) * $limit;
+
                 $qry = $db->query("SELECT * FROM general_data_entry_master WHERE 
-      STR_TO_DATE(general_date, '%Y-%m-%d') <= STR_TO_DATE('$end_date', '%Y-%m-%d')")
+      STR_TO_DATE(general_date, '%Y-%m-%d') <= STR_TO_DATE('$end_date', '%Y-%m-%d') LIMIT $initial_page , $limit")
                         or die("");
         } else if (($_REQUEST["vehicle_number"]) != null) {
-                $qry = $db->query("SELECT * FROM general_data_entry_master WHERE vehical_id = '$vehicle_number'")
+                $initial_page = ($page_number - 1) * $limit;
+                $qry = $db->query("SELECT * FROM general_data_entry_master WHERE vehical_id = '$vehicle_number' LIMIT $initial_page , $limit")
                         or die("");
         }
 
@@ -113,7 +135,6 @@ else if (isset($_REQUEST["start_date"]) && isset($_REQUEST["end_date"]) && isset
         ?>
                 <?php
 
-                $i = 1;
                 while ($row = $qry->fetch(PDO::FETCH_ASSOC)) {
                         $id = $row['id'];
                         $vehicle_id = $row['vehical_id'];
@@ -185,7 +206,7 @@ else if (isset($_REQUEST["start_date"]) && isset($_REQUEST["end_date"]) && isset
                         $i++;
                 }
                 ?>
-
+ <input type="hidden" id="page_number" name="page_number" value="<?= $page_number ?>">
 
         <?php
 } else if (isset($_REQUEST['preview'])) {
