@@ -223,7 +223,7 @@ require_once("./root/dbconnection.php");
             <div class="modal-content">
               <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <h4 class="modal-title">Preview Record</h4>
+        <!-- <h4 class="modal-title">Preview Record</h4> -->
       </div>
               <div class="modal-body">
                 <p id="myPopup"></p>
