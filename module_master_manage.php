@@ -2,9 +2,6 @@
 include("./header.php");
  include("./root/dbconnection.php");
  $qry=$db->query("select * from module_master") or die("");
-
-
-
 ?>
 <div class="content_wrapper bg_homebefore inner-wrapper forms-sec">
 
@@ -137,7 +134,7 @@ $(document).ready(function(){
 
             },1000);
 
-})
+            })
            
          
         </script>
