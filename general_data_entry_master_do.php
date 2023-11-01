@@ -1,5 +1,6 @@
 <?php
 include("./root/dbconnection.php");
+$created_by = $_COOKIE["emp_id"];
 
 
 // tank entry  insert and update logic here if isset($_REQUEST["edit_id"]) then it will perform update query elseif perform insert querry 
@@ -19,7 +20,7 @@ if (isset($_REQUEST["edit_id"])) {
         $average = $_REQUEST["txt_average"];
         $remark = $_REQUEST["txt_remark"];
 
-        $qry = $db->query("UPDATE general_data_entry_master SET general_date='$date', vehical_id='$select_vehicle', noof_trips='$trips', work_descp='$work_description', opening_meter='$opening_meter', closing_meter='$closing_meter', opening_dip='$opening_dip', closing_dip='$closing_dip', total_km='$km', general_desel='$desel', general_average='$average', genral_remark='$remark' WHERE id=$edit_id") or die("cannot update");
+        $qry = $db->query("UPDATE general_data_entry_master SET general_date='$date', vehical_id='$select_vehicle', noof_trips='$trips', work_descp='$work_description', opening_meter='$opening_meter', closing_meter='$closing_meter', opening_dip='$opening_dip', closing_dip='$closing_dip', total_km='$km', general_desel='$desel', general_average='$average', genral_remark='$remark', `updated_by`='$created_by', `updated_on`=NOW() WHERE id=$edit_id") or die("");
 
 
 
@@ -42,8 +43,8 @@ if (isset($_REQUEST["edit_id"])) {
         $remark = $_REQUEST["txt_remark"];
 
         // SQL query to insert data
-        $sql = "INSERT INTO general_data_entry_master (general_date, vehical_id, noof_trips, work_descp, opening_meter, closing_meter, opening_dip, closing_dip, total_km, general_desel, general_average, genral_remark) 
-        VALUES ('$date', '$select_vehicle', '$trips', '$work_description', '$opening_meter', '$closing_meter', '$opening_dip', '$closing_dip', '$km', '$desel','$average', '$remark')";
+        $sql = "INSERT INTO general_data_entry_master (general_date, vehical_id, noof_trips, work_descp, opening_meter, closing_meter, opening_dip, closing_dip, total_km, general_desel, general_average, genral_remark,`created_on`, `updated_by`) 
+        VALUES ('$date', '$select_vehicle', '$trips', '$work_description', '$opening_meter', '$closing_meter', '$opening_dip', '$closing_dip', '$km', '$desel','$average', '$remark',NOW(),'$created_by')";
 
         // Execute the SQL query
         $qry = $db->query($sql) or die("");
@@ -54,7 +55,7 @@ if (isset($_REQUEST["edit_id"])) {
 // deleting logic of employee master 
 else if (isset($_REQUEST["del_id"])) {
         $del_id = $_REQUEST["del_id"];
-        $qry = $db->query("UPDATE `general_data_entry_master` SET e_d_optn = '0' WHERE id = $del_id") or die("");
+        $qry = $db->query("UPDATE `general_data_entry_master` SET `updated_by`='$created_by', `updated_on`=NOW(),e_d_optn = '0' WHERE id = $del_id") or die("");
 
 
         ?>
@@ -90,43 +91,43 @@ else if (isset($_REQUEST["start_date"]) && isset($_REQUEST["end_date"]) && isset
                 $initial_page = ($page_number - 1) * $limit;
 
                 // Use the BETWEEN clause to filter records between the start and end dates
-                $qry = $db->query("SELECT * FROM general_data_entry_master WHERE vehical_id = '$vehicle_number' AND 
+                $qry = $db->query("SELECT * FROM general_data_entry_master WHERE e_d_optn = '1' && vehical_id = '$vehicle_number' AND 
     STR_TO_DATE(general_date, '%Y-%m-%d') BETWEEN STR_TO_DATE('$start_date', '%Y-%m-%d') AND STR_TO_DATE('$end_date', '%Y-%m-%d') LIMIT $initial_page , $limit")
                         or die("");
 
         } else if (($_REQUEST["start_date"]) != null && ($_REQUEST["end_date"]) != null) {
                 $initial_page = ($page_number - 1) * $limit;
 
-                $qry = $db->query("SELECT * FROM general_data_entry_master WHERE  
+                $qry = $db->query("SELECT * FROM general_data_entry_master WHERE  e_d_optn = '1' &&
       STR_TO_DATE(general_date, '%Y-%m-%d') BETWEEN STR_TO_DATE('$start_date', '%Y-%m-%d') AND STR_TO_DATE('$end_date', '%Y-%m-%d') LIMIT $initial_page , $limit")
                         or die("");
         } else if (($_REQUEST["end_date"]) != null && ($_REQUEST["vehicle_number"]) != null) {
                 $initial_page = ($page_number - 1) * $limit;
 
-                $qry = $db->query("SELECT * FROM general_data_entry_master WHERE vehical_id = '$vehicle_number' AND 
+                $qry = $db->query("SELECT * FROM general_data_entry_master WHERE e_d_optn = '1' && vehical_id = '$vehicle_number' AND 
       STR_TO_DATE(general_date, '%Y-%m-%d') <= STR_TO_DATE('$end_date', '%Y-%m-%d') LIMIT $initial_page , $limit")
                         or die("");
         } else if (($_REQUEST["start_date"]) != null && ($_REQUEST["vehicle_number"]) != null) {
                 $initial_page = ($page_number - 1) * $limit;
 
-                $qry = $db->query("SELECT * FROM general_data_entry_master WHERE vehical_id = '$vehicle_number' AND 
+                $qry = $db->query("SELECT * FROM general_data_entry_master WHERE e_d_optn = '1' && vehical_id = '$vehicle_number' AND 
       STR_TO_DATE(general_date, '%Y-%m-%d') >= STR_TO_DATE('$start_date', '%Y-%m-%d') LIMIT $initial_page , $limit")
                         or die("");
         } else if (($_REQUEST["start_date"]) != null) {
                 $initial_page = ($page_number - 1) * $limit;
 
-                $qry = $db->query("SELECT * FROM general_data_entry_master WHERE
+                $qry = $db->query("SELECT * FROM general_data_entry_master WHERE e_d_optn = '1' &&
       STR_TO_DATE(general_date, '%Y-%m-%d') >= STR_TO_DATE('$start_date', '%Y-%m-%d') LIMIT $initial_page , $limit")
                         or die("");
         } else if (($_REQUEST["end_date"]) != null) {
                 $initial_page = ($page_number - 1) * $limit;
 
-                $qry = $db->query("SELECT * FROM general_data_entry_master WHERE 
+                $qry = $db->query("SELECT * FROM general_data_entry_master WHERE e_d_optn = '1' &&
       STR_TO_DATE(general_date, '%Y-%m-%d') <= STR_TO_DATE('$end_date', '%Y-%m-%d') LIMIT $initial_page , $limit")
                         or die("");
         } else if (($_REQUEST["vehicle_number"]) != null) {
                 $initial_page = ($page_number - 1) * $limit;
-                $qry = $db->query("SELECT * FROM general_data_entry_master WHERE vehical_id = '$vehicle_number' LIMIT $initial_page , $limit")
+                $qry = $db->query("SELECT * FROM general_data_entry_master WHERE e_d_optn = '1' && vehical_id = '$vehicle_number' LIMIT $initial_page , $limit")
                         or die("");
         }
 
@@ -232,7 +233,7 @@ else if (isset($_REQUEST["start_date"]) && isset($_REQUEST["end_date"]) && isset
                                                 <tbody id="details_table_body">
                                 <?php
 
-                                $qry = $db->query("SELECT * FROM `general_data_entry_master` ORDER BY STR_TO_DATE(general_date, '%Y-%m-%d') DESC LIMIT 0,14") or die("");
+                                $qry = $db->query("SELECT * FROM `general_data_entry_master` WHERE e_d_optn = '1' ORDER BY STR_TO_DATE(general_date, '%Y-%m-%d') DESC LIMIT 0,14") or die("");
 
 
                                 $i = 2;

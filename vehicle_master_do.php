@@ -9,8 +9,9 @@ if (isset($_REQUEST["edit_id"])) {
     $emp_name = $_REQUEST["text_employee_name"];
     $emp_mobile = $_REQUEST["text_employee_mobile_number"];
     $emp_pass = $_REQUEST["text_employee_password"];
+    $created_by = $_COOKIE["emp_id"];
 
-    $qry = $db->query("UPDATE `employee_master` SET `emp_name`='$emp_name',`emp_mono`='$emp_mobile',`emp_password`='$emp_pass' WHERE id = $edit_id ") or die("");
+    $qry = $db->query("UPDATE `employee_master` SET `emp_name`='$emp_name',`emp_mono`='$emp_mobile',`emp_password`='$emp_pass',`updated_by`='$created_by',`updated_on`=NOW() WHERE id = $edit_id ") or die("");
 
 
 
@@ -21,9 +22,10 @@ else if (isset($_REQUEST["txt_vehical_name"]) && isset($_REQUEST["txt_driver_nam
     $driver_name = $_REQUEST["txt_driver_name"];
     $vehical_number = $_REQUEST["txt_vehical_number"];
     $driver_number = $_REQUEST["txt_driver_number"];
+    $created_by = $_COOKIE["emp_id"];
 
     // SQL query to insert data
-    $sql = "INSERT INTO `vehicle_master` (`vehical_name`, `vehicle_number`, `driver_name`, `driver_contactno`) VALUES ('$vehicle_name', '$vehical_number', '$driver_name', '$driver_number')";
+    $sql = "INSERT INTO `vehicle_master` (`vehical_name`, `vehicle_number`, `driver_name`, `driver_contactno`,`created_on`, `updated_by`) VALUES ('$vehicle_name', '$vehical_number', '$driver_name', '$driver_number',NOW(),'$created_by')";
 
     // Execute the SQL query
     $qry = $db->query($sql) or die("");
@@ -36,7 +38,9 @@ else if (isset($_REQUEST["txt_vehical_name"]) && isset($_REQUEST["txt_driver_nam
 
 if (isset($_REQUEST["del_id"])) {
     $del_id = $_REQUEST["del_id"]; 
-    $qry = $db->query("UPDATE `vehicle_master` SET `e_d_optn`='0' WHERE id = $del_id") or die("");
+    $created_by = $_COOKIE["emp_id"];
+
+    $qry = $db->query("UPDATE `vehicle_master` SET `updated_by`=' $created_by',`updated_on`=NOW(),`e_d_optn`='0' WHERE id = $del_id") or die("");
 
 
     ?>

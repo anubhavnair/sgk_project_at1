@@ -109,7 +109,7 @@ $i = 1;
                 <?php
                 $limit = 20;
 
-                $qry = $db->query("select * from `general_data_entry_master`") or die("");
+                $qry = $db->query("select * from `general_data_entry_master` WHERE e_d_optn = '1'") or die("");
 
 
                 $total_rows = $qry->rowCount(); // Use rowCount to get the number of rows
@@ -131,7 +131,7 @@ $i = 1;
                 $initial_page = ($page_number - 1) * $limit;
 
                 // Get data of selected rows per page
-                $getQuery = "SELECT * FROM general_data_entry_master
+                $getQuery = "SELECT * FROM general_data_entry_master WHERE e_d_optn = '1'
             ORDER BY STR_TO_DATE(general_date, '%Y-%m-%d') DESC
             LIMIT $initial_page, $limit";
 

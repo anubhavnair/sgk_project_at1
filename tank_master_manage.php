@@ -108,7 +108,7 @@ require_once('./root/dbconnection.php');
                 $initial_page = ($page_number - 1) * $limit;
 
                 // Get data of selected rows per page
-                $getQuery = "SELECT * FROM tank_entry_master
+                $getQuery = "SELECT * FROM tank_entry_master WHERE e_d_optn = '1'
             ORDER BY STR_TO_DATE(tank_entry_date, '%Y-%m-%d') DESC
             LIMIT $initial_page, $limit";
 

@@ -37,7 +37,6 @@ require_once('./header.php');
 
 
                     <div class="table-responsive-xl">
-
                         <table class="table">
                             <thead>
                                 <tr>
@@ -53,7 +52,7 @@ require_once('./header.php');
                                 <tr>
                                     <?php
                                     $limit = 20;
-                                    $qry = $db->query("select * from vehicle_master") or die("");
+                                    $qry = $db->query("select * from vehicle_master WHERE e_d_optn = '1'") or die("");
 
                                     $total_rows = $qry->rowCount(); // Use rowCount to get the number of rows
                                     
@@ -76,7 +75,7 @@ echo($i);
                                     $initial_page = ($page_number - 1) * $limit;
 
                                     // Get data of selected rows per page
-                                    $getQuery = "SELECT * FROM vehicle_master LIMIT $initial_page ,$limit";
+                                    $getQuery = "SELECT * FROM vehicle_master WHERE e_d_optn = '1' LIMIT $initial_page ,$limit";
 
                                     $qry = $db->query($getQuery) or die("");
                                     while ($row = $qry->fetch(PDO::FETCH_ASSOC)) {
