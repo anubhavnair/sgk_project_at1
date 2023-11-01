@@ -14,7 +14,7 @@ if (isset($_POST["page_no"])) {
 $start_page_no = ($page - 1) * $limit_per_page;
 
 
-$qry = $db->query("SELECT * FROM employee_master LIMIT {$start_page_no}, {$limit_per_page}") or die("Query Unsuccessful.");
+$qry = $db->query("SELECT * FROM employee_master where e_d_optn = 1 LIMIT {$start_page_no}, {$limit_per_page}") or die("Query Unsuccessful.");
 
 
 if ($qry->rowCount() > 0) {
@@ -92,7 +92,7 @@ if ($qry->rowCount() > 0) {
 
     // end  of data showing
 
-    $records = $db->query("select * from employee_master") or die("");
+    $records = $db->query("select * from employee_master where e_d_optn = 1") or die("");
 
     $total_record = $records->rowCount();
     $total_pages = ceil($total_record / $limit_per_page);
