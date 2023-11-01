@@ -3232,10 +3232,11 @@ textarea {
   display: inline-block;
   padding: 5px 10px;
   margin-right: 5px;
+  box-sizing: border-box;
   border-radius: 3px;
 }
 #pagination a.active {
-  background: #27ae60;
+  background: #1c00f1;
 }
 
 /* POPUP CSS  */
