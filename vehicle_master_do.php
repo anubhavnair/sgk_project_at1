@@ -35,8 +35,8 @@ else if (isset($_REQUEST["txt_vehical_name"]) && isset($_REQUEST["txt_driver_nam
 // deleting logic of employee master 
 
 if (isset($_REQUEST["del_id"])) {
-    $del_id = $_REQUEST["del_id"];
-    $qry = $db->query("DELETE FROM `vehicle_master` WHERE id = $del_id") or die("");
+    $del_id = $_REQUEST["del_id"]; 
+    $qry = $db->query("UPDATE `vehicle_master` SET `e_d_optn`='0' WHERE id = $del_id") or die("");
 
 
     ?>

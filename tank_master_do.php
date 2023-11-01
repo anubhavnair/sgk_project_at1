@@ -41,7 +41,7 @@ if (isset($_REQUEST["edit_id"])) {
 // deleting logic of employee master 
 else if (isset($_REQUEST["del_id"])) {
         $del_id = $_REQUEST["del_id"];
-        $qry = $db->query("DELETE FROM `tank_entry_master` WHERE id = $del_id") or die("");
+        $qry = $db->query("UPDATE `tank_entry_master` SET e_d_optn = '0' WHERE id = $del_id") or die("");
 
 
         ?>
