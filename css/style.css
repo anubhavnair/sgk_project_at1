@@ -3238,3 +3238,27 @@ textarea {
 #pagination a.active {
   background: #1c00f1;
 }
+
+/* POPUP CSS  */
+#myPopup{
+  overflow: scroll;
+}
+  /* PAGES  CSS  */
+.pages{
+	display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
+.pages a{
+    padding: 6px;
+    border: 2px solid black;
+    margin-left: 5px;
+  }
+  .pages a:active{
+	background-color: #0442ba;
+  }
+
+  .pages a:visited{
+	background-color: #1087e2;
+  }

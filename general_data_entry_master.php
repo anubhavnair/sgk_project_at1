@@ -24,7 +24,7 @@ require_once("./root/dbconnection.php");
     <!-- End Breadcrumbbar -->
     <div class="notification" id="myNotification">
 
-        </div>
+    </div>
     <!-- state start-->
     <div class="row">
       <div class="col-md-12 grid-margin stretch-card">
@@ -122,93 +122,118 @@ require_once("./root/dbconnection.php");
               </div>
               <div class="d-flex col-8">
                 <button type="submit" id="update" class="btn btn-warning mr-2 mb-2 ">Update</button>
-                <button type="button" id="preview" class="btn btn-primary mr-2 mb-2">Preview</button>
-              </div>
-              <?php
+                <button type="button" id="preview" class="btn btn-primary mr-2 mb-2" data-toggle="modal"
+                  data-target="#myModal">Preview</button>
+
+                <?php
             } else {
               ?>
-              <div class="d-flex align-items-end col-12">
-                <div class="form-group p-0 col-4 h-100 d-flex flex-column justify-content-end">
-                  <label for="txt_enter_date">Enter Date</label>
-                  <input type="text" class="form-control " name="txt_enter_date" id="txt_enter_date" readonly>
-                </div>
-                <div class="form-group col-4 h-100 d-flex flex-column justify-content-end">
-                  <label for="txt_select_vehicle">Select vehicle</label>
-                  <select class="form-control p-0 " name="txt_select_vehicle" id="txt_select_vehicle">
-                    <?php
-                    $qry2 = $db->query("SELECT * FROM `vehicle_master`") or die("");
-                    while ($rowVehicle = $qry2->fetch(PDO::FETCH_ASSOC)) {
-                      ?>
-                      <option value="<?= $rowVehicle['id'] ?>">
-                        <?= $rowVehicle['vehical_name'] ?>
-                      </option>
+                <div class="d-flex align-items-end col-12">
+                  <div class="form-group p-0 col-4 h-100 d-flex flex-column justify-content-end">
+                    <label for="txt_enter_date">Enter Date</label>
+                    <input type="text" class="form-control " name="txt_enter_date" id="txt_enter_date" readonly>
+                  </div>
+                  <div class="form-group col-4 h-100 d-flex flex-column justify-content-end">
+                    <label for="txt_select_vehicle">Select vehicle</label>
+                    <select class="form-control p-0 " name="txt_select_vehicle" id="txt_select_vehicle">
                       <?php
-                    }
-                    ?>
-                  </select>
+                      $qry2 = $db->query("SELECT * FROM `vehicle_master`") or die("");
+                      while ($rowVehicle = $qry2->fetch(PDO::FETCH_ASSOC)) {
+                        ?>
+                        <option value="<?= $rowVehicle['id'] ?>">
+                          <?= $rowVehicle['vehical_name'] ?>
+                        </option>
+                        <?php
+                      }
+                      ?>
+                    </select>
+                  </div>
+                  <div class="form-group p-0 col-4 h-100 d-flex flex-column justify-content-end">
+                    <label for="txt_trips">Trips</label>
+                    <input type="text" class="form-control " id="txt_trips" name="txt_trips"
+                      placeholder="Enter No. of Trips">
+                  </div>
                 </div>
-                <div class="form-group p-0 col-4 h-100 d-flex flex-column justify-content-end">
-                  <label for="txt_trips">Trips</label>
-                  <input type="text" class="form-control " id="txt_trips" name="txt_trips"
-                    placeholder="Enter No. of Trips">
-                </div>
-              </div>
-              <div class="form-group  col-12">
-                <label for="txt_work_description">Work description</label>
-                <textarea class="form-control" id="txt_work_description" name="txt_work_description"
-                  placeholder="Enter Work Description" rows="3"></textarea>
+                <div class="form-group  col-12">
+                  <label for="txt_work_description">Work description</label>
+                  <textarea class="form-control" id="txt_work_description" name="txt_work_description"
+                    placeholder="Enter Work Description" rows="3"></textarea>
 
-              </div>
-              <div class="d-flex">
-                <div class="form-group col-6">
-                  <label for="txt_opening_meter">Opening meter</label>
-                  <input type="text" class="form-control" id="txt_opening_meter" name="txt_opening_meter"
-                    placeholder="Enter Opening Meter">
                 </div>
-                <div class="form-group col-6">
-                  <label for="txt_opening_dip">Opening dip</label>
-                  <input type="text" class="form-control" id="txt_opening_dip" name="txt_opening_dip"
-                    placeholder="Enter Opening Dip">
+                <div class="d-flex">
+                  <div class="form-group col-6">
+                    <label for="txt_opening_meter">Opening meter</label>
+                    <input type="text" class="form-control" id="txt_opening_meter" name="txt_opening_meter"
+                      placeholder="Enter Opening Meter">
+                  </div>
+                  <div class="form-group col-6">
+                    <label for="txt_opening_dip">Opening dip</label>
+                    <input type="text" class="form-control" id="txt_opening_dip" name="txt_opening_dip"
+                      placeholder="Enter Opening Dip">
+                  </div>
                 </div>
-              </div>
-              <div class="d-flex">
-                <div class="form-group col-6">
-                  <label for="txt_closing_meter">Closing meter</label>
-                  <input type="text" class="form-control" id="txt_closing_meter" name="txt_closing_meter"
-                    placeholder="Enter Closing Meter">
+                <div class="d-flex">
+                  <div class="form-group col-6">
+                    <label for="txt_closing_meter">Closing meter</label>
+                    <input type="text" class="form-control" id="txt_closing_meter" name="txt_closing_meter"
+                      placeholder="Enter Closing Meter">
+                  </div>
+                  <div class="form-group col-6">
+                    <label for="txt_closing_dip">Closing dip</label>
+                    <input type="text" class="form-control" id="txt_closing_dip" name="txt_closing_dip"
+                      placeholder="Enter Closing Dip">
+                  </div>
                 </div>
-                <div class="form-group col-6">
-                  <label for="txt_closing_dip">Closing dip</label>
-                  <input type="text" class="form-control" id="txt_closing_dip" name="txt_closing_dip"
-                    placeholder="Enter Closing Dip">
+                <div class="d-flex">
+                  <div class="form-group col-4">
+                    <label for="txt_km">K.M.</label>
+                    <input type="text" class="form-control" id="txt_km" name="txt_km" placeholder="Enter Kilo Meters">
+                  </div>
+                  <div class="form-group col-4">
+                    <label for="txt_desel">Desel</label>
+                    <input type="text" class="form-control" id="txt_desel" name="txt_desel" placeholder="Enter Desel">
+                  </div>
+                  <div class="form-group col-4">
+                    <label for="txt_average">Average</label>
+                    <input type="text" class="form-control" id="txt_average" name="txt_average"
+                      placeholder="Enter Average">
+                  </div>
                 </div>
-              </div>
-              <div class="d-flex">
-                <div class="form-group col-4">
-                  <label for="txt_km">K.M.</label>
-                  <input type="text" class="form-control" id="txt_km" name="txt_km" placeholder="Enter Kilo Meters">
+                <div class="form-group col-12">
+                  <label for="txt_remark">Remark</label>
+                  <textarea class="form-control" id="txt_remark" name="txt_remark" placeholder="Enter Remark"></textarea>
                 </div>
-                <div class="form-group col-4">
-                  <label for="txt_desel">Desel</label>
-                  <input type="text" class="form-control" id="txt_desel" name="txt_desel" placeholder="Enter Desel">
+                <div class="d-flex col-8">
+                  <button type="submit" id="submit" class="btn btn-success mr-2 mb-2">Submit</button>
+                  <button type="button" id="preview" class="btn btn-primary mr-2 mb-2" data-toggle="modal"
+                    data-target="#myModal">Preview</button>
+
                 </div>
-                <div class="form-group col-4">
-                  <label for="txt_average">Average</label>
-                  <input type="text" class="form-control" id="txt_average" name="txt_average" placeholder="Enter Average">
-                </div>
-              </div>
-              <div class="form-group col-12">
-                <label for="txt_remark">Remark</label>
-                <textarea class="form-control" id="txt_remark" name="txt_remark" placeholder="Enter Remark"></textarea>
-              </div>
-              <div class="d-flex col-8">
-                <button type="submit" id="submit" class="btn btn-success mr-2 mb-2">Submit</button>
-                <button type="button" id="preview" class="btn btn-primary mr-2 mb-2">Preview</button>
-              </div>
-              <?php
+                <?php
             }
             ?>
           </form>
+        </div>
+
+        <!-- Modal -->
+        <div id="myModal" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <!-- <h4 class="modal-title">Preview Record</h4> -->
+      </div>
+              <div class="modal-body">
+                <p id="myPopup"></p>
+              </div>
+              <!-- <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div> -->
+            </div>
+
+          </div>
         </div>
       </div>
     </div>
@@ -217,7 +242,18 @@ require_once("./root/dbconnection.php");
     include("./footer.php");
     ?>
     <script>
+
       $(document).ready(function () {
+
+        // TAKING PREVIEW DATA FROM THE DATABASE 
+        $.post("general_data_entry_master_do.php", {
+          preview: "preview"
+        }, function (data, status) {
+          if (status === "success") {
+            $("#myPopup").html(data);
+          }
+        }
+        );
 
         $("#add").on("click", function (e) {
           window.location.replace("./general_data_entry_master.php");
@@ -243,6 +279,7 @@ require_once("./root/dbconnection.php");
         // Set the value of the input to the current date
         $('#txt_enter_date').val(formattedDate);
 
+
         // notification section
 
         function showNotification(message) {
@@ -250,9 +287,9 @@ require_once("./root/dbconnection.php");
           notification.css("opacity", "1");
           notification.css("pointer-events", "auto");
           let color = urlParams.get("color");
-                if (color) {
-                    notification.css("background-color",color )
-                }
+          if (color) {
+            notification.css("background-color", color)
+          }
           notification.html(message);
           setTimeout(function () {
             hideNotification();
@@ -273,6 +310,10 @@ require_once("./root/dbconnection.php");
         if (message) {
           showNotification(message);
         }
+
+
+
+
         // FORM VALIDATION SECTION 
         $("#submit").on("click", function (e) {
           e.preventDefault();
@@ -553,6 +594,103 @@ require_once("./root/dbconnection.php");
             );
           }
 
+        })
+        // POPUP SECTION 
+        $("#preview").on("click", function (e) {
+          const date = $("#txt_enter_date").val();
+
+          const select_vehicle = $("#txt_select_vehicle option:selected").text();
+
+          const trips = $("#txt_trips").val();
+
+          const work_description = $("#txt_work_description").val();
+
+          const opening_meter = $("#txt_opening_meter").val();
+
+          const opening_dip = $("#txt_opening_dip").val();
+
+          const closing_meter = $("#txt_closing_meter").val();
+
+          const closing_dip = $("#txt_closing_dip").val();
+
+          const km = $("#txt_km").val();
+
+          const desel = $("#txt_desel").val();
+
+          const average = $("#txt_average").val();
+
+          const remark = $("#txt_remark").val();
+
+          if ($("#dynamicData").length === 0) {
+            var popup = $("#details_table_body");
+            var newTr = $("<tr>");
+            newTr.attr("id", 'dynamicData');
+
+            var tdSNo = $("<th>");
+            var tdDate = $("<td>");
+            var tdVehicle = $("<td>");
+            var tdTrips = $("<td>");
+            var tdWorkDescription = $("<td>");
+            var tdOpeningMeter = $("<td>");
+            var tdOpeningDip = $("<td>");
+            var tdClosingMeter = $("<td>");
+            var tdClosingDip = $("<td>");
+            var tdKm = $("<td>");
+            var tdDesel = $("<td>");
+            var tdAverage = $("<td>");
+            var tdRemark = $("<td>");
+
+            // Assign values to the td elements
+            tdSNo.text('1');
+            tdDate.text(date);
+            tdVehicle.text(select_vehicle);
+            tdTrips.text(trips);
+            tdWorkDescription.text(work_description);
+            tdOpeningMeter.text(opening_meter);
+            tdOpeningDip.text(opening_dip);
+            tdClosingMeter.text(closing_meter);
+            tdClosingDip.text(closing_dip);
+            tdKm.text(km);
+            tdDesel.text(desel);
+            tdAverage.text(average);
+            tdRemark.text(remark);
+
+            // Append the td elements to the tr
+            newTr.append(tdSNo);
+            newTr.append(tdDate);
+            newTr.append(tdVehicle);
+            newTr.append(tdTrips);
+            newTr.append(tdWorkDescription);
+            newTr.append(tdOpeningMeter);
+            newTr.append(tdOpeningDip);
+            newTr.append(tdClosingMeter);
+            newTr.append(tdClosingDip);
+            newTr.append(tdKm);
+            newTr.append(tdDesel);
+            newTr.append(tdAverage);
+            newTr.append(tdRemark);
+
+            // Append the tr to the table
+            popup.prepend(newTr);
+          }
+          else {
+            var existingTr = $("#dynamicData");
+
+            // Update the values of the existing td elements using .find('td:eq(index)')
+            existingTr.find('td:eq(0)').text(date);
+            existingTr.find('td:eq(1)').text(select_vehicle);
+            existingTr.find('td:eq(2)').text(trips);
+            existingTr.find('td:eq(3)').text(work_description);
+            existingTr.find('td:eq(4)').text(opening_meter);
+            existingTr.find('td:eq(5)').text(opening_dip);
+            existingTr.find('td:eq(6)').text(closing_meter);
+            existingTr.find('td:eq(7)').text(closing_dip);
+            existingTr.find('td:eq(8)').text(km);
+            existingTr.find('td:eq(9)').text(desel);
+            existingTr.find('td:eq(10)').text(average); // Assuming "average" is the 10th td
+            existingTr.find('td:eq(11)').text(remark); // Assuming "remark" is the 11th td
+            
+          }
         })
 
       })

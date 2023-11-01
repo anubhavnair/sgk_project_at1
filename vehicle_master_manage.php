@@ -3,7 +3,6 @@ require_once('./root/dbconnection.php');
 require_once('./header.php');
 
 
-$qry = $db->query("select * from vehicle_master") or die("");
 
 ?>
 <div class="content_wrapper bg_homebefore inner-wrapper forms-sec">
@@ -53,7 +52,33 @@ $qry = $db->query("select * from vehicle_master") or die("");
                             <tbody>
                                 <tr>
                                     <?php
-                                    $i = 1;
+                                    $limit = 20;
+                                    $qry = $db->query("select * from vehicle_master") or die("");
+
+                                    $total_rows = $qry->rowCount(); // Use rowCount to get the number of rows
+                                    
+                                    // Get the required number of pages
+                                    $total_pages = ceil($total_rows / $limit);
+
+                                    // Update the active page number
+                                    if (!isset($_REQUEST['page'])) {
+                                        $page_number = 1;
+                                        $i = 1;
+                                        echo($i);
+
+                                    } else {
+                                        $page_number = $_REQUEST['page'];
+                                        $i = $limit * ($page_number - 1) + 1;
+echo($i);
+                                    }
+
+                                    // Get the initial page number
+                                    $initial_page = ($page_number - 1) * $limit;
+
+                                    // Get data of selected rows per page
+                                    $getQuery = "SELECT * FROM vehicle_master LIMIT $initial_page ,$limit";
+
+                                    $qry = $db->query($getQuery) or die("");
                                     while ($row = $qry->fetch(PDO::FETCH_ASSOC)) {
                                         $id = $row['id'];
                                         ?>
@@ -98,6 +123,18 @@ $qry = $db->query("select * from vehicle_master") or die("");
                             </tbody>
                         </table>
                     </div>
+                    <div class='pages'>
+          <?php
+          // show page number with link   
+          
+          for ($page_number = 1; $page_number <= $total_pages; $page_number++) {
+            
+            echo '<a href = "vehicle_master_manage.php?page=' . $page_number . '">' . $page_number . ' </a>';
+            
+          }
+          ?>
+          </div>
+
                 </div>
             </div>
         </div>
@@ -126,7 +163,7 @@ $qry = $db->query("select * from vehicle_master") or die("");
                 notification.html(message);
                 let color = urlParams.get("color");
                 if (color) {
-                    notification.css("background-color",color )
+                    notification.css("background-color", color)
                 }
                 setTimeout(function () {
                     hideNotification();

@@ -114,99 +114,122 @@ require_once("./root/dbconnection.php");
                     value="<?= $row['tank_dip'] ?>">
                 </div>
                 <div class="form-group col-md-6">
-                  <label for="txt_banance">Balance</label>
-                  <input type="text" class="form-control" id="txt_banance" name="txt_banance" placeholder="Enter Banance"
+                  <label for="txt_balance">Balance</label>
+                  <input type="text" class="form-control" id="txt_balance" name="txt_balance" placeholder="Enter Banance"
                     value="<?= $row['tank_balance'] ?>">
                 </div>
               </section>
               <div class="d-flex flex-col pl-3">
                 <button type="submit" id="update" class="btn btn-warning mr-2">Update</button>
-                <button type="button" id="preview" class="btn btn-primary mr-2 ">Preview</button>
-              </div>
-              <?php
+                <button type="button" id="preview" class="btn btn-primary mr-2 mb-2" data-toggle="modal"
+                  data-target="#myModal">Preview</button>
+
+                <?php
             } else {
               ?>
-              <section class=" d-flex align-items-center col-12 p-0 ">
-                <div class="form-group col-md-6">
-                  <!-- Content for the first div -->
-                </div>
-                <div class="form-group col-md-6">
-                  <input type="text" class="form-control m-0" name="txt_enter_date" id="txt_enter_date" readonly>
-                </div>
-              </section>
-
-
-              <section class="d-flex align-items-center col-12 p-0">
-                <div class="form-group col-md-6 d-flex flex-column justify-content-end">
-                  <label for="txt_select_area" class="col-form-label col-md-4 pl-0 pr-0">Select Area</label>
-                  <div class="col-md-12 p-0">
-                    <select class="form-control custom-select p-1" name="txt_select_area" id="txt_select_area">
-                      <?php
-                      $qry2 = $db->query("SELECT * FROM `area_master`") or die("");
-                      while ($rowArea = $qry2->fetch(PDO::FETCH_ASSOC)) {
-                        $selected = ($rowArea['id'] == $row['area_id']) ? 'selected' : '';
-                        ?>
-                        <option value="<?= $rowArea['id'] ?>" <?= $selected ?>>
-                          <?= $rowArea['area_name'] ?>
-                        </option>
-                        <?php
-                      }
-                      ?>
-                    </select>
+                <section class=" d-flex align-items-center col-12 p-0 ">
+                  <div class="form-group col-md-6">
+                    <!-- Content for the first div -->
                   </div>
-
-                </div>
-                <div class="form-group col-md-6 d-flex flex-column justify-content-end">
-                  <label for="txt_opening_meter pe-0">Opening meter</label>
-                  <input type="text" class="form-control" name="txt_opening_meter" id="txt_opening_meter"
-                    placeholder="Enter Opening Meter">
-                </div>
-              </section>
-
-              <section class="d-flex align-items-center col-12 p-0">
-                <div class="form-group col-md-6">
-                  <label for="txt_total_refill">Total Refill</label>
-                  <input type="text" class="form-control" name="txt_total_refill" id="txt_total_refill"
-                    placeholder="Enter Total Refill">
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="txt_closing_meter">Closing meter</label>
-                  <input type="text" class="form-control" name="txt_closing_meter" id="txt_closing_meter"
-                    placeholder="Enter Closing Meter">
-                </div>
-              </section>
+                  <div class="form-group col-md-6">
+                    <input type="text" class="form-control m-0" name="txt_enter_date" id="txt_enter_date" readonly>
+                  </div>
+                </section>
 
 
-              <div class="form-group col-md-12">
-                <label for="txt_desel_out">Desel out</label>
-                <input type="text" class="form-control" id="txt_desel_out" name="txt_desel_out"
-                  placeholder="Enter Desel Out">
-              </div>
-              <div class="form-group col-md-12">
-                <label for="txt_description">Description</label>
-                <textarea class="form-control" id="txt_description" name="txt_description"
-                  placeholder="Enter Description"></textarea>
-              </div>
+                <section class="d-flex align-items-center col-12 p-0">
+                  <div class="form-group col-md-6 d-flex flex-column justify-content-end">
+                    <label for="txt_select_area" class="col-form-label col-md-4 pl-0 pr-0">Select Area</label>
+                    <div class="col-md-12 p-0">
+                      <select class="form-control custom-select p-1" name="txt_select_area" id="txt_select_area">
+                        <?php
+                        $qry2 = $db->query("SELECT * FROM `area_master`") or die("");
+                        while ($rowArea = $qry2->fetch(PDO::FETCH_ASSOC)) {
+                          ?>
+                          <option value="<?= $rowArea['id'] ?>">
+                            <?= $rowArea['area_name'] ?>
+                          </option>
+                          <?php
+                        }
+                        ?>
+                      </select>
+                    </div>
 
-              <section class="d-flex align-items-center col-md-12 p-0">
-                <div class="form-group col-md-6">
-                  <label for="txt_dip">DIP</label>
-                  <input type="text" class="form-control" id="txt_dip" name="txt_dip" placeholder="Enter DIP">
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="txt_banance">Balance</label>
-                  <input type="text" class="form-control" id="txt_banance" name="txt_banance" placeholder="Enter Banance">
-                </div>
-              </section>
-              <div class="d-flex flex-col pl-3">
+                  </div>
+                  <div class="form-group col-md-6 d-flex flex-column justify-content-end">
+                    <label for="txt_opening_meter pe-0">Opening meter</label>
+                    <input type="text" class="form-control" name="txt_opening_meter" id="txt_opening_meter"
+                      placeholder="Enter Opening Meter">
+                  </div>
+                </section>
 
-                <button type="submit" id="submit" class="btn btn-success mr-2">Submit</button>
-                <button type="button" id="preview" class="btn btn-primary mr-2">Preview</button>
-              </div>
-              <?php
+                <section class="d-flex align-items-center col-12 p-0">
+                  <div class="form-group col-md-6">
+                    <label for="txt_total_refill">Total Refill</label>
+                    <input type="text" class="form-control" name="txt_total_refill" id="txt_total_refill"
+                      placeholder="Enter Total Refill">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="txt_closing_meter">Closing meter</label>
+                    <input type="text" class="form-control" name="txt_closing_meter" id="txt_closing_meter"
+                      placeholder="Enter Closing Meter">
+                  </div>
+                </section>
+
+
+                <div class="form-group col-md-12">
+                  <label for="txt_desel_out">Desel out</label>
+                  <input type="text" class="form-control" id="txt_desel_out" name="txt_desel_out"
+                    placeholder="Enter Desel Out">
+                </div>
+                <div class="form-group col-md-12">
+                  <label for="txt_description">Description</label>
+                  <textarea class="form-control" id="txt_description" name="txt_description"
+                    placeholder="Enter Description"></textarea>
+                </div>
+
+                <section class="d-flex align-items-center col-md-12 p-0">
+                  <div class="form-group col-md-6">
+                    <label for="txt_dip">DIP</label>
+                    <input type="text" class="form-control" id="txt_dip" name="txt_dip" placeholder="Enter DIP">
+                  </div>
+                  <div class="form-group col-md-6">
+                    <label for="txt_balance">Balance</label>
+                    <input type="text" class="form-control" id="txt_balance" name="txt_balance"
+                      placeholder="Enter Banance">
+                  </div>
+                </section>
+                <div class="d-flex flex-col pl-3">
+
+                  <button type="submit" id="submit" class="btn btn-success mr-2">Submit</button>
+
+                  <button type="button" id="preview" class="btn btn-primary mr-2" data-toggle="modal"
+                    data-target="#myModal">Preview</button>
+                </div>
+                <?php
             }
             ?>
           </form>
+        </div>
+      </div>
+      <!-- Modal -->
+      <div id="myModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <!-- <h4 class="modal-title">Preview Record</h4> -->
+      </div>
+            <div class="modal-body">
+              <p id="myPopup"></p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
@@ -218,6 +241,19 @@ require_once("./root/dbconnection.php");
   <script>
 
     $(document).ready(function () {
+      // TAKING PREVIEW DATA FROM THE DATABASE 
+      $.post("tank_master_do.php", {
+        preview: "preview"
+      }, function (data, status) {
+        if (status === "success") {
+          $("#myPopup").html(data);
+        }
+        else {
+          console.log("bhai error aaya hai")
+        }
+      }
+      );
+
       $("#add").on("click", function (e) {
         window.location.replace("./tank_master.php");
       })
@@ -229,6 +265,8 @@ require_once("./root/dbconnection.php");
         $(".filter_section").slideToggle();
 
       });
+
+
 
 
       // Get the current date
@@ -280,7 +318,7 @@ require_once("./root/dbconnection.php");
         const desel_out = $("#txt_desel_out").val();
         const description = $("#txt_description").val();
         const dip = $("#txt_dip").val();
-        const banance = $("#txt_banance").val();
+        const banance = $("#txt_balance").val();
         if (select_area == "" || select_area == null) {
           $("#txt_select_area").css("border", "1.2px solid red");
 
@@ -344,9 +382,9 @@ require_once("./root/dbconnection.php");
         }
         else if (banance == "" || banance == null) {
 
-          $("#txt_banance").css("border", "1.2px solid red");
-          $("#txt_banance").focus();
-          $("#txt_banance").keydown(function () {
+          $("#txt_balance").css("border", "1.2px solid red");
+          $("#txt_balance").focus();
+          $("#txt_balance").keydown(function () {
             $(this).css("border", "1.2px solid skyblue");
           });
         }
@@ -361,12 +399,12 @@ require_once("./root/dbconnection.php");
               txt_desel_out: desel_out,
               txt_description: description,
               txt_dip: dip,
-              txt_banance: banance
+              txt_balance: banance
             }, function (data, status) {
               if (status == "success") {
                 // alert("New Record Added Successfully !....");
                 let message = "New Record Added Successfully !....";
-                window.location.replace("./tank_master.php?message="+message);
+                window.location.replace("./tank_master.php?message=" + message);
               }
 
             }
@@ -386,7 +424,7 @@ require_once("./root/dbconnection.php");
         const desel_out = $("#txt_desel_out").val();
         const description = $("#txt_description").val();
         const dip = $("#txt_dip").val();
-        const banance = $("#txt_banance").val();
+        const banance = $("#txt_balance").val();
         if (select_area == "" || select_area == null) {
           $("#txt_select_area").css("border", "1.2px solid red");
 
@@ -450,9 +488,9 @@ require_once("./root/dbconnection.php");
         }
         else if (banance == "" || banance == null) {
 
-          $("#txt_banance").css("border", "1.2px solid red");
-          $("#txt_banance").focus();
-          $("#txt_banance").keydown(function () {
+          $("#txt_balance").css("border", "1.2px solid red");
+          $("#txt_balance").focus();
+          $("#txt_balance").keydown(function () {
             $(this).css("border", "1.2px solid skyblue");
           });
         }
@@ -468,18 +506,83 @@ require_once("./root/dbconnection.php");
               txt_desel_out: desel_out,
               txt_description: description,
               txt_dip: dip,
-              txt_banance: banance
+              txt_balance: banance
             }, function (data, status) {
               if (status == "success") {
                 // alert("Record Updated Successfully !....");
                 let message = "Record Updated Successfully !....";
-                window.location.replace("./tank_master_manage.php?message="+message)
+                window.location.replace("./tank_master_manage.php?message=" + message)
               }
 
             }
           );
         }
 
+      })
+
+      // POPUP SECTION 
+      $("#preview").on("click", function (e) {
+        const date = $("#txt_enter_date").val();
+        const select_area = $("#txt_select_area option:selected").text();
+        const opening_meter = $("#txt_opening_meter").val();
+        const total_refill = $("#txt_total_refill").val();
+        const closing_meter = $("#txt_closing_meter").val();
+        const desel_out = $("#txt_desel_out").val();
+        const description = $("#txt_description").val();
+        const dip = $("#txt_dip").val();
+        const balance = $("#txt_balance").val();
+
+        if ($("#dynamicData").length === 0) {
+          var popup = $("#details_table_body");
+          var newTr = $("<tr>");
+          newTr.attr("id", 'dynamicData');
+          var tdSNo = $("<th>");
+          var tdDate = $("<td>");
+          var tdArea = $("<td>");
+          var tdTotalRefill = $("<td>");
+          var tdOpeningMeter = $("<td>");
+          var tdClosingMeter = $("<td>");
+          var tdDeselOut = $("<td>");
+          var tdDescription = $("<td>");
+          var tdDip = $("<td>");
+          var tdBalance = $("<td>");
+
+          tdSNo.text('1');
+          tdDate.text(date)
+          tdArea.text(select_area)
+          tdTotalRefill.text(total_refill)
+          tdOpeningMeter.text(opening_meter)
+          tdClosingMeter.text(closing_meter)
+          tdDeselOut.text(desel_out)
+          tdDescription.text(description)
+          tdDip.text(dip)
+          tdBalance.text(balance)
+
+          newTr.append(tdSNo);
+          newTr.append(tdDate);
+          newTr.append(tdArea);
+          newTr.append(tdTotalRefill);
+          newTr.append(tdOpeningMeter);
+          newTr.append(tdClosingMeter);
+          newTr.append(tdDeselOut);
+          newTr.append(tdDescription);
+          newTr.append(tdDip);
+          newTr.append(tdBalance);
+          popup.prepend(newTr);
+        }
+        else {
+          var newTr = $('#dynamicData');
+          // If newTr already exists, update the values of td elements
+          newTr.find('td:eq(0)').text(date);
+          newTr.find('td:eq(1)').text(select_area);
+          newTr.find('td:eq(2)').text(total_refill);
+          newTr.find('td:eq(3)').text(opening_meter);
+          newTr.find('td:eq(4)').text(closing_meter);
+          newTr.find('td:eq(5)').text(desel_out);
+          newTr.find('td:eq(6)').text(description);
+          newTr.find('td:eq(7)').text(dip);
+          newTr.find('td:eq(8)').text(balance);
+        }
       })
     });
   </script>
