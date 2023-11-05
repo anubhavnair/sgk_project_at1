@@ -32,7 +32,7 @@ require_once("./root/dbconnection.php");
     <div class="row">
       <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
-
+        <h6 class="header-title ml-2" id="tank_balance_heading"></h6>
           <form class="forms-sample">
             <?php
             if (isset($_REQUEST['edit_id'])) {
@@ -249,11 +249,12 @@ require_once("./root/dbconnection.php");
           $("#myPopup").html(data);
           const total_refill = $("#txt_total_refill");
           if ($("#tank_balance").length == 1) {
-            total_refill.val($("#tank_balance").val());
+            balance = total_refill.val($("#tank_balance").val());
           }
           else {
-            total_refill.val(0);
+            balance = total_refill.val(0);
           }
+          $("#tank_balance_heading").text("Tank : "+$("#tank_balance").val());
         }
         else {
           console.log("bhai error aaya hai")

@@ -63,7 +63,6 @@ require_once('./root/dbconnection.php');
     <div class="row">
       <div class="col-md-12 grid-margin stretch-card">
         <div class="card" >
-          <!-- <h4 class="header-title ml-2">Tank Details</h4> -->
           <div class="table-responsive-xl" id="details_table_body">
             <table class="table">
               <thead>
