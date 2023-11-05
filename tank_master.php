@@ -219,9 +219,9 @@ require_once("./root/dbconnection.php");
           <!-- Modal content-->
           <div class="modal-content">
             <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <!-- <h4 class="modal-title">Preview Record</h4> -->
-      </div>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <!-- <h4 class="modal-title">Preview Record</h4> -->
+            </div>
             <div class="modal-body">
               <p id="myPopup"></p>
             </div>
@@ -247,6 +247,13 @@ require_once("./root/dbconnection.php");
       }, function (data, status) {
         if (status === "success") {
           $("#myPopup").html(data);
+          const total_refill = $("#txt_total_refill");
+          if ($("#tank_balance").length == 1) {
+            total_refill.val($("#tank_balance").val());
+          }
+          else {
+            total_refill.val(0);
+          }
         }
         else {
           console.log("bhai error aaya hai")
@@ -585,4 +592,17 @@ require_once("./root/dbconnection.php");
         }
       })
     });
+
+    // balance calculating section 
+
+  $("#txt_total_refill").on("change", updateBalance);
+  $("#txt_desel_out").on("change", updateBalance);
+
+  function updateBalance(){
+    const totalRefill = parseFloat($("#txt_total_refill").val()) || 0;
+    const deselOut = parseFloat($("#txt_desel_out").val()) || 0;
+    const balance = $("#txt_balance");
+
+    balance.val(totalRefill-deselOut);
+  }
   </script>

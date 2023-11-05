@@ -109,7 +109,7 @@ require_once('./root/dbconnection.php');
 
                 // Get data of selected rows per page
                 $getQuery = "SELECT * FROM tank_entry_master WHERE e_d_optn = '1'
-            ORDER BY STR_TO_DATE(tank_entry_date, '%Y-%m-%d') DESC
+            ORDER BY STR_TO_DATE(tank_entry_date, '%Y-%m-%d') DESC, id DESC
             LIMIT $initial_page, $limit";
 
 
