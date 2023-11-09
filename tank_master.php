@@ -47,7 +47,7 @@ require_once("./root/dbconnection.php");
                 <div class="form-group col-md-6">
                   <!-- Content for the first div -->
                 </div>
-                <div class="form-group col-md-6">
+                <div class="form-group col-6">
                   <input type="date" class="form-control m-0" name="date_enter_date" id="date_enter_date"
                     value="<?= $date->format("Y-m-d"); ?>">
                 </div>
@@ -75,18 +75,18 @@ require_once("./root/dbconnection.php");
                   </div>
 
                 </div>
-                <div class="form-group col-md-6 d-flex flex-column justify-content-end">
-                  <label for="txt_opening_meter pe-0">Opening meter</label>
-                  <input type="text" class="form-control" name="txt_opening_meter" id="txt_opening_meter"
-                    placeholder="Enter Opening Meter" value="<?= $row['opening_meter'] ?>">
-                </div>
-              </section>
-
-              <section class="d-flex align-items-center col-12 p-0">
                 <div class="form-group col-md-6">
                   <label for="txt_total_refill">Total Refill</label>
                   <input type="text" class="form-control" name="txt_total_refill" id="txt_total_refill"
                     placeholder="Enter Total Refill" value="<?= $row['total_refil'] ?>">
+                </div>
+              </section>
+              
+              <section class="d-flex align-items-center col-12 p-0">
+                <div class="form-group col-md-6 d-flex flex-column justify-content-end">
+                  <label for="txt_opening_meter pe-0">Opening meter</label>
+                  <input type="text" class="form-control" name="txt_opening_meter" id="txt_opening_meter"
+                    placeholder="Enter Opening Meter" value="<?= $row['opening_meter'] ?>">
                 </div>
                 <div class="form-group col-md-6">
                   <label for="txt_closing_meter">Closing meter</label>
@@ -131,8 +131,8 @@ require_once("./root/dbconnection.php");
                   <div class="form-group col-md-6">
                     <!-- Content for the first div -->
                   </div>
-                  <div class="form-group col-md-6">
-                    <input type="text" class="form-control m-0" name="txt_enter_date" id="txt_enter_date" readonly>
+                  <div class="form-group col-6">
+                    <input type="date" class="form-control m-0" name="date_enter_date" id="date_enter_date" readonly>
                   </div>
                 </section>
 
@@ -156,18 +156,18 @@ require_once("./root/dbconnection.php");
                     </div>
 
                   </div>
-                  <div class="form-group col-md-6 d-flex flex-column justify-content-end">
-                    <label for="txt_opening_meter pe-0">Opening meter</label>
-                    <input type="text" class="form-control" name="txt_opening_meter" id="txt_opening_meter"
-                      placeholder="Enter Opening Meter">
-                  </div>
-                </section>
-
-                <section class="d-flex align-items-center col-12 p-0">
                   <div class="form-group col-md-6">
                     <label for="txt_total_refill">Total Refill</label>
                     <input type="text" class="form-control" name="txt_total_refill" id="txt_total_refill"
                       placeholder="Enter Total Refill">
+                  </div>
+                </section>
+                
+                <section class="d-flex align-items-center col-12 p-0">
+                  <div class="form-group col-md-6 d-flex flex-column justify-content-end">
+                    <label for="txt_opening_meter pe-0">Opening meter</label>
+                    <input type="text" class="form-control" name="txt_opening_meter" id="txt_opening_meter"
+                      placeholder="Enter Opening Meter">
                   </div>
                   <div class="form-group col-md-6">
                     <label for="txt_closing_meter">Closing meter</label>
@@ -287,7 +287,7 @@ require_once("./root/dbconnection.php");
       var formattedDate = year + '-' + month + '-' + day;
 
       // Set the value of the input to the current date
-      $('#txt_enter_date').val(formattedDate);
+      $('#date_enter_date').val(formattedDate);
 
       // notification section
 
@@ -318,7 +318,7 @@ require_once("./root/dbconnection.php");
       // FORM VALIDATION SECTION 
       $("#submit").on("click", function (e) {
         e.preventDefault();
-        const date = $("#txt_enter_date").val();
+        const date = $("#date_enter_date").val();
         const select_area = $("#txt_select_area").val();
         const opening_meter = $("#txt_opening_meter").val();
         const total_refill = $("#txt_total_refill").val();
@@ -399,7 +399,7 @@ require_once("./root/dbconnection.php");
         else {
           $.post("tank_master_do.php",
             {
-              txt_enter_date: date,
+              date_enter_date: date,
               txt_select_area: select_area,
               txt_opening_meter: opening_meter,
               txt_total_refill: total_refill,
@@ -506,7 +506,7 @@ require_once("./root/dbconnection.php");
           $.post("tank_master_do.php",
             {
               edit_id: edit_id,
-              txt_enter_date: date,
+              date_enter_date: date,
               txt_select_area: select_area,
               txt_opening_meter: opening_meter,
               txt_total_refill: total_refill,
@@ -530,7 +530,7 @@ require_once("./root/dbconnection.php");
 
       // POPUP SECTION 
       $("#preview").on("click", function (e) {
-        const date = $("#txt_enter_date").val();
+        const date = $("#date_enter_date").val();
         const select_area = $("#txt_select_area option:selected").text();
         const opening_meter = $("#txt_opening_meter").val();
         const total_refill = $("#txt_total_refill").val();
@@ -599,6 +599,11 @@ require_once("./root/dbconnection.php");
   $("#txt_total_refill").on("change", updateBalance);
   $("#txt_desel_out").on("change", updateBalance);
 
+  $("#txt_opening_meter").on("change",updateDeselOut);
+  $("#txt_closing_meter").on("change",updateDeselOut);
+
+
+
   function updateBalance(){
     const totalRefill = parseFloat($("#txt_total_refill").val()) || 0;
     const deselOut = parseFloat($("#txt_desel_out").val()) || 0;
@@ -606,4 +611,13 @@ require_once("./root/dbconnection.php");
 
     balance.val(totalRefill-deselOut);
   }
-  </script>
+
+  function updateDeselOut(){
+    const openingMeter =parseFloat($("#txt_opening_meter").val()) || 0;
+    const closingMeter = parseFloat($("#txt_closing_meter").val()) || 0;
+    const deselOut = $("#txt_desel_out");
+    
+    deselOut.val(closingMeter - openingMeter)
+
+  }
+  </script> 

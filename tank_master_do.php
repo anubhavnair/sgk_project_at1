@@ -8,7 +8,7 @@ if (isset($_REQUEST["edit_id"])) {
 
 
         $edit_id = $_REQUEST["edit_id"];
-        $date = $_REQUEST["txt_enter_date"];
+        $date = $_REQUEST["date_enter_date"];
         $select_area = $_REQUEST["txt_select_area"];
         $opening_meter = $_REQUEST["txt_opening_meter"];
         $total_refill = $_REQUEST["txt_total_refill"];
@@ -25,7 +25,7 @@ if (isset($_REQUEST["edit_id"])) {
 
 } else if (isset($_REQUEST["txt_select_area"]) && isset($_REQUEST["txt_opening_meter"]) && isset($_REQUEST["txt_total_refill"]) && isset($_REQUEST["txt_closing_meter"]) && isset($_REQUEST["txt_desel_out"]) && isset($_REQUEST["txt_balance"]) && isset($_REQUEST["txt_description"]) && isset($_REQUEST["txt_enter_date"])) {
 
-        $date = $_REQUEST["txt_enter_date"];
+        $date = $_REQUEST["date_enter_date"];
         $select_area = $_REQUEST["txt_select_area"];
         $opening_meter = $_REQUEST["txt_opening_meter"];
         $total_refill = $_REQUEST["txt_total_refill"];

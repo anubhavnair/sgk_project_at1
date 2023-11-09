@@ -222,9 +222,9 @@ require_once("./root/dbconnection.php");
             <!-- Modal content-->
             <div class="modal-content">
               <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
-        <!-- <h4 class="modal-title">Preview Record</h4> -->
-      </div>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <!-- <h4 class="modal-title">Preview Record</h4> -->
+              </div>
               <div class="modal-body">
                 <p id="myPopup"></p>
               </div>
@@ -689,11 +689,30 @@ require_once("./root/dbconnection.php");
             existingTr.find('td:eq(9)').text(desel);
             existingTr.find('td:eq(10)').text(average); // Assuming "average" is the 10th td
             existingTr.find('td:eq(11)').text(remark); // Assuming "remark" is the 11th td
-            
+
           }
         })
+        $("#txt_opening_meter").on("change", updateKM);
+        $("#txt_closing_meter").on("change", updateKM);
 
+        $("#txt_desel").on("change", updateDesel);
+
+        function updateKM() {
+          const openingMeter = parseFloat($("#txt_opening_meter").val()) || 0;
+          const closingMeter = parseFloat($("#txt_closing_meter").val()) || 0;
+          const km = $("#txt_km");
+
+          km.val(closingMeter  - openingMeter )
+          updateDesel()
+        }
       })
 
+      function updateDesel(){
+        const km = parseFloat($("#txt_km").val()) || 0;
+        const desel = parseFloat($("#txt_desel").val()) || 0;
+        const average = $("#txt_average");
+
+        average.val(km/desel);
+      }
 
     </script>
