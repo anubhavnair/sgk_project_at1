@@ -133,6 +133,7 @@
 
           // getting employees data from employee_master  it is giving only one row of result set 
           $qry = $db->query("select auth_id from employee_master where id = $emp_id ") or die("");
+
           $emp_row = $qry->fetch(PDO::FETCH_ASSOC);
 
 
@@ -141,19 +142,19 @@
 
 
           // getting the modules jisko user access kar sakta hai  from the modules_master
-          $get_modules = $db->query("SELECT * FROM module_master WHERE id IN (" . $auth_id_str . ")") or die("");
+          if ($auth_id_str != "" || $auth_id_str != null) {
+            $get_modules = $db->query("SELECT * FROM module_master WHERE id IN (" . $auth_id_str . ")") or die("");
+            while ($row_modules = $get_modules->fetch(PDO::FETCH_ASSOC)) {
+              ?>
+              <li> <a href="<?php echo $row_modules['module_url'] ?>" class=" active"> <i class="ti-home"></i>
+                  <span>
+                    <?php echo $row_modules["module_title"] ?>
+                  </span></a> </li>
+              <?php
 
-
-          // printing the dynamically modules to sidebar 
-          while ($row_modules = $get_modules->fetch(PDO::FETCH_ASSOC)) {
-            ?>
-            <li> <a href="<?php echo $row_modules['module_url'] ?>" class=" active"> <i class="ti-home"></i>
-                <span>
-                  <?php echo $row_modules["module_title"] ?>
-                </span></a> </li>
-            <?php
-
+            }
           }
+
           ?>
 
 
