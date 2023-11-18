@@ -32,13 +32,14 @@ require_once("./root/dbconnection.php");
     <div class="row">
       <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
-        <h6 class="header-title ml-2" id="tank_balance_heading"></h6>
+          <h6 class="header-title ml-2" id="tank_balance_heading"></h6>
           <form class="forms-sample">
             <?php
             if (isset($_REQUEST['edit_id'])) {
               $edit_id = $_REQUEST["edit_id"];
               $qry = $db->query("SELECT * FROM `tank_entry_master` where id = '$edit_id'") or die("");
               $row = $qry->fetch(PDO::FETCH_ASSOC);
+
               $dateString = $row['tank_entry_date']; // Replace with your date string
               $date = new DateTime($dateString);
               ?>
@@ -81,7 +82,7 @@ require_once("./root/dbconnection.php");
                     placeholder="Enter Total Refill" value="<?= $row['total_refil'] ?>">
                 </div>
               </section>
-              
+
               <section class="d-flex align-items-center col-12 p-0">
                 <div class="form-group col-md-6 d-flex flex-column justify-content-end">
                   <label for="txt_opening_meter pe-0">Opening meter</label>
@@ -101,35 +102,88 @@ require_once("./root/dbconnection.php");
                 <input type="text" class="form-control" id="txt_desel_out" name="txt_desel_out"
                   placeholder="Enter Desel Out" value="<?= $row['diesel_out'] ?>">
               </div>
-              <div class="form-group col-md-12">
-                <label for="txt_description">Description</label>
-                <textarea class="form-control" id="txt_description" name="txt_description"
-                  placeholder="Enter Description"><?= $row['tankentry_description'] ?></textarea>
+              <input type="hidden" id="txtTankDescp" name="txtTankDescp">
+
+              <style>
+                .txtClassName {
+                  width: 100%;
+                  padding: 6px;
+                }
+
+                .table td {
+                  padding: 4px !important;
+                }
+
+                .removeButton i {
+                  font-size: 18px;
+                  line-height: 27px;
+                }
+              </style>
+
+
+
+              <div class="table-responsive">
+                <table class="table table-bordered">
+
+                  <thead>
+                    <tr>
+                      <th width="65%">Descp</th>
+                      <th width="25%">DIP</th>
+
+                      <th width="10%"></th>
+                    </tr>
+                  </thead>
+
+                  <tbody id="tablestructure">
+
+                    <?php $query2 = "SELECT * FROM `tank_entry_detail_table` WHERE `tank_main_id`=$edit_id";
+                    $rsdescdip = $db->query($query2);
+                    $i=1;
+                    while ($rowdescdip = $rsdescdip->fetch(PDO::FETCH_ASSOC)) {  ?>
+                   
+                      <tr id="struct_<?php echo $i; ?>">
+                        <td><input type="text" class="txtClassName txtdescp" id="txtdescp_<?php echo $i; ?>" value="<?=$rowdescdip['descp']?>"></td>
+                        <td><input type="text" class="txtClassName txtdip" id="txtdip_<?php echo $i; ?>" value="<?=$rowdescdip['dip']?>"></td>
+
+                        <td>
+                          <div class="removeButton" onclick="removefunction('struct_<?php echo $i; ?>')"
+                            id="btnremove_<?php echo $i; ?>">
+                            <i class="ti-trash"></i>
+                          </div>
+                        </td>
+                      </tr>
+                    <?php $i++;} ?>
+
+
+
+                  </tbody>
+                </table>
               </div>
 
-              <section class="d-flex align-items-center col-md-12 p-0">
-                <div class="form-group col-md-6">
-                  <label for="txt_dip">DIP</label>
-                  <input type="text" class="form-control" id="txt_dip" name="txt_dip" placeholder="Enter DIP"
-                    value="<?= $row['tank_dip'] ?>">
-                </div>
-                <div class="form-group col-md-6">
-                  <label for="txt_balance">Balance</label>
-                  <input type="text" class="form-control" id="txt_balance" name="txt_balance" placeholder="Enter Banance"
-                    value="<?= $row['tank_balance'] ?>">
-                </div>
-              </section>
-              <div class="d-flex flex-col pl-3">
-                <button type="submit" id="update" class="btn btn-warning mr-2">Update</button>
-                <button type="button" id="preview" class="btn btn-primary mr-2 mb-2" data-toggle="modal"
-                  data-target="#myModal">Preview</button>
 
-                <?php
+
+              <div class="d-flex justify-content-center">
+                <button type="button" class="btn btn-dark btn-sm mb-2" onclick="addmorebutton()">Add More</button>
+                <!---<button type="button" class="btn btn-dark mb-2" id="addDescription">Add More</button>--->
+            </div>
+
+            <div class="form-group col-md-12">
+              <label for="txt_balance">Balance</label>
+              <input type="text" class="form-control" id="txt_balance" name="txt_balance" placeholder="Enter Balance" value="<?= $row['tank_balance'] ?>">
+            </div>
+
+
+            <div class="d-flex flex-col pl-3">
+              <button type="submit" id="update" class="btn btn-warning mr-2">Update</button>
+              <button type="button" id="preview" class="btn btn-primary mr-2 mb-2" data-toggle="modal"
+                data-target="#myModal">Preview</button>
+
+              <?php
             } else {
               ?>
-                <section class=" d-flex align-items-center col-12 p-0 ">
-                  <div class="form-group col-md-6">
-                    <!-- Content for the first div -->
+              <section class=" d-flex align-items-center col-12 p-0 ">
+                <div class="form-group col-md-6">
+                  <!-- Content for the first div -->
                   </div>
                   <div class="form-group col-6">
                     <input type="date" class="form-control m-0" name="date_enter_date" id="date_enter_date" readonly>
@@ -162,7 +216,7 @@ require_once("./root/dbconnection.php");
                       placeholder="Enter Total Refill">
                   </div>
                 </section>
-                
+
                 <section class="d-flex align-items-center col-12 p-0">
                   <div class="form-group col-md-6 d-flex flex-column justify-content-end">
                     <label for="txt_opening_meter pe-0">Opening meter</label>
@@ -184,80 +238,81 @@ require_once("./root/dbconnection.php");
                 </div>
 
 
-				<input type="hidden" id="txtTankDescp" name="txtTankDescp">
-       
-<style>
-.txtClassName{
-	width:100%; padding:6px;
-}
+                <input type="hidden" id="txtTankDescp" name="txtTankDescp">
 
-.table td{
-	padding:4px !important;
-}
+                <style>
+                  .txtClassName {
+                    width: 100%;
+                    padding: 6px;
+                  }
 
-.removeButton i{
-	    font-size: 18px;
-		line-height: 27px;
-}
-</style>
-			
+                  .table td {
+                    padding: 4px !important;
+                  }
 
-			
-				<div class="table-responsive">
-				<table class="table table-bordered">
-	
-				<thead>
-					  <tr>
-						<th width="65%">Descp</th>
-						<th width="25%">DIP</th>
-						
-						<th width="10%"></th>
-					  </tr>
-					</thead>
-				
-					<tbody id="tablestructure">
-					
-				<?php for($i=1; $i<=10; $i++){ ?>	
-				  <tr id="struct_<?php echo $i; ?>">
-					<td><input type="text" class="txtClassName" id="txtdescp_<?php echo $i; ?>"></td>
-					<td><input type="text" class="txtClassName" id="txtdip_<?php echo $i; ?>"></td>
-					
-					<td>
-						<div class="removeButton" onclick="removefunction('struct_<?php echo $i; ?>')" id="btnremove_<?php echo $i; ?>">
-							<i class="ti-trash"></i>
-						</div>
-					</td>
-				  </tr>
-				<?php } ?>
-				
-				
-				
-	  </tbody>
-				</table>
-				</div>
-				
-				
-				
-              <div class="d-flex justify-content-center">
-			  <button type="button" class="btn btn-dark btn-sm mb-2" onclick="addmorebutton()">Add More</button>
-              <!---<button type="button" class="btn btn-dark mb-2" id="addDescription">Add More</button>--->
+                  .removeButton i {
+                    font-size: 18px;
+                    line-height: 27px;
+                  }
+                </style>
+
+
+
+                <div class="table-responsive">
+                  <table class="table table-bordered">
+
+                    <thead>
+                      <tr>
+                        <th width="65%">Descp</th>
+                        <th width="25%">DIP</th>
+
+                        <th width="10%"></th>
+                      </tr>
+                    </thead>
+
+                    <tbody id="tablestructure">
+
+                      <?php for ($i = 1; $i <= 10; $i++) { ?>
+                        <tr id="struct_<?php echo $i; ?>">
+                          <td><input type="text" class="txtClassName txtdescp" id="txtdescp_<?php echo $i; ?>"></td>
+                          <td><input type="text" class="txtClassName txtdip" id="txtdip_<?php echo $i; ?>"></td>
+
+                          <td>
+                            <div class="removeButton" onclick="removefunction('struct_<?php echo $i; ?>')"
+                              id="btnremove_<?php echo $i; ?>">
+                              <i class="ti-trash"></i>
+                            </div>
+                          </td>
+                        </tr>
+                      <?php } ?>
+
+
+
+                    </tbody>
+                  </table>
+                </div>
+
+
+
+                <div class="d-flex justify-content-center">
+                  <button type="button" class="btn btn-dark btn-sm mb-2" onclick="addmorebutton()">Add More</button>
+                  <!---<button type="button" class="btn btn-dark mb-2" id="addDescription">Add More</button>--->
               </div>
-			  
-			  <div class="form-group col-md-12">
-                  <label for="txt_desel_out">Balance</label>
-                  <input type="text" class="form-control" id="txt_desel_out" name="txt_desel_out"
-                    placeholder="Enter Balance">
-                </div>
-				
-				
-                <div class="d-flex flex-col pl-3">
 
-                  <button type="button" id="submit" class="btn btn-success mr-2 submitButton">Submit</button>
+              <div class="form-group col-md-12">
+                <label for="txt_balance">Balance</label>
+                <input type="text" class="form-control" id="txt_balance" name="txt_balance" placeholder="Enter Balance">
+              </div>
 
-                  <button type="button" id="preview" class="btn btn-primary mr-2" data-toggle="modal"
-                    data-target="#myModal">Preview</button>
-                </div>
-                <?php
+
+              <div class="d-flex flex-col pl-3">
+
+                <button type="button" id="submit" class="btn btn-success mr-2 submitButton">Submit</button>
+
+                <button type="button" id="preview" class="btn btn-primary mr-2" data-toggle="modal"
+                  data-target="#myModal">Preview</button>
+              </div>
+              <?php
             }
             ?>
           </form>
@@ -291,62 +346,45 @@ require_once("./root/dbconnection.php");
   ?>
   <script>
 
-function removefunction(id){	
-	$("#"+id).remove();
-}
 
-var totaloldstruct=11;
-function addmorebutton(){
+    // $(".submitButton").on("click", function (e) {
 
-	//var totaloldstruct=$("#tablestructure tr").length;
-	//alert(totaloldstruct);
-	
-	
-	var funin="struct_"+totaloldstruct;
-	
-	var abc="removefunction('"+funin+"')";
-	
-	var tablemorestruct='<tr id="struct_'+totaloldstruct+'">'+
-					'<td><input type="text" class="txtClassName" id="txtdescp_'+totaloldstruct+'"></td>'+
-					'<td><input type="text" class="txtClassName" id="txtdip_'+totaloldstruct+'"></td>'+					
-					'<td>'+
-						'<div class="removeButton" onclick="'+abc+'">'+
-							'<i class="ti-trash"></i>'+
-						'</div>'+
-					'</td>'+
-				  '</tr>';
-totaloldstruct++;				  
-	$("#tablestructure").append(tablemorestruct);
-}
+    // });
 
 
 
 
-$(".submitButton").on("click",function(e){
-	
-	var emptyValBox="";
-	
-	for(i=0; i<$("#tablestructure tr").length; i++){
-		//console.log($("#tablestructure tr:eq("+i+")").attr("id"));
-		var mainid=$("#tablestructure tr:eq("+i+")").attr("id");
-		var finID=mainid.replace("struct_", "");		
-		
-		var txtDescpval=$("#txtdescp_"+finID).val();
-		var txtDipval=$("#txtdip_"+finID).val();
-		
-		emptyValBox=emptyValBox+txtDescpval+"=="+txtDipval+"||";	
-		
-		//descp==4-5||descp==4-5||descp==4-5||descp==4-5		
-	}
-	console.log(emptyValBox);
-	
-	$("#txtTankDescp").val(emptyValBox);
-});
+    function removefunction(id) {
+      $("#" + id).remove();
+    }
+
+    var totaloldstruct = 11;
+    function addmorebutton() {
+
+      //var totaloldstruct=$("#tablestructure tr").length;
+      //alert(totaloldstruct);
 
 
+      var funin = "struct_" + totaloldstruct;
+
+      var abc = "removefunction('" + funin + "')";
+
+      var tablemorestruct = '<tr id="struct_' + totaloldstruct + '">' +
+        '<td><input type="text" class="txtClassName" id="txtdescp_' + totaloldstruct + '"></td>' +
+        '<td><input type="text" class="txtClassName" id="txtdip_' + totaloldstruct + '"></td>' +
+        '<td>' +
+        '<div class="removeButton" onclick="' + abc + '">' +
+        '<i class="ti-trash"></i>' +
+        '</div>' +
+        '</td>' +
+        '</tr>';
+      totaloldstruct++;
+      $("#tablestructure").append(tablemorestruct);
+    }
 
     $(document).ready(function () {
       // TAKING PREVIEW DATA FROM THE DATABASE 
+
       $.post("tank_master_do.php", {
         preview: "preview"
       }, function (data, status) {
@@ -359,7 +397,7 @@ $(".submitButton").on("click",function(e){
           else {
             balance = total_refill.val(0);
           }
-          $("#tank_balance_heading").text("Tank : "+$("#tank_balance").val());
+          $("#tank_balance_heading").text("Tank : " + $("#tank_balance").val());
         }
         else {
           console.log("bhai error aaya hai")
@@ -400,7 +438,7 @@ $(".submitButton").on("click",function(e){
         var notification = $("#myNotification");
         notification.css("opacity", "1");
         notification.css("pointer-events", "auto");
-        notification.html(message);
+        notification.text(message);
         setTimeout(function () {
           hideNotification();
         }, 2000); // Auto-close after 2 seconds
@@ -429,9 +467,10 @@ $(".submitButton").on("click",function(e){
         const total_refill = $("#txt_total_refill").val();
         const closing_meter = $("#txt_closing_meter").val();
         const desel_out = $("#txt_desel_out").val();
-        const description = $("#txt_description").val();
-        const dip = $("#txt_dip").val();
+        // const description = $("#txt_description").val();
+        // const dip = $("#txt_dip").val();
         const banance = $("#txt_balance").val();
+
         if (select_area == "" || select_area == null) {
           $("#txt_select_area").css("border", "1.2px solid red");
 
@@ -476,23 +515,23 @@ $(".submitButton").on("click",function(e){
             $(this).css("border", "1.2px solid skyblue");
           });
         }
-        else if (description == "" || description == null) {
+        // else if (description == "" || description == null) {
 
 
-          $("#txt_description").css("border", "1.2px solid red");
-          $("#txt_description").focus();
-          $("#txt_description").keydown(function () {
-            $(this).css("border", "1.2px solid skyblue");
-          });
-        }
-        else if (dip == "" || dip == null) {
+        //   $("#txt_description").css("border", "1.2px solid red");
+        //   $("#txt_description").focus();
+        //   $("#txt_description").keydown(function () {
+        //     $(this).css("border", "1.2px solid skyblue");
+        //   });
+        // }
+        // else if (dip == "" || dip == null) {
 
-          $("#txt_dip").css("border", "1.2px solid red");
-          $("#txt_dip").focus();
-          $("#txt_dip").keydown(function () {
-            $(this).css("border", "1.2px solid skyblue");
-          });
-        }
+        //   $("#txt_dip").css("border", "1.2px solid red");
+        //   $("#txt_dip").focus();
+        //   $("#txt_dip").keydown(function () {
+        //     $(this).css("border", "1.2px solid skyblue");
+        //   });
+        // }
         else if (banance == "" || banance == null) {
 
           $("#txt_balance").css("border", "1.2px solid red");
@@ -502,6 +541,25 @@ $(".submitButton").on("click",function(e){
           });
         }
         else {
+
+          var emptyValBox = "";
+
+          for (i = 0; i < $("#tablestructure tr").length; i++) {
+            //console.log($("#tablestructure tr:eq("+i+")").attr("id"));
+            var mainid = $("#tablestructure tr:eq(" + i + ")").attr("id");
+            var finID = mainid.replace("struct_", "");
+
+            var txtDescpval = $("#txtdescp_" + finID).val();
+            var txtDipval = $("#txtdip_" + finID).val();
+
+            emptyValBox = emptyValBox + txtDescpval + "==" + txtDipval + "||";
+
+            //descp==4-5||descp==4-5||descp==4-5||descp==4-5		
+          }
+          console.log(emptyValBox);
+
+          $("#txtTankDescp").val(emptyValBox);
+          // emptyValBox = $("txtTankDescp").val();
           $.post("tank_master_do.php",
             {
               date_enter_date: date,
@@ -510,8 +568,7 @@ $(".submitButton").on("click",function(e){
               txt_total_refill: total_refill,
               txt_closing_meter: closing_meter,
               txt_desel_out: desel_out,
-              txt_description: description,
-              txt_dip: dip,
+              description_dip_info: emptyValBox,
               txt_balance: banance
             }, function (data, status) {
               if (status == "success") {
@@ -519,6 +576,7 @@ $(".submitButton").on("click",function(e){
                 let message = "New Record Added Successfully !....";
                 window.location.replace("./tank_master.php?message=" + message);
               }
+
 
             }
           );
@@ -535,8 +593,6 @@ $(".submitButton").on("click",function(e){
         const total_refill = $("#txt_total_refill").val();
         const closing_meter = $("#txt_closing_meter").val();
         const desel_out = $("#txt_desel_out").val();
-        const description = $("#txt_description").val();
-        const dip = $("#txt_dip").val();
         const banance = $("#txt_balance").val();
         if (select_area == "" || select_area == null) {
           $("#txt_select_area").css("border", "1.2px solid red");
@@ -582,23 +638,23 @@ $(".submitButton").on("click",function(e){
             $(this).css("border", "1.2px solid skyblue");
           });
         }
-        else if (description == "" || description == null) {
+        // else if (description == "" || description == null) {
 
 
-          $("#txt_description").css("border", "1.2px solid red");
-          $("#txt_description").focus();
-          $("#txt_description").keydown(function () {
-            $(this).css("border", "1.2px solid skyblue");
-          });
-        }
-        else if (dip == "" || dip == null) {
+        //   $("#txt_description").css("border", "1.2px solid red");
+        //   $("#txt_description").focus();
+        //   $("#txt_description").keydown(function () {
+        //     $(this).css("border", "1.2px solid skyblue");
+        //   });
+        // }
+        // else if (dip == "" || dip == null) {
 
-          $("#txt_dip").css("border", "1.2px solid red");
-          $("#txt_dip").focus();
-          $("#txt_dip").keydown(function () {
-            $(this).css("border", "1.2px solid skyblue");
-          });
-        }
+        //   $("#txt_dip").css("border", "1.2px solid red");
+        //   $("#txt_dip").focus();
+        //   $("#txt_dip").keydown(function () {
+        //     $(this).css("border", "1.2px solid skyblue");
+        //   });
+        // }
         else if (banance == "" || banance == null) {
 
           $("#txt_balance").css("border", "1.2px solid red");
@@ -608,6 +664,23 @@ $(".submitButton").on("click",function(e){
           });
         }
         else {
+          var emptyValBox = "";
+
+for (i = 0; i < $("#tablestructure tr").length; i++) {
+  //console.log($("#tablestructure tr:eq("+i+")").attr("id"));
+  var mainid = $("#tablestructure tr:eq(" + i + ")").attr("id");
+  var finID = mainid.replace("struct_", "");
+
+  var txtDescpval = $("#txtdescp_" + finID).val();
+  var txtDipval = $("#txtdip_" + finID).val();
+
+  emptyValBox = emptyValBox + txtDescpval + "==" + txtDipval + "||";
+
+  //descp==4-5||descp==4-5||descp==4-5||descp==4-5		
+}
+console.log(emptyValBox);
+
+$("#txtTankDescp").val(emptyValBox);
           $.post("tank_master_do.php",
             {
               edit_id: edit_id,
@@ -617,8 +690,7 @@ $(".submitButton").on("click",function(e){
               txt_total_refill: total_refill,
               txt_closing_meter: closing_meter,
               txt_desel_out: desel_out,
-              txt_description: description,
-              txt_dip: dip,
+              description_dip_info: emptyValBox,
               txt_balance: banance
             }, function (data, status) {
               if (status == "success") {
@@ -641,8 +713,8 @@ $(".submitButton").on("click",function(e){
         const total_refill = $("#txt_total_refill").val();
         const closing_meter = $("#txt_closing_meter").val();
         const desel_out = $("#txt_desel_out").val();
-        const description = $("#txt_description").val();
-        const dip = $("#txt_dip").val();
+        const description = $(".txtdescp");
+        const dip = $(".txtdip");
         const balance = $("#txt_balance").val();
 
         if ($("#dynamicData").length === 0) {
@@ -667,8 +739,14 @@ $(".submitButton").on("click",function(e){
           tdOpeningMeter.text(opening_meter)
           tdClosingMeter.text(closing_meter)
           tdDeselOut.text(desel_out)
-          tdDescription.text(description)
-          tdDip.text(dip)
+          description.each(function (index, element) {
+            tdDescription.append($(element).text() + ' (' + $(element).val() + ')<br>');
+          });
+
+          dip.each(function (index, element) {
+            tdDip.append($(element).text() + ' (' + $(element).val() + ')<br>');
+          });
+
           tdBalance.text(balance)
 
           newTr.append(tdSNo);
@@ -698,8 +776,8 @@ $(".submitButton").on("click",function(e){
         }
       })
 
-      $("#addDescription").on("click", function (e){
-      var newSection = $(`<section class="d-flex align-items-center col-md-12 p-0">
+      $("#addDescription").on("click", function (e) {
+        var newSection = $(`<section class="d-flex align-items-center col-md-12 p-0">
         <div class="form-group col-md-4">
           <label for="txt_description">Description</label>
           <input type="text" value="Enter Description" id="txt_description" class="form-control " name="txt_description"/>
@@ -713,36 +791,36 @@ $(".submitButton").on("click",function(e){
           <input type="text" class="form-control" id="txt_balance" name="txt_balance" placeholder="Enter Banance">
         </div>
       </section>`).clone();
-  
-      $("#multiple_entries").append(newSection);
-    });
-  
+
+        $("#multiple_entries").append(newSection);
+      });
+
       // balance calculating section 
-  
-    $("#txt_total_refill").on("change", updateBalance);
-    $("#txt_desel_out").on("change", updateBalance);
-  
-    $("#txt_opening_meter").on("change",updateDeselOut);
-    $("#txt_closing_meter").on("change",updateDeselOut);
-  
-  
-   
-    function updateBalance(){
-      const totalRefill = parseFloat($("#txt_total_refill").val()) || 0;
-      const deselOut = parseFloat($("#txt_desel_out").val()) || 0;
-      const balance = $("#txt_balance");
-  
-      balance.val(totalRefill-deselOut);
-    }
-  
-    function updateDeselOut(){
-      const openingMeter =parseFloat($("#txt_opening_meter").val()) || 0;
-      const closingMeter = parseFloat($("#txt_closing_meter").val()) || 0;
-      const deselOut = $("#txt_desel_out");
-      
-      deselOut.val(closingMeter - openingMeter)
-   
-    }
+
+      $("#txt_total_refill").on("change", updateBalance);
+      $("#txt_desel_out").on("change", updateBalance);
+
+      $("#txt_opening_meter").on("change", updateDeselOut);
+      $("#txt_closing_meter").on("change", updateDeselOut);
+
+
+
+      function updateBalance() {
+        const totalRefill = parseFloat($("#txt_total_refill").val()) || 0;
+        const deselOut = parseFloat($("#txt_desel_out").val()) || 0;
+        const balance = $("#txt_balance");
+
+        balance.val(totalRefill - deselOut);
+      }
+
+      function updateDeselOut() {
+        const openingMeter = parseFloat($("#txt_opening_meter").val()) || 0;
+        const closingMeter = parseFloat($("#txt_closing_meter").val()) || 0;
+        const deselOut = $("#txt_desel_out");
+
+        deselOut.val(closingMeter - openingMeter)
+        updateBalance();
+      }
     });
 
-  </script> 
+  </script>
