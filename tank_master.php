@@ -183,156 +183,76 @@ require_once("./root/dbconnection.php");
                     placeholder="Enter Desel Out">
                 </div>
 
-                <section id="multiple_entries">
-                <section class="d-flex align-items-center col-md-12 p-0">
-                  <div class="form-group col-md-4">
-                    <label for="txt_description">Description</label>
-                    <input type="text" value="Enter Description" id="txt_description" class="form-control " name="txt_description"/>
-                  </div>
-                  <div class="form-group col-md-4">
-                    <label for="txt_dip">DIP</label>
-                    <input type="text" class="form-control" id="txt_dip" name="txt_dip" placeholder="Enter DIP">
-                  </div>
-                  <div class="form-group col-md-4">
-                    <label for="txt_balance">Balance</label>
-                    <input type="text" class="form-control" id="txt_balance" name="txt_balance"
-                      placeholder="Enter Banance">
-                  </div>
-                </section><section class="d-flex align-items-center col-md-12 p-0">
-                  <div class="form-group col-md-4">
-                    <label for="txt_description">Description</label>
-                    <input type="text" value="Enter Description" id="txt_description" class="form-control " name="txt_description"/>
-                  </div>
-                  <div class="form-group col-md-4">
-                    <label for="txt_dip">DIP</label>
-                    <input type="text" class="form-control" id="txt_dip" name="txt_dip" placeholder="Enter DIP">
-                  </div>
-                  <div class="form-group col-md-4">
-                    <label for="txt_balance">Balance</label>
-                    <input type="text" class="form-control" id="txt_balance" name="txt_balance"
-                      placeholder="Enter Banance">
-                  </div>
-                </section><section class="d-flex align-items-center col-md-12 p-0">
-                  <div class="form-group col-md-4">
-                    <label for="txt_description">Description</label>
-                    <input type="text" value="Enter Description" id="txt_description" class="form-control " name="txt_description"/>
-                  </div>
-                  <div class="form-group col-md-4">
-                    <label for="txt_dip">DIP</label>
-                    <input type="text" class="form-control" id="txt_dip" name="txt_dip" placeholder="Enter DIP">
-                  </div>
-                  <div class="form-group col-md-4">
-                    <label for="txt_balance">Balance</label>
-                    <input type="text" class="form-control" id="txt_balance" name="txt_balance"
-                      placeholder="Enter Banance">
-                  </div>
-                </section><section class="d-flex align-items-center col-md-12 p-0">
-                  <div class="form-group col-md-4">
-                    <label for="txt_description">Description</label>
-                    <input type="text" value="Enter Description" id="txt_description" class="form-control " name="txt_description"/>
-                  </div>
-                  <div class="form-group col-md-4">
-                    <label for="txt_dip">DIP</label>
-                    <input type="text" class="form-control" id="txt_dip" name="txt_dip" placeholder="Enter DIP">
-                  </div>
-                  <div class="form-group col-md-4">
-                    <label for="txt_balance">Balance</label>
-                    <input type="text" class="form-control" id="txt_balance" name="txt_balance"
-                      placeholder="Enter Banance">
-                  </div>
-                </section><section class="d-flex align-items-center col-md-12 p-0">
-                  <div class="form-group col-md-4">
-                    <label for="txt_description">Description</label>
-                    <input type="text" value="Enter Description" id="txt_description" class="form-control " name="txt_description"/>
-                  </div>
-                  <div class="form-group col-md-4">
-                    <label for="txt_dip">DIP</label>
-                    <input type="text" class="form-control" id="txt_dip" name="txt_dip" placeholder="Enter DIP">
-                  </div>
-                  <div class="form-group col-md-4">
-                    <label for="txt_balance">Balance</label>
-                    <input type="text" class="form-control" id="txt_balance" name="txt_balance"
-                      placeholder="Enter Banance">
-                  </div>
-                </section><section class="d-flex align-items-center col-md-12 p-0">
-                  <div class="form-group col-md-4">
-                    <label for="txt_description">Description</label>
-                    <input type="text" value="Enter Description" id="txt_description" class="form-control " name="txt_description"/>
-                  </div>
-                  <div class="form-group col-md-4">
-                    <label for="txt_dip">DIP</label>
-                    <input type="text" class="form-control" id="txt_dip" name="txt_dip" placeholder="Enter DIP">
-                  </div>
-                  <div class="form-group col-md-4">
-                    <label for="txt_balance">Balance</label>
-                    <input type="text" class="form-control" id="txt_balance" name="txt_balance"
-                      placeholder="Enter Banance">
-                  </div>
-                </section><section class="d-flex align-items-center col-md-12 p-0">
-                  <div class="form-group col-md-4">
-                    <label for="txt_description">Description</label>
-                    <input type="text" value="Enter Description" id="txt_description" class="form-control " name="txt_description"/>
-                  </div>
-                  <div class="form-group col-md-4">
-                    <label for="txt_dip">DIP</label>
-                    <input type="text" class="form-control" id="txt_dip" name="txt_dip" placeholder="Enter DIP">
-                  </div>
-                  <div class="form-group col-md-4">
-                    <label for="txt_balance">Balance</label>
-                    <input type="text" class="form-control" id="txt_balance" name="txt_balance"
-                      placeholder="Enter Banance">
-                  </div>
-                </section><section class="d-flex align-items-center col-md-12 p-0">
-                  <div class="form-group col-md-4">
-                    <label for="txt_description">Description</label>
-                    <input type="text" value="Enter Description" id="txt_description" class="form-control " name="txt_description"/>
-                  </div>
-                  <div class="form-group col-md-4">
-                    <label for="txt_dip">DIP</label>
-                    <input type="text" class="form-control" id="txt_dip" name="txt_dip" placeholder="Enter DIP">
-                  </div>
-                  <div class="form-group col-md-4">
-                    <label for="txt_balance">Balance</label>
-                    <input type="text" class="form-control" id="txt_balance" name="txt_balance"
-                      placeholder="Enter Banance">
-                  </div>
-                </section><section class="d-flex align-items-center col-md-12 p-0">
-                  <div class="form-group col-md-4">
-                    <label for="txt_description">Description</label>
-                    <input type="text" value="Enter Description" id="txt_description" class="form-control " name="txt_description"/>
-                  </div>
-                  <div class="form-group col-md-4">
-                    <label for="txt_dip">DIP</label>
-                    <input type="text" class="form-control" id="txt_dip" name="txt_dip" placeholder="Enter DIP">
-                  </div>
-                  <div class="form-group col-md-4">
-                    <label for="txt_balance">Balance</label>
-                    <input type="text" class="form-control" id="txt_balance" name="txt_balance"
-                      placeholder="Enter Banance">
-                  </div>
-                </section><section class="d-flex align-items-center col-md-12 p-0">
-                  <div class="form-group col-md-4">
-                    <label for="txt_description">Description</label>
-                    <input type="text" value="Enter Description" id="txt_description" class="form-control " name="txt_description"/>
-                      
-                  </div>
-                  <div class="form-group col-md-4">
-                    <label for="txt_dip">DIP</label>
-                    <input type="text" class="form-control" id="txt_dip" name="txt_dip" placeholder="Enter DIP">
-                  </div>
-                  <div class="form-group col-md-4">
-                    <label for="txt_balance">Balance</label>
-                    <input type="text" class="form-control" id="txt_balance" name="txt_balance"
-                      placeholder="Enter Banance">
-                  </div>
-                </section>
-              </section>
+
+				<input type="hidden" id="txtTankDescp" name="txtTankDescp">
+       
+<style>
+.txtClassName{
+	width:100%; padding:6px;
+}
+
+.table td{
+	padding:4px !important;
+}
+
+.removeButton i{
+	    font-size: 18px;
+		line-height: 27px;
+}
+</style>
+			
+
+			
+				<div class="table-responsive">
+				<table class="table table-bordered">
+	
+				<thead>
+					  <tr>
+						<th width="65%">Descp</th>
+						<th width="25%">DIP</th>
+						
+						<th width="10%"></th>
+					  </tr>
+					</thead>
+				
+					<tbody id="tablestructure">
+					
+				<?php for($i=1; $i<=10; $i++){ ?>	
+				  <tr id="struct_<?php echo $i; ?>">
+					<td><input type="text" class="txtClassName" id="txtdescp_<?php echo $i; ?>"></td>
+					<td><input type="text" class="txtClassName" id="txtdip_<?php echo $i; ?>"></td>
+					
+					<td>
+						<div class="removeButton" onclick="removefunction('struct_<?php echo $i; ?>')" id="btnremove_<?php echo $i; ?>">
+							<i class="ti-trash"></i>
+						</div>
+					</td>
+				  </tr>
+				<?php } ?>
+				
+				
+				
+	  </tbody>
+				</table>
+				</div>
+				
+				
+				
               <div class="d-flex justify-content-center">
-              <button type="button" class="btn btn-dark mb-2" id="addDescription">Add More</button>
+			  <button type="button" class="btn btn-dark btn-sm mb-2" onclick="addmorebutton()">Add More</button>
+              <!---<button type="button" class="btn btn-dark mb-2" id="addDescription">Add More</button>--->
               </div>
+			  
+			  <div class="form-group col-md-12">
+                  <label for="txt_desel_out">Balance</label>
+                  <input type="text" class="form-control" id="txt_desel_out" name="txt_desel_out"
+                    placeholder="Enter Balance">
+                </div>
+				
+				
                 <div class="d-flex flex-col pl-3">
 
-                  <button type="submit" id="submit" class="btn btn-success mr-2">Submit</button>
+                  <button type="button" id="submit" class="btn btn-success mr-2 submitButton">Submit</button>
 
                   <button type="button" id="preview" class="btn btn-primary mr-2" data-toggle="modal"
                     data-target="#myModal">Preview</button>
@@ -370,6 +290,60 @@ require_once("./root/dbconnection.php");
   include("./footer.php");
   ?>
   <script>
+
+function removefunction(id){	
+	$("#"+id).remove();
+}
+
+var totaloldstruct=11;
+function addmorebutton(){
+
+	//var totaloldstruct=$("#tablestructure tr").length;
+	//alert(totaloldstruct);
+	
+	
+	var funin="struct_"+totaloldstruct;
+	
+	var abc="removefunction('"+funin+"')";
+	
+	var tablemorestruct='<tr id="struct_'+totaloldstruct+'">'+
+					'<td><input type="text" class="txtClassName" id="txtdescp_'+totaloldstruct+'"></td>'+
+					'<td><input type="text" class="txtClassName" id="txtdip_'+totaloldstruct+'"></td>'+					
+					'<td>'+
+						'<div class="removeButton" onclick="'+abc+'">'+
+							'<i class="ti-trash"></i>'+
+						'</div>'+
+					'</td>'+
+				  '</tr>';
+totaloldstruct++;				  
+	$("#tablestructure").append(tablemorestruct);
+}
+
+
+
+
+$(".submitButton").on("click",function(e){
+	
+	var emptyValBox="";
+	
+	for(i=0; i<$("#tablestructure tr").length; i++){
+		//console.log($("#tablestructure tr:eq("+i+")").attr("id"));
+		var mainid=$("#tablestructure tr:eq("+i+")").attr("id");
+		var finID=mainid.replace("struct_", "");		
+		
+		var txtDescpval=$("#txtdescp_"+finID).val();
+		var txtDipval=$("#txtdip_"+finID).val();
+		
+		emptyValBox=emptyValBox+txtDescpval+"=="+txtDipval+"||";	
+		
+		//descp==4-5||descp==4-5||descp==4-5||descp==4-5		
+	}
+	console.log(emptyValBox);
+	
+	$("#txtTankDescp").val(emptyValBox);
+});
+
+
 
     $(document).ready(function () {
       // TAKING PREVIEW DATA FROM THE DATABASE 
