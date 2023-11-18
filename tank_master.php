@@ -25,9 +25,7 @@ require_once("./root/dbconnection.php");
       </div>
     </div>
     <!-- End Breadcrumbbar -->
-    <div class="notification" id="myNotification">
-
-    </div>
+    <div class="notification" id="myNotification"></div>
     <!-- state start-->
     <div class="row">
       <div class="col-md-12 grid-margin stretch-card">
@@ -438,7 +436,7 @@ require_once("./root/dbconnection.php");
         var notification = $("#myNotification");
         notification.css("opacity", "1");
         notification.css("pointer-events", "auto");
-        notification.text(message);
+        notification.html(message);
         setTimeout(function () {
           hideNotification();
         }, 2000); // Auto-close after 2 seconds

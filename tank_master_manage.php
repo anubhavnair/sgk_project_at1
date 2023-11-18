@@ -255,7 +255,7 @@ require_once('./root/dbconnection.php');
       let message = urlParams.get("message");
       let color = urlParams.get("color");
       if (color) {
-        notification.css("background-color", color)
+        $("#myNotification").css("background-color", color)
       }
       if (message) {
         showNotification(message);
