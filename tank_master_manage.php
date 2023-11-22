@@ -15,12 +15,28 @@ require_once('./root/dbconnection.php');
       </svg>Click to Filter</span>
     <div class="row filter_section" style="display: none;">
 
-      <section class="col-12 d-flex align-items-center">
-        <div class="col-6 d-flex justify-content-end flex-column h-100">
+      <section class="col-12 d-flex align-items-end">
+      <div class="col-4 d-flex justify-content-end flex-column h-100">
+          <label for="select_employee">Select Employee</label>
+          <select class="form-control custom-select p-1" name="select_employee" id="select_employee">
+                      <?php
+                      $qry2 = $db->query("SELECT * FROM `employee_master` WHERE e_d_optn = 1") or die("");
+                      while ($rowEmployee = $qry2->fetch(PDO::FETCH_ASSOC)) {
+                        
+                        ?>
+                        <option value="<?= $rowEmployee['id'] ?>">
+                          <?= $rowEmployee['emp_name'] ?>
+                        </option>
+                        <?php
+                      }
+                      ?>
+                    </select>
+        </div>
+        <div class="col-4 d-flex justify-content-end flex-column h-100">
           <label for="date_start_date">Start Date</label>
           <input type="date" name="date_start_date" id="date_start_date" class="form-control p-0">
         </div>
-        <div class="col-6 d-flex justify-content-end flex-column h-100">
+        <div class="col-4 d-flex justify-content-end flex-column h-100">
           <label for="date_end_date">End Date</label>
           <input type="date" name="date_end_date" id="date_end_date" class="form-control p-0">
         </div>
@@ -265,12 +281,13 @@ require_once('./root/dbconnection.php');
         e.preventDefault();
         const start_date = $("#date_start_date").val();
         const end_date = $("#date_end_date").val();
-
+        const employee = $("#select_employee").val();
         // Check if at least one of the date inputs is not empty
-        if (start_date !== "" || end_date !== "") {
+        if (start_date != "" || end_date != "" || employee != "") {
           $.post("tank_master_do.php", {
             start_date: start_date,
             end_date: end_date,
+            select_employee:employee,
           }, function (data, status) {
             if (status === "success") {
               $("#details_table_body").html(data);

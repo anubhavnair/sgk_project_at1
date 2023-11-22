@@ -18,34 +18,57 @@ $i = 1;
       </svg>Click to Filter</span>
     <div class="row filter_section m-0 p-0 w-100" style="display: none;">
 
-      <section class="col-12 d-flex align-items-end p-0">
-        <div class="col-4 ">
-          <label for="date_start_date">Start Date</label>
-          <input type="date" name="date_start_date" id="date_start_date" class="form-control p-0">
-        </div>
-        <div class="col-4">
-          <label for="date_end_date">End Date</label>
-          <input type="date" name="date_end_date" id="date_end_date" class="form-control p-0">
-        </div>
-        <div class="col-4 ">
-          <label for="txt_vehical_number">Select vehicle</label>
-          <select class="form-control p-1" name="txt_vehicle_number" id="txt_vehicle_number">
-            <option value="">Select a vehicle</option>
-            <?php
-            $qry2 = $db->query("SELECT * FROM `vehicle_master`") or die("");
+      <section class="col-12 p-0">
 
-            while ($rowVehicle = $qry2->fetch(PDO::FETCH_ASSOC)) {
-              ?>
-              <option value="<?= $rowVehicle['id'] ?>">
-                <?= $rowVehicle['vehical_name'] ?> &nbsp;&nbsp;&nbsp;
-                <?= $rowVehicle['vehicle_number'] ?>
-              </option>
+        <section class="col-12 d-flex align-items-end p-0">
+          <div class="col-6">
+            <label for="date_start_date">Start Date</label>
+            <input type="date" name="date_start_date" id="date_start_date" class="form-control p-0">
+          </div>
+          <div class="col-6">
+            <label for="date_end_date">End Date</label>
+            <input type="date" name="date_end_date" id="date_end_date" class="form-control p-0">
+          </div>
+        </section>
+
+        <section class="col-12 d-flex align-items-end p-0 mt-3">
+          <div class="col-6">
+            <label for="txt_vehical_number">Select vehicle</label>
+            <select class="form-control p-1" name="txt_vehicle_number" id="txt_vehicle_number">
+              <option value="">Select a vehicle</option>
               <?php
-            }
-            ?>
-          </select>
+              $qry2 = $db->query("SELECT * FROM `vehicle_master`") or die("");
 
-        </div>
+              while ($rowVehicle = $qry2->fetch(PDO::FETCH_ASSOC)) {
+                ?>
+                <option value="<?= $rowVehicle['id'] ?>">
+                  <?= $rowVehicle['vehical_name'] ?> &nbsp;&nbsp;&nbsp;
+                  <?= $rowVehicle['vehicle_number'] ?>
+                </option>
+                <?php
+              }
+              ?>
+            </select>
+
+          </div>
+          <div class="col-6 d-flex justify-content-end flex-column h-100">
+            <label for="select_employee">Select Employee</label>
+            <select class="form-control custom-select p-1" name="select_employee" id="select_employee">
+              <option value="">Select Employee</option>
+              <?php
+              $qry2 = $db->query("SELECT * FROM `employee_master` WHERE e_d_optn = 1") or die("");
+              while ($rowEmployee = $qry2->fetch(PDO::FETCH_ASSOC)) {
+
+                ?>
+                <option value="<?= $rowEmployee['id'] ?>">
+                  <?= $rowEmployee['emp_name'] ?>
+                </option>
+                <?php
+              }
+              ?>
+            </select>
+          </div>
+        </section>
       </section>
       <div class="col-12 p-0">
         <form class="form-inline my-2 my-lg-0 col-12">
@@ -59,8 +82,18 @@ $i = 1;
 
 
     <!-- filter section end  -->
+    <!-- notification  -->
     <div class="notification" id="myNotification">
-
+    </div>
+    <!-- loader  -->
+    <div id="loaderBg" class="hide-loader" style="width: 100vw;
+    height: 100vh;
+    background-color: white;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    z-index: 9998;">
+    <div id="loader" class="loader hide-loader"></div>
     </div>
 
     <!-- Start Breadcrumbbar -->
@@ -255,17 +288,28 @@ $i = 1;
         const start_date = $("#date_start_date").val();
         const end_date = $("#date_end_date").val();
         const vehicle_number = $("#txt_vehicle_number").val();
+        const employee = $("#select_employee").val();
 
-        if ((start_date != "") || (end_date != "") || (vehicle_number != "")) {
+
+        if ((start_date != "") || (end_date != "") || (vehicle_number != "") || (employee != "")) {
+          $('#loaderBg').removeClass("hide-loader");
+          $('#loader').removeClass("hide-loader");
           $.post("general_data_entry_master_do.php", {
             start_date: start_date,
             end_date: end_date,
-            vehicle_number: vehicle_number
+            vehicle_number: vehicle_number,
+            select_employee: employee,
           }, function (data, status) {
             if (status === "success") {
 
               $("#details_table_body").html(data);
               searchButton();
+              setTimeout(function () {
+                $('#loader').addClass("hide-loader");
+              $('#loaderBg').addClass("hide-loader");
+               }, 500);
+             
+
 
             }
           }).fail(function (xhr, status, error) {

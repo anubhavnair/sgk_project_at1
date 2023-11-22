@@ -84,9 +84,10 @@ else if (isset($_REQUEST["del_id"])) {
                                                                                                                                                                                                                                                                                                                                 window.location.replace("./tank_master_manage.php?message=" + message + "&color=" + color);
                                                                                                                                                                                                                                                                                                                         </script>
                                                                                                         <?php
-} else if (isset($_REQUEST["start_date"]) && isset($_REQUEST["end_date"])) {
+} else if (isset($_REQUEST["start_date"]) && isset($_REQUEST["end_date"]) && isset($_REQUEST["select_employee"]) ) {
         $start_date = $_REQUEST["start_date"];
         $end_date = $_REQUEST["end_date"];
+        $employee = $_REQUEST["select_employee"];
 
         $limit = 20;
 
@@ -98,7 +99,29 @@ else if (isset($_REQUEST["del_id"])) {
                 $page_number = $_REQUEST['page'];
                 $i = $limit * ($page_number - 1) + 1;
         }
-        if (($_REQUEST["start_date"]) != "" && ($_REQUEST["end_date"]) != "") {
+        if (($_REQUEST["start_date"]) != "" && ($_REQUEST["end_date"]) != "" && ($_REQUEST["select_employee"]) != "") {
+
+                // Use the BETWEEN clause to filter records between the start and end dates
+                $qry = $db->query("SELECT * FROM tank_entry_master WHERE e_d_optn = '1' && `updated_by`= $employee && 
+    STR_TO_DATE(tank_entry_date, '%Y-%m-%d') BETWEEN STR_TO_DATE('$start_date', '%Y-%m-%d') AND STR_TO_DATE('$end_date', '%Y-%m-%d')")
+                        or die("");
+
+
+                $total_rows = $qry->rowCount(); // Use rowCount to get the number of rows
+
+                // Get the required number of pages
+                $total_pages = ceil($total_rows / $limit);
+
+                // Get the initial page number
+                $initial_page = ($page_number - 1) * $limit;
+
+                // Get data of selected rows per page
+                $qry = $db->query("SELECT * FROM tank_entry_master WHERE e_d_optn = '1' && `updated_by`= $employee && 
+    STR_TO_DATE(tank_entry_date, '%Y-%m-%d') BETWEEN STR_TO_DATE('$start_date', '%Y-%m-%d') AND STR_TO_DATE('$end_date', '%Y-%m-%d') LIMIT $initial_page , $limit");
+
+
+        }
+       else if (($_REQUEST["start_date"]) != "" && ($_REQUEST["end_date"]) != "") {
 
                 // Use the BETWEEN clause to filter records between the start and end dates
                 $qry = $db->query("SELECT * FROM tank_entry_master WHERE e_d_optn = '1' && 
@@ -115,11 +138,49 @@ else if (isset($_REQUEST["del_id"])) {
                 $initial_page = ($page_number - 1) * $limit;
 
                 // Get data of selected rows per page
-                $qry = $db->query("SELECT * FROM tank_entry_master WHERE e_d_optn = '1' &&
+                $qry = $db->query("SELECT * FROM tank_entry_master WHERE e_d_optn = '1' && 
     STR_TO_DATE(tank_entry_date, '%Y-%m-%d') BETWEEN STR_TO_DATE('$start_date', '%Y-%m-%d') AND STR_TO_DATE('$end_date', '%Y-%m-%d') LIMIT $initial_page , $limit");
 
 
-        } else if (($_REQUEST["start_date"]) != null) {
+        }
+        else if (($_REQUEST["start_date"]) != null && ($_REQUEST["select_employee"]) != null) {
+
+                $qry = $db->query("SELECT * FROM tank_entry_master WHERE e_d_optn = '1' && `updated_by`= $employee && 
+    STR_TO_DATE(tank_entry_date, '%Y-%m-%d') >= STR_TO_DATE('$start_date', '%Y-%m-%d') ")
+                        or die("");
+
+                $total_rows = $qry->rowCount(); // Use rowCount to get the number of rows
+
+                // Get the required number of pages
+                $total_pages = ceil($total_rows / $limit);
+
+                // Get the initial page number
+                $initial_page = ($page_number - 1) * $limit;
+
+                $qry = $db->query("SELECT * FROM tank_entry_master WHERE e_d_optn = '1' && `updated_by`= $employee && 
+    STR_TO_DATE(tank_entry_date, '%Y-%m-%d') >= STR_TO_DATE('$start_date', '%Y-%m-%d') LIMIT $initial_page , $limit")
+                        or die("");
+
+        }  
+        else if (($_REQUEST['end_date']) != null  && ($_REQUEST["select_employee"]) != null) {
+                $qry = $db->query("SELECT * FROM tank_entry_master WHERE e_d_optn = '1' && `updated_by`= $employee &&
+    STR_TO_DATE(tank_entry_date, '%Y-%m-%d') <= STR_TO_DATE('$end_date', '%Y-%m-%d')")
+                        or die("");
+
+                $total_rows = $qry->rowCount(); // Use rowCount to get the number of rows
+
+                // Get the required number of pages
+                $total_pages = ceil($total_rows / $limit);
+
+                // Get the initial page number
+                $initial_page = ($page_number - 1) * $limit;
+
+                $qry = $db->query("SELECT * FROM tank_entry_master WHERE e_d_optn = '1' && `updated_by`= $employee &&
+                STR_TO_DATE(tank_entry_date, '%Y-%m-%d') <= STR_TO_DATE('$end_date', '%Y-%m-%d') LIMIT $initial_page , $limit")
+                        or die("");
+
+        }
+        else if (($_REQUEST["start_date"]) != null) {
 
                 $qry = $db->query("SELECT * FROM tank_entry_master WHERE e_d_optn = '1' &&
     STR_TO_DATE(tank_entry_date, '%Y-%m-%d') >= STR_TO_DATE('$start_date', '%Y-%m-%d') ")
@@ -152,6 +213,22 @@ else if (isset($_REQUEST["del_id"])) {
 
                 $qry = $db->query("SELECT * FROM tank_entry_master WHERE e_d_optn = '1' &&
                 STR_TO_DATE(tank_entry_date, '%Y-%m-%d') <= STR_TO_DATE('$end_date', '%Y-%m-%d') LIMIT $initial_page , $limit")
+                        or die("");
+
+        }
+        else if (($_REQUEST['select_employee']) != null) {
+                $qry = $db->query("SELECT * FROM tank_entry_master WHERE e_d_optn = '1' && `updated_by`= $employee")
+                        or die("");
+
+                $total_rows = $qry->rowCount(); // Use rowCount to get the number of rows
+
+                // Get the required number of pages
+                $total_pages = ceil($total_rows / $limit);
+
+                // Get the initial page number
+                $initial_page = ($page_number - 1) * $limit;
+
+                $qry = $db->query("SELECT * FROM tank_entry_master WHERE e_d_optn = '1'&& `updated_by`= $employee LIMIT $initial_page , $limit")
                         or die("");
 
         }
