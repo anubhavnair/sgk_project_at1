@@ -352,12 +352,15 @@ $i = 1;
       const start_date = $("#date_start_date").val();
       const end_date = $("#date_end_date").val();
       const vehicle_number = $("#txt_vehicle_number").val();
+      const employee = $("#select_employee").val();
 
       $.post("general_data_entry_master_do.php", {
         page: page_number,
         start_date: start_date,
         end_date: end_date,
-        vehicle_number: vehicle_number
+        vehicle_number: vehicle_number,
+        select_employee: employee,
+
 
       }, function (data, status) {
         if (status === "success") {
@@ -374,12 +377,14 @@ $i = 1;
       const start_date = $("#date_start_date").val();
       const end_date = $("#date_end_date").val();
       const vehicle_number = $("#txt_vehicle_number").val();
+      const employee = $("#select_employee").val();
 
       $.post("general_data_entry_master_do.php", {
         page: page_number,
         start_date: start_date,
         end_date: end_date,
-        vehicle_number: vehicle_number
+        vehicle_number: vehicle_number,
+        select_employee: employee,
 
       }, function (data, status) {
         if (status === "success") {

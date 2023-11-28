@@ -3,15 +3,15 @@ include("./header.php");
 
 include("./root/dbconnection.php");
 
-if(isset($_REQUEST["edit_id"])){
-    $edit_id=$_REQUEST["edit_id"];
+if (isset($_REQUEST["edit_id"])) {
+    $edit_id = $_REQUEST["edit_id"];
     $qry = $db->query("select * from employee_master where id = $edit_id ") or die("");
     $row = $qry->fetch(PDO::FETCH_ASSOC);
 }
 
 ?>
 <div class="content_wrapper bg_homebefore inner-wrapper forms-sec">
-<div>
+    <div>
         <p style="text-align:center; padding-top:5px; padding-bottom:5px; background-color:lightgreen; font-weight:bold; display:none; color:black;"
             id="success_promt">
             Employee Added Successfully !....
@@ -55,22 +55,43 @@ if(isset($_REQUEST["edit_id"])){
                         <div class="form-group">
                             <label>Employee Name</label>
                             <input type="text" class="form-control" id="text_employee_name" name="txt_employee_name"
-                                placeholder="Enter Employee Name" value = <?php echo $row["emp_name"]; ?>>
+                                placeholder="Enter Employee Name" value=<?php echo $row["emp_name"]; ?>>
                         </div>
 
                         <div class="form-group">
                             <label>Employee Mobile Number</label>
                             <input type="text" class="form-control" id="text_employee_mobile_number"
-                                name="txt_employee_mobile_number" placeholder="Enter Employee Mobile Number " value = <?php echo $row["emp_mono"]; ?>>
+                                name="txt_employee_mobile_number" placeholder="Enter Employee Mobile Number " value=<?php echo $row["emp_mono"]; ?>>
                         </div>
                         <div class="form-group">
                             <label>Employee Password</label>
                             <input type="text" class="form-control" id="text_employee_password" name="txt_employee_password"
-                                placeholder="Enter Employee Password " value = <?php echo $row["emp_password"]; ?>>
+                                placeholder="Enter Employee Password " value=<?php echo $row["emp_password"]; ?>>
 
-                                <input type="hidden" name="text_edit_id" id="text_edit_id" value = <?php echo $edit_id ?>>
-                            </div>
+                            <input type="hidden" name="text_edit_id" id="text_edit_id" value=<?php echo $edit_id ?>>
+                        </div>
 
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="radio_login_type"
+                                value="0" <?php
+
+                                echo ($row["emp_login_type"] == 0) ? "checked" : "";
+
+                                ?>>
+                            <label class="form-check-label" for="radio_login_type">
+                                Employee
+                            </label>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="radio_login_type"
+                                value="1" <?php
+
+                                echo ($row["emp_login_type"] == 1) ? "checked" : "";
+
+                                ?>>
+                            <label class="form-check-label" for="radio_login_type">
+                                Admin
+                            </label>
+                        </div>
 
                         <input type="button" id="update" value="Update" class="btn btn-primary">
 
@@ -78,36 +99,47 @@ if(isset($_REQUEST["edit_id"])){
                         <?php
 
 
-                    }else{
+                    } else {
 
-?>
+                        ?>
 
                         <div class="form-group">
-                        <label>Employee Name</label>
-                        <input type="text" class="form-control" id="text_employee_name" name="txt_employee_name"
-                            placeholder="Enter Employee Name">
-                    </div>
+                            <label>Employee Name</label>
+                            <input type="text" class="form-control" id="text_employee_name" name="txt_employee_name"
+                                placeholder="Enter Employee Name">
+                        </div>
 
-                    <div class="form-group">
-                        <label>Employee Mobile Number</label>
-                        <input type="text" class="form-control" id="text_employee_mobile_number"
-                            name="txt_employee_mobile_number" placeholder="Enter Employee Mobile Number ">
-                    </div>
-                    <div class="form-group">
-                        <label>Employee Password</label>
-                        <input type="text" class="form-control" id="text_employee_password" name="txt_employee_password"
-                            placeholder="Enter Employee Password ">
-                    </div>
+                        <div class="form-group">
+                            <label>Employee Mobile Number</label>
+                            <input type="text" class="form-control" id="text_employee_mobile_number"
+                                name="txt_employee_mobile_number" placeholder="Enter Employee Mobile Number ">
+                        </div>
+                        <div class="form-group">
+                            <label>Employee Password</label>
+                            <input type="text" class="form-control" id="text_employee_password" name="txt_employee_password"
+                                placeholder="Enter Employee Password ">
+                        </div>
+
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="login_type" id="radio_login_type_employee"
+                                value="0" checked>
+                            <label class="form-check-label" for="radio_login_type_employee">
+                                Employee
+                            </label>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <input class="form-check-input" type="radio" name="login_type" id="radio_login_type_admin"
+                                value="1">
+                            <label class="form-check-label" for="radio_login_type_admin">
+                                Admin
+                            </label>
+                        </div>
 
 
-                    <input type="button" id="submit" value="Submit" class="btn btn-primary">
-<?php
+                        <input type="button" id="submit" value="Submit" class="btn btn-primary">
+                        <?php
 
                     }
                     ?>
-
-                    
-
                 </div>
             </div>
         </div>
@@ -135,55 +167,57 @@ if(isset($_REQUEST["edit_id"])){
                     const emp_name = $("#text_employee_name").val();
                     const emp_mobile = $("#text_employee_mobile_number").val();
                     const emp_password = $("#text_employee_password").val();
+                    const login_type = $('input[name="login_type"]:checked').val();
                     if (emp_name == "" || emp_name == null) {
 
-                        
-                        $("#text_employee_name").css("border", "1.2px solid red");
-                    $("#text_employee_name").focus();
-                    $("#text_employee_name").keydown(function () {
-                        $("#text_employee_name").css("border", "1.2px solid skyblue");
 
-                    });
+                        $("#text_employee_name").css("border", "1.2px solid red");
+                        $("#text_employee_name").focus();
+                        $("#text_employee_name").keydown(function () {
+                            $("#text_employee_name").css("border", "1.2px solid skyblue");
+
+                        });
                     }
                     else if (emp_mobile == "" || emp_mobile == null) {
 
-                    
+
 
                         $("#text_employee_mobile_number").css("border", "1.2px solid red");
-                    $("#text_employee_mobile_number").focus();
-                    $("#text_employee_mobile_number").keydown(function () {
-                        $("#text_employee_mobile_number").css("border", "1.2px solid skyblue");
+                        $("#text_employee_mobile_number").focus();
+                        $("#text_employee_mobile_number").keydown(function () {
+                            $("#text_employee_mobile_number").css("border", "1.2px solid skyblue");
 
-                    });
+                        });
 
                     }
                     else if (emp_password == "" || emp_password == null) {
 
 
-                        
 
 
-                        
+
+
                         $("#text_employee_password").css("border", "1.2px solid red");
-                    $("#text_employee_password").focus();
-                    $("#text_employee_password").keydown(function () {
-                        $("#text_employee_password").css("border", "1.2px solid skyblue");
+                        $("#text_employee_password").focus();
+                        $("#text_employee_password").keydown(function () {
+                            $("#text_employee_password").css("border", "1.2px solid skyblue");
 
-                    });
+                        });
                     } else {
                         $.post("employee_master_do.php",
                             {
                                 text_employee_name: emp_name,
                                 text_employee_mobile_number: emp_mobile,
-                                text_employee_password: emp_password
+                                text_employee_password: emp_password,
+                                login_type: login_type,
                             }, function (data, status) {
                                 if (status == "success") {
                                     $("#success_promt").css("display", "block");
 
-                                setTimeout(function () {
-                                    $("#success_promt").css("display", "none");
-                                    location.reload();
-                                }, 1500);
+                                    setTimeout(function () {
+                                        $("#success_promt").css("display", "none");
+                                        location.reload();
+                                    }, 1500);
                                 }
                             }
                         );
@@ -197,61 +231,64 @@ if(isset($_REQUEST["edit_id"])){
                     const emp_name = $("#text_employee_name").val();
                     const emp_mobile = $("#text_employee_mobile_number").val();
                     const emp_password = $("#text_employee_password").val();
+                    const login_type = $('input[name="login_type"]:checked').val();
 
                     if (emp_name == "" || emp_name == null) {
 
-                         
-                        $("#text_employee_name").css("border", "1.2px solid red");
-                    $("#text_employee_name").focus();
-                    $("#text_employee_name").keydown(function () {
-                        $("#text_employee_name").css("border", "1.2px solid skyblue");
 
-                    });
+                        $("#text_employee_name").css("border", "1.2px solid red");
+                        $("#text_employee_name").focus();
+                        $("#text_employee_name").keydown(function () {
+                            $("#text_employee_name").css("border", "1.2px solid skyblue");
+
+                        });
                     }
                     else if (emp_mobile == "" || emp_mobile == null) {
 
                         $("#text_employee_mobile_number").css("border", "1.2px solid red");
-                    $("#text_employee_mobile_number").focus();
-                    $("#text_employee_mobile_number").keydown(function () {
-                        $("#text_employee_mobile_number").css("border", "1.2px solid skyblue");
+                        $("#text_employee_mobile_number").focus();
+                        $("#text_employee_mobile_number").keydown(function () {
+                            $("#text_employee_mobile_number").css("border", "1.2px solid skyblue");
 
-                    });
+                        });
 
                     }
                     else if (emp_password == "" || emp_password == null) {
 
 
-                        
-                        
+
+
                         $("#text_employee_password").css("border", "1.2px solid red");
-                    $("#text_employee_password").focus();
-                    $("#text_employee_password").keydown(function () {
-                        $("#text_employee_password").css("border", "1.2px solid skyblue");
+                        $("#text_employee_password").focus();
+                        $("#text_employee_password").keydown(function () {
+                            $("#text_employee_password").css("border", "1.2px solid skyblue");
 
-                    });
+                        });
 
-                      
-                      
+
+
                     } else {
                         $.post("employee_master_do.php",
-                            {   edit_id : updt_id,
+                            {
+                                edit_id: updt_id,
                                 text_employee_name: emp_name,
                                 text_employee_mobile_number: emp_mobile,
-                                text_employee_password: emp_password
+                                text_employee_password: emp_password,
+                                login_type: login_type,
                             }, function (data, status) {
                                 if (status == "success") {
                                     $("#update_promt").css("display", "block");
 
-setTimeout(function () {
-    $("#update_promt").css("display", "none");
+                                    setTimeout(function () {
+                                        $("#update_promt").css("display", "none");
 
-}, 1000);
-setTimeout(function () {
-    window.location.replace("./employee_master_manage.php")
-   
+                                    }, 1000);
+                                    setTimeout(function () {
+                                        window.location.replace("./employee_master_manage.php")
 
 
-}, 1002);
+
+                                    }, 1002);
                                 }
                             }
                         );
@@ -262,7 +299,7 @@ setTimeout(function () {
 
 
 
-          
+
 
 
 

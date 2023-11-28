@@ -3268,12 +3268,13 @@ textarea {
     border: 16px solid #f3f3f3;
     border-top: 16px solid #3498db;
     border-radius: 50%;
-    width: 120px;
-    height: 120px;
+    width: 25vw;
+    height: 25vw;
     animation: spin 2s linear infinite;
     position: fixed;
-    top: 40vh;
-    left: 34vw;
+    top: 38.5vh;
+    left: 38.5vw;
+    transform: translate(-50%, -50%);
     z-index: 9999;
   }
   

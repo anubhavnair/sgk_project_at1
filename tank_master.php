@@ -1,6 +1,22 @@
 <?php
 include("./header.php");
 require_once("./root/dbconnection.php");
+function emp_area($emp_login_type,$area_id)
+{
+        if($emp_login_type == 0)
+        { 
+            return " AND `id` IN ('$area_id')";
+        } else {
+            return ""; // Return an empty string if $emp_login_type is not 0
+        }
+}
+$emp_id = $_COOKIE["emp_id"];
+                $get_emp_area = $db->query("SELECT emp_area_id, emp_login_type FROM `employee_master` WHERE `id` = $emp_id") or die("");
+                while ($row_emp = $get_emp_area->fetch(PDO::FETCH_ASSOC)) {
+                  $emp_login_type = $row_emp['emp_login_type'];
+                  $area_id = $row_emp["emp_area_id"];
+                  // $area_id_arr = explode(",", $area_id);
+                }
 ?>
 <div class="content_wrapper bg_homebefore inner-wrapper forms-sec">
   <div class="container-fluid">
@@ -60,7 +76,7 @@ require_once("./root/dbconnection.php");
                     <select class="form-control custom-select p-1" name="txt_select_area" id="txt_select_area"
                       value="<?= $row['area_id'] ?>">
                       <?php
-                      $qry2 = $db->query("SELECT * FROM `area_master`") or die("");
+                      $qry2 = $db->query("SELECT * FROM `area_master` WHERE e_d_optn=1 ".emp_area($emp_login_type,$area_id)) or die("");
                       while ($rowArea = $qry2->fetch(PDO::FETCH_ASSOC)) {
                         $selected = ($rowArea['id'] == $row['area_id']) ? 'selected' : '';
                         ?>
@@ -195,7 +211,7 @@ require_once("./root/dbconnection.php");
                     <div class="col-md-12 p-0">
                       <select class="form-control custom-select p-1" name="txt_select_area" id="txt_select_area">
                         <?php
-                        $qry2 = $db->query("SELECT * FROM `area_master`") or die("");
+                        $qry2 = $db->query("SELECT * FROM `area_master` WHERE e_d_optn='1' ".emp_area($emp_login_type,$area_id)) or die("");
                         while ($rowArea = $qry2->fetch(PDO::FETCH_ASSOC)) {
                           ?>
                           <option value="<?= $rowArea['id'] ?>">
@@ -389,16 +405,22 @@ require_once("./root/dbconnection.php");
         if (status === "success") {
           $("#myPopup").html(data);
           const total_refill = $("#txt_total_refill");
+          
           if ($("#tank_balance").length == 1) {
+
+            $('#txt_opening_meter').val($('#tank_opening').val())
             balance = total_refill.val($("#tank_balance").val());
+            $("#tank_balance_heading").text("Tank : " + $("#tank_balance").val());
           }
           else {
+            $('txt_opening_meter').val(0)
             balance = total_refill.val(0);
+            $("#tank_balance_heading").text("Tank : 0");
+
           }
-          $("#tank_balance_heading").text("Tank : " + $("#tank_balance").val());
         }
         else {
-          console.log("bhai error aaya hai")
+          // console.log("bhai error aaya hai")
         }
       }
       );

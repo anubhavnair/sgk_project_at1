@@ -4,6 +4,7 @@ include("./root/dbconnection.php");
 
 $qry_get_emp_data = $db->query("Select * from employee_master") or die("");
 $qry_get_module_data = $db->query("Select * from module_master") or die("");
+$qry_get_area_data = $db->query("Select * from area_master WHERE e_d_optn=0") or die("");
 
 
 
@@ -60,7 +61,7 @@ $qry_get_module_data = $db->query("Select * from module_master") or die("");
 
                     <div class="form-group">
                         <label>Select Employee</label>
-                        <select class="form-select col-md-12 custom-select " name="select_emp" id="select_emp">
+                        <select class="col-md-12 custom-select " name="select_emp" id="select_emp">
                             <option value="">Select Employee</option>
                             <?php
                             while ($row = $qry_get_emp_data->fetch(PDO::FETCH_ASSOC)) {
@@ -75,9 +76,6 @@ $qry_get_module_data = $db->query("Select * from module_master") or die("");
 
                         </select>
                     </div>
-
-                    <div class="  form-check form-check-xl mr-auto text-left form-group" id="module_div">
-
 
                         <style>
                             .auth_ul li {
@@ -94,7 +92,10 @@ $qry_get_module_data = $db->query("Select * from module_master") or die("");
                             }
                         </style>
 
-                        <ul class=" auth_ul text-left">
+                    <div class=" auth_ul form-check form-check-xl mr-auto text-left form-group" id="module_div">
+
+
+                        <ul class="text-left">
 
                             <label>Select Module</label>
                             <?php
@@ -117,10 +118,33 @@ $qry_get_module_data = $db->query("Select * from module_master") or die("");
                             ?>
 
                         </ul>
+<br>
+                        <ul class="text-left">
 
+                            <label>Select Area</label>
+                            <?php
+
+                            while ($area = $qry_get_area_data->fetch(PDO::FETCH_ASSOC)) {
+                                ?>
+                                <li class="lh-lg">
+                                    <input class="form-check-input checkbox mr-1.8" type="checkbox"
+                                        value="<?php echo $area['id']; ?>" name="select_area">
+                                    <span class="ml-2">
+                                        <?php echo $area['area_name']; ?>
+                                    </span>
+                                </li>
+
+
+                                <?php
+
+                            }
+
+                            ?>
+
+                        </ul>
 
                     </div>
-
+                   
 
 
                     <button style="margin-top: 20px;" class="btn btn-primary mr-2" id="submit">Submit</button>
@@ -128,7 +152,6 @@ $qry_get_module_data = $db->query("Select * from module_master") or die("");
 
 
                 </div>
-
 
 
             </div>
@@ -171,10 +194,13 @@ $qry_get_module_data = $db->query("Select * from module_master") or die("");
                         // now we are  geeting the authorization of employee which are in the checkbox 
 
                         var checked_values = [];
+                        var checked_areas = [];
                         $("input[name='select_module']:checked").each(function () {
                             checked_values.push($(this).val());
                         });
-
+                        $("input[name='select_area']:checked").each(function () {
+                            checked_areas.push($(this).val());
+                        });
                         if (checked_values.length == 0) {
                             $("#select_module_promt").css("display", "block");
 
@@ -184,14 +210,15 @@ $qry_get_module_data = $db->query("Select * from module_master") or die("");
                             }, 1000);
                         } else {
 
-                            select_emp_id
                             const checked_values_string = checked_values.join(','); //convert the array to string saperated with , coma.
-
+                            const checked_areas_string = checked_areas.join(',');
 
                             //   send data to another page employee_master to update the auth_ids field   
+                            // console.log(checked_areas_string)
                             $.post("employee_authorization_do.php", {
                                 emp_id: select_emp_id,
-                                module_ids: checked_values_string
+                                module_ids: checked_values_string,
+                                area_ids: checked_areas_string
                             },
                                 function (data, status) {
                                     if (status == "success") {
