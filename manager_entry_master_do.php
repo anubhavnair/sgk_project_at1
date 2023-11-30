@@ -11,19 +11,40 @@ if (isset($_REQUEST["edit_id"])) {
     $vehical_number = $_REQUEST["text_vehical_number"];
     $qty = $_REQUEST["text_quantity"];
 
-    $qry = $db->query("UPDATE `manager_entry_master` SET `select_date`='$dt_date',`slip_no`='$slip_number',`vehical_no`='$vehical_number',`total_qty`='$qty',`updated_by` = '$updated_by', `updated_on` = NOW() WHERE id = $edit_id") or die("");
+    if (isset($_FILES['img_upload_slip']) && $_FILES['img_upload_slip']['error'] == UPLOAD_ERR_OK) {
+        $name = $_FILES['img_upload_slip']['name'];
+        $filetype = $_FILES['img_upload_slip']['type'];
+
+        list($txt, $ext) = explode(".", $name);
+        $image_name = $txt . "-" . time() . "." . $ext;
+
+        $path = "images/slips/" . $image_name;
+        move_uploaded_file($_FILES["img_upload_slip"]["tmp_name"], $path);
+
+        $qry = $db->query("UPDATE `manager_entry_master` SET `select_date`='$dt_date',`slip_no`='$slip_number',`vehical_no`='$vehical_number',`total_qty`='$qty',`slip_image`='$image_name',`updated_by` = '$updated_by', `updated_on` = NOW() WHERE id = $edit_id") or die("");
+    } else {
+        $qry = $db->query("UPDATE `manager_entry_master` SET `select_date`='$dt_date',`slip_no`='$slip_number',`vehical_no`='$vehical_number',`total_qty`='$qty',`updated_by` = '$updated_by', `updated_on` = NOW() WHERE id = $edit_id") or die("");
+    }
 
 
 
-
-} elseif (isset($_REQUEST["dt_date"]) && isset($_REQUEST["text_slip_number"]) && isset($_REQUEST["text_vehical_number"]) && isset($_REQUEST["text_quantity"])) {
+} else if (isset($_REQUEST["dt_date"]) && isset($_REQUEST["text_slip_number"]) && isset($_REQUEST["text_vehical_number"]) && isset($_REQUEST["text_quantity"])) {
     $created_by = $_COOKIE["emp_id"];
     $dt_date = $_REQUEST["dt_date"];
     $slip_number = $_REQUEST["text_slip_number"];
     $vehical_number = $_REQUEST["text_vehical_number"];
     $qty = $_REQUEST["text_quantity"];
 
-    $qry = $db->query("INSERT INTO `manager_entry_master`(`select_date`, `slip_no`, `vehical_no`, `total_qty`,`created_by`,`created_on`) VALUES ('$dt_date','$slip_number','$vehical_number','$qty','$created_by',NOW())") or die("");
+    $name = $_FILES['img_upload_slip']['name'];
+    $filetype = $_FILES['img_upload_slip']['type'];
+
+    list($txt, $ext) = explode(".", $name);
+    $image_name = $txt . "-" . time() . "." . $ext;
+
+    $path = "images/slips/" . $image_name;
+    move_uploaded_file($_FILES["img_upload_slip"]["tmp_name"], $path);
+
+    $qry = $db->query("INSERT INTO `manager_entry_master`(`select_date`, `slip_no`, `vehical_no`, `total_qty`,`slip_image`,`created_by`,`created_on`) VALUES ('$dt_date','$slip_number','$vehical_number','$qty','$image_name','$created_by',NOW())");
 
 }
 

@@ -42,12 +42,12 @@ if (isset($_REQUEST["edit_id"])) {
         $average = $_REQUEST["txt_average"];
         $remark = $_REQUEST["txt_remark"];
 
-        // SQL query to insert data
-        $sql = "INSERT INTO general_data_entry_master (general_date, vehical_id, noof_trips, work_descp, opening_meter, closing_meter, opening_dip, closing_dip, total_km, general_desel, general_average, genral_remark,`created_on`, `updated_by`) 
+                // SQL query to insert data
+                $sql = "INSERT INTO general_data_entry_master (general_date, vehical_id, noof_trips, work_descp, opening_meter, closing_meter, opening_dip, closing_dip, total_km, general_desel, general_average, genral_remark,`created_on`, `updated_by`) 
         VALUES ('$date', '$select_vehicle', '$trips', '$work_description', '$opening_meter', '$closing_meter', '$opening_dip', '$closing_dip', '$km', '$desel','$average', '$remark',NOW(),'$created_by')";
 
-        // Execute the SQL query
-        $qry = $db->query($sql) or die("");
+                // Execute the SQL query
+                $qry = $db->query($sql) or die("");
 }
 
 
@@ -88,7 +88,7 @@ else if (isset($_REQUEST["start_date"]) && isset($_REQUEST["end_date"]) && isset
                 $page_number = $_REQUEST['page'];
                 $i = $limit * ($page_number - 1) + 1;
         }
-        if (($_REQUEST["start_date"]) != null && ($_REQUEST["end_date"]) != null && ($_REQUEST["vehicle_number"]) != null&& ($_REQUEST["select_employee"]) != "") {
+        if (($_REQUEST["start_date"]) != null && ($_REQUEST["end_date"]) != null && ($_REQUEST["vehicle_number"]) != null && ($_REQUEST["select_employee"]) != "") {
                 $initial_page = ($page_number - 1) * $limit;
 
                 // Use the BETWEEN clause to filter records between the start and end dates
@@ -96,8 +96,7 @@ else if (isset($_REQUEST["start_date"]) && isset($_REQUEST["end_date"]) && isset
     STR_TO_DATE(general_date, '%Y-%m-%d') BETWEEN STR_TO_DATE('$start_date', '%Y-%m-%d') AND STR_TO_DATE('$end_date', '%Y-%m-%d') LIMIT $initial_page , $limit")
                         or die("");
 
-        }
-        else if (($_REQUEST["start_date"]) != null && ($_REQUEST["end_date"]) != null && ($_REQUEST["vehicle_number"]) != null) {
+        } else if (($_REQUEST["start_date"]) != null && ($_REQUEST["end_date"]) != null && ($_REQUEST["vehicle_number"]) != null) {
                 $initial_page = ($page_number - 1) * $limit;
 
                 // Use the BETWEEN clause to filter records between the start and end dates
@@ -105,8 +104,7 @@ else if (isset($_REQUEST["start_date"]) && isset($_REQUEST["end_date"]) && isset
     STR_TO_DATE(general_date, '%Y-%m-%d') BETWEEN STR_TO_DATE('$start_date', '%Y-%m-%d') AND STR_TO_DATE('$end_date', '%Y-%m-%d') LIMIT $initial_page , $limit")
                         or die("");
 
-        }
-        else if (($_REQUEST["start_date"]) != null && ($_REQUEST["end_date"]) != null && ($_REQUEST["select_employee"]) != null) {
+        } else if (($_REQUEST["start_date"]) != null && ($_REQUEST["end_date"]) != null && ($_REQUEST["select_employee"]) != null) {
                 $initial_page = ($page_number - 1) * $limit;
 
                 // Use the BETWEEN clause to filter records between the start and end dates
@@ -114,8 +112,7 @@ else if (isset($_REQUEST["start_date"]) && isset($_REQUEST["end_date"]) && isset
     STR_TO_DATE(general_date, '%Y-%m-%d') BETWEEN STR_TO_DATE('$start_date', '%Y-%m-%d') AND STR_TO_DATE('$end_date', '%Y-%m-%d') LIMIT $initial_page , $limit")
                         or die("");
 
-        }
-        else if (($_REQUEST["start_date"]) != null && ($_REQUEST["select_employee"]) != null && ($_REQUEST["vehicle_number"]) != null) {
+        } else if (($_REQUEST["start_date"]) != null && ($_REQUEST["select_employee"]) != null && ($_REQUEST["vehicle_number"]) != null) {
                 $initial_page = ($page_number - 1) * $limit;
 
                 // Use the BETWEEN clause to filter records between the start and end dates
@@ -123,8 +120,7 @@ else if (isset($_REQUEST["start_date"]) && isset($_REQUEST["end_date"]) && isset
     STR_TO_DATE(general_date, '%Y-%m-%d') >= STR_TO_DATE('$start_date', '%Y-%m-%d') LIMIT $initial_page , $limit")
                         or die("");
 
-        }
-        else if (($_REQUEST["start_date"]) != null && ($_REQUEST["select_employee"]) != null && ($_REQUEST["vehicle_number"]) != null) {
+        } else if (($_REQUEST["start_date"]) != null && ($_REQUEST["select_employee"]) != null && ($_REQUEST["vehicle_number"]) != null) {
                 $initial_page = ($page_number - 1) * $limit;
 
                 // Use the BETWEEN clause to filter records between the start and end dates
@@ -132,42 +128,36 @@ else if (isset($_REQUEST["start_date"]) && isset($_REQUEST["end_date"]) && isset
     STR_TO_DATE(general_date, '%Y-%m-%d') >= STR_TO_DATE('$start_date', '%Y-%m-%d') LIMIT $initial_page , $limit")
                         or die("");
 
-        }
-         else if (($_REQUEST["start_date"]) != null && ($_REQUEST["end_date"]) != null) {
+        } else if (($_REQUEST["start_date"]) != null && ($_REQUEST["end_date"]) != null) {
                 $initial_page = ($page_number - 1) * $limit;
 
                 $qry = $db->query("SELECT * FROM general_data_entry_master WHERE  e_d_optn = '1' &&
       STR_TO_DATE(general_date, '%Y-%m-%d') BETWEEN STR_TO_DATE('$start_date', '%Y-%m-%d') AND STR_TO_DATE('$end_date', '%Y-%m-%d') LIMIT $initial_page , $limit")
                         or die("");
-        }
-        else if (($_REQUEST["select_employee"]) != null && ($_REQUEST["vehicle_number"]) != null) {
+        } else if (($_REQUEST["select_employee"]) != null && ($_REQUEST["vehicle_number"]) != null) {
                 $initial_page = ($page_number - 1) * $limit;
 
                 $qry = $db->query("SELECT * FROM general_data_entry_master WHERE  e_d_optn = '1' && `updated_by`= $employee && vehical_id = '$vehicle_number' LIMIT $initial_page , $limit")
                         or die("");
-        } 
-        else if (($_REQUEST["end_date"]) != null && ($_REQUEST["select_employee"]) != null) {
+        } else if (($_REQUEST["end_date"]) != null && ($_REQUEST["select_employee"]) != null) {
                 $initial_page = ($page_number - 1) * $limit;
 
                 $qry = $db->query("SELECT * FROM general_data_entry_master WHERE e_d_optn = '1' &&  `updated_by`= $employee AND 
       STR_TO_DATE(general_date, '%Y-%m-%d') <= STR_TO_DATE('$end_date', '%Y-%m-%d') LIMIT $initial_page , $limit")
                         or die("");
-        } 
-         else if (($_REQUEST["end_date"]) != null && ($_REQUEST["vehicle_number"]) != null) {
+        } else if (($_REQUEST["end_date"]) != null && ($_REQUEST["vehicle_number"]) != null) {
                 $initial_page = ($page_number - 1) * $limit;
 
                 $qry = $db->query("SELECT * FROM general_data_entry_master WHERE e_d_optn = '1' && vehical_id = '$vehicle_number' AND 
       STR_TO_DATE(general_date, '%Y-%m-%d') <= STR_TO_DATE('$end_date', '%Y-%m-%d') LIMIT $initial_page , $limit")
                         or die("");
-        } 
-        else if (($_REQUEST["start_date"]) != null && ($_REQUEST["select_employee"]) != null) {
+        } else if (($_REQUEST["start_date"]) != null && ($_REQUEST["select_employee"]) != null) {
                 $initial_page = ($page_number - 1) * $limit;
 
                 $qry = $db->query("SELECT * FROM general_data_entry_master WHERE e_d_optn = '1' &&  `updated_by`= $employee AND 
       STR_TO_DATE(general_date, '%Y-%m-%d') >= STR_TO_DATE('$start_date', '%Y-%m-%d') LIMIT $initial_page , $limit")
                         or die("");
-        }
-        else if (($_REQUEST["start_date"]) != null && ($_REQUEST["vehicle_number"]) != null) {
+        } else if (($_REQUEST["start_date"]) != null && ($_REQUEST["vehicle_number"]) != null) {
                 $initial_page = ($page_number - 1) * $limit;
 
                 $qry = $db->query("SELECT * FROM general_data_entry_master WHERE e_d_optn = '1' && vehical_id = '$vehicle_number' AND 

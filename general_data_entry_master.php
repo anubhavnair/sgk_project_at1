@@ -29,7 +29,7 @@ require_once("./root/dbconnection.php");
     <div class="row">
       <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
-          <form class="forms-sample">
+          <form class="forms-sample" enctype="multipart/form-data">
             <?php
             if (isset($_REQUEST['edit_id'])) {
               $edit_id = $_REQUEST["edit_id"];
@@ -120,6 +120,7 @@ require_once("./root/dbconnection.php");
                 <textarea class="form-control" id="txt_remark" name="txt_remark"
                   placeholder="Enter Remark"><?= $row['genral_remark'] ?></textarea>
               </div>
+
               <div class="d-flex col-8">
                 <button type="submit" id="update" class="btn btn-warning mr-2 mb-2 ">Update</button>
                 <button type="button" id="preview" class="btn btn-primary mr-2 mb-2" data-toggle="modal"
@@ -203,6 +204,8 @@ require_once("./root/dbconnection.php");
                   <label for="txt_remark">Remark</label>
                   <textarea class="form-control" id="txt_remark" name="txt_remark" placeholder="Enter Remark"></textarea>
                 </div>
+
+
                 <div class="d-flex col-8">
                   <button type="submit" id="submit" class="btn btn-success mr-2 mb-2">Submit</button>
                   <button type="button" id="preview" class="btn btn-primary mr-2 mb-2" data-toggle="modal"
@@ -449,7 +452,7 @@ require_once("./root/dbconnection.php");
                 txt_km: km,
                 txt_desel: desel,
                 txt_average: average,
-                txt_remark: remark
+                txt_remark: remark,
               }, function (data, status) {
                 if (status == "success") {
                   // alert("New Record Added Successfully !....");
@@ -479,7 +482,7 @@ require_once("./root/dbconnection.php");
           const desel = $("#txt_desel").val();
           const average = $("#txt_average").val();
           const remark = $("#txt_remark").val();
-
+          const img_upload_slip = $('#img_upload_slip')[0];
           if (select_vehicle == "" || select_vehicle == null) {
             $("#txt_select_vehicle").css("border", "1.2px solid red");
             $("#txt_select_vehicle").focus();
@@ -702,17 +705,17 @@ require_once("./root/dbconnection.php");
           const closingMeter = parseFloat($("#txt_closing_meter").val()) || 0;
           const km = $("#txt_km");
 
-          km.val(closingMeter  - openingMeter )
+          km.val(closingMeter - openingMeter)
           updateDesel()
         }
       })
 
-      function updateDesel(){
+      function updateDesel() {
         const km = parseFloat($("#txt_km").val()) || 0;
         const desel = parseFloat($("#txt_desel").val()) || 0;
         const average = $("#txt_average");
 
-        average.val(km/desel);
+        average.val(km / desel);
       }
 
     </script>
