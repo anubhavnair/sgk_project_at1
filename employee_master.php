@@ -12,6 +12,11 @@ if (isset($_REQUEST["edit_id"])) {
 ?>
 <div class="content_wrapper bg_homebefore inner-wrapper forms-sec">
     <div>
+        <p style="text-align:center; padding-top:5px; padding-bottom:5px; background-color:lightcoral; font-weight:bold; display:none; color:black;"
+            id="mobile_number_already_exist_promt">
+
+            Mobile Number Already Exist!....
+        </p>
         <p style="text-align:center; padding-top:5px; padding-bottom:5px; background-color:lightgreen; font-weight:bold; display:none; color:black;"
             id="success_promt">
             Employee Added Successfully !....
@@ -211,7 +216,19 @@ if (isset($_REQUEST["edit_id"])) {
                                 text_employee_password: emp_password,
                                 login_type: login_type,
                             }, function (data, status) {
-                                if (status == "success") {
+                                if (data == 1) {
+                                    $("#text_employee_mobile_number").css({ "border": "1px solid red" });
+                                    $("#mobile_number_already_exist_promt").css("display", "block");
+                                    $("#text_employee_mobile_number").focus();
+                                    $("#text_employee_mobile_number").keydown(function () {
+                                        $("#text_employee_mobile_number").css({ "border": "1.2px solid skyblue" });
+                                        $("#mobile_number_already_exist_promt").css("display", "none");
+                                    })
+
+                                   
+                                }
+
+                               else if (data == 2) {
                                     $("#success_promt").css("display", "block");
 
                                     setTimeout(function () {

@@ -33,11 +33,8 @@ require_once('./header.php');
         <div class="row">
             <div class="col-md-12 grid-margin stretch-card">
                 <div class="card">
-
-
-
                     <div class="table-responsive-xl">
-                        <table class="table">
+                        <table class="table"><br><br>
                             <thead>
                                 <tr>
                                     <th scope="col">SNO</th>
@@ -63,12 +60,12 @@ require_once('./header.php');
                                     if (!isset($_REQUEST['page'])) {
                                         $page_number = 1;
                                         $i = 1;
-                                        echo($i);
+                                        echo ($i);
 
                                     } else {
                                         $page_number = $_REQUEST['page'];
                                         $i = $limit * ($page_number - 1) + 1;
-echo($i);
+                                        echo ($i);
                                     }
 
                                     // Get the initial page number
@@ -123,16 +120,16 @@ echo($i);
                         </table>
                     </div>
                     <div class='pages'>
-          <?php
-          // show page number with link   
-          
-          for ($page_number = 1; $page_number <= $total_pages; $page_number++) {
-            
-            echo '<a href = "vehicle_master_manage.php?page=' . $page_number . '">' . $page_number . ' </a>';
-            
-          }
-          ?>
-          </div>
+                        <?php
+                        // show page number with link   
+                        
+                        for ($page_number = 1; $page_number <= $total_pages; $page_number++) {
+
+                            echo '<a href = "vehicle_master_manage.php?page=' . $page_number . '">' . $page_number . ' </a>';
+
+                        }
+                        ?>
+                    </div>
 
                 </div>
             </div>

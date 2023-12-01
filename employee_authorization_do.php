@@ -63,7 +63,7 @@ if (isset($_REQUEST["selected_emp_id"])) {
         ?>
     </ul>
     <?php
-    if ($emp_login_type == 0) {
+  
         ?>
         <br>
         <ul class="text-left">
@@ -95,7 +95,7 @@ if (isset($_REQUEST["selected_emp_id"])) {
 
         </ul>
         <?php
-    }
+    
 }
 
 ?>

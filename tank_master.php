@@ -413,7 +413,7 @@ $emp_id = $_COOKIE["emp_id"];
             $("#tank_balance_heading").text("Tank : " + $("#tank_balance").val());
           }
           else {
-            $('txt_opening_meter').val(0)
+            $('#txt_opening_meter').val(0)
             balance = total_refill.val(0);
             $("#tank_balance_heading").text("Tank : 0");
 

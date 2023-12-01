@@ -341,8 +341,6 @@ else if (isset($_REQUEST["del_id"])) {
             
                                                                                                                 <?php
 } else if (isset($_REQUEST['preview'])) {
-        $employee = $_REQUEST["select_employee"];
-
         $emp_id = $_COOKIE["emp_id"];
         $get_emp_area = $db->query("SELECT emp_area_id, emp_login_type FROM `employee_master` WHERE `id` = $emp_id") or die("");
         while ($row_emp = $get_emp_area->fetch(PDO::FETCH_ASSOC)) {
@@ -351,93 +349,82 @@ else if (isset($_REQUEST["del_id"])) {
                 // $area_id_arr = explode(",", $area_id);
         }
         ?>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <table class="table">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <thead>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <tr>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <th scope="col">S.no</th>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <th scope="col">Date</th>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <th scope="col">Area</th>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <th scope="col">Total Refill</th>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <th scope="col">Opening Meter</th>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <th scope="col">Closing Meter</th>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <th scope="col">Desel Out</th>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <th scope="col">Description</th>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <th scope="col">DIP</th>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <th scope="col">Balance</th>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </tr>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </thead>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <tbody id="details_table_body">
-                                                                                                                                                                                                                                                <?php                                                                                                                                                                            $qry = $db->query("SELECT * FROM `tank_entry_master` WHERE e_d_optn = '1'".emp_area($emp_login_type,$area_id)." ORDER BY STR_TO_DATE(tank_entry_date, '%Y-%m-%d') DESC, id DESC LIMIT 0, 14") or die("");
-
-
-                                                                                                                                                                                                                                                $i = 2;
-                                                                                                                                                                                                                                                while ($row = $qry->fetch(PDO::FETCH_ASSOC)) {
-                                                                                                                                                                                                                                                        $id = $row['id'];
-                                                                                                                                                                                                                                                        $area_id = $row['area_id'];
-                                                                                                                                                                                                                                                        $query = $db->query("SELECT * FROM `area_master` WHERE id='$area_id'");
-                                                                                                                                                                                                                                                        $rowArea = $query->fetch(PDO::FETCH_ASSOC);
-                                                                                                                                                                                                                                                        $area_name = $rowArea['area_name'];
-                                                                                                                                                                                                                                                        $query2 = "SELECT * FROM `tank_entry_detail_table` WHERE `tank_main_id`=$id AND descp!=''";
-                                                                                                                                                                                                                                                        $rsdescdip = $db->query($query2);
-
-                                                                                                                                                                                                                                                        $previous = $i;
-                                                                                                                                                                                                                                                        while ($rowdescdip = $rsdescdip->fetch(PDO::FETCH_ASSOC)) {
-
-                                                                                                                                                                                                                                                                ?>
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <tr>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                <th scope="row">
-                                                                        <?php echo ($previous == $i) ? $i : ""; ?>
-                                                                                                                                      </th>
-                                                                                                                                      <td>
-                                                                        <?= ($previous == $i) ? $row['tank_entry_date'] : "" ?>
-                                                                                                                                      </td>
-                                                                                                                                      <td>
-                                                                        <?= ($previous == $i) ? $area_name : "" ?>
-                                                                                                                                      </td>
-                                                                                                                                      <td>
-                                                                        <?= ($previous == $i) ? $row['total_refil'] : "" ?>
-                                                                                                                                      </td>
-                                                                                                                                      <td>
-                                                                        <?= ($previous == $i) ? $row['opening_meter'] : "" ?>
-                                                                                                                                      </td>
-                                                                                                                                      <td>
-                                                                        <?= ($previous == $i) ? $row['closing_meter'] : "" ?>
-                                                                                                                                      </td>
-                                                                                                                                      <td>
-                                                                        <?= ($previous == $i) ? $row['diesel_out'] : "" ?>
-                                                                                                                                      </td>
-
-                                                                                                                                      <td>
-                                                                        <?=
-                                                                                $rowdescdip['descp'];
-                                                                        ?>
-                                                                                                                                      </td>
-                                                                                                                                      <td>
-                                                                        <?= $rowdescdip['dip'] ?>
-                                                                                                                                      </td>
-                                                                                                                                    <td>
-                                                                      <?= $row['tank_balance'] ?>
-                                                                                                                                    </td>
-                                                                                                                                    <td>
-                                                                                                                                                                                                                                                                                <?php if ($i == 2) {
-                                                                                                                                                                                                                                                                                        ?>
-                                                                <input type="hidden"  id="tank_balance" value="<?= $row['tank_balance'] ?>"> 
-                                                                <input type="hidden"  id="tank_opening" value="<?= $row['closing_meter'] ?>"> 
-
-                        <?php }
-                                                                                                                                                                                                                                                                                $previous = $i + 1;
-                                                                                                                                                                                                                                                        } ?>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </td>
-
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </tr>
-                                                                                                                                                                                                                                                                                                                                                                <?php
-                                                                                                                                                                                                                                                                                                                                                                $i++;
-                                                                                                                                                                                                                                                }
-                                                                                                                                                                                                                                                ?>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        </tbody>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                </table>
-                                                                                                                <?php
+        <table class="table">
+                <thead>
+                        <tr>
+                        <th scope="col">S.no</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Area</th>
+                        <th scope="col">Total Refill</th>
+                        <th scope="col">Opening Meter</th>
+                        <th scope="col">Closing Meter</th>
+                        <th scope="col">Desel Out</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">DIP</th>
+                        <th scope="col">Balance</th>
+                        </tr>
+                        </thead>
+                        <tbody id="details_table_body">
+                        <?php
+                         $qry = $db->query("SELECT * FROM `tank_entry_master` WHERE e_d_optn = '1'".emp_area($emp_login_type,$area_id)." ORDER BY STR_TO_DATE(tank_entry_date, '%Y-%m-%d') DESC, id DESC LIMIT 0, 14") or die("");
+                       
+                         $i = 2;
+while ($row = $qry->fetch(PDO::FETCH_ASSOC)) {
+$id = $row['id'];
+$area_id = $row['area_id'];
+$query = $db->query("SELECT * FROM `area_master` WHERE id='$area_id'");
+$rowArea = $query->fetch(PDO::FETCH_ASSOC);
+$area_name = $rowArea['area_name'];
+$query2 = "SELECT * FROM `tank_entry_detail_table` WHERE `tank_main_id`=$id AND descp!=''";
+$rsdescdip = $db->query($query2);
+$previous = $i;
+while ($rowdescdip = $rsdescdip->fetch(PDO::FETCH_ASSOC)) {
+?>
+<tr>
+<th scope="row">
+<?php echo ($previous == $i) ? $i : ""; ?>
+</th>
+<td>
+<?= ($previous == $i) ? $row['tank_entry_date'] : "" ?>
+</td>
+<td>
+<?= ($previous == $i) ? $area_name : "" ?>
+</td>
+<td>
+<?= ($previous == $i) ? $row['total_refil'] : "" ?>
+</td>
+<td>
+<?= ($previous == $i) ? $row['opening_meter'] : "" ?>
+</td>
+<td>
+<?= ($previous == $i) ? $row['closing_meter'] : "" ?>
+</td>
+<td>
+<?= ($previous == $i) ? $row['diesel_out'] : "" ?>
+</td>
+<td>
+<?=
+$rowdescdip['descp'];
+?>
+</td>
+<td>
+<?= $rowdescdip['dip'] ?>
+</td>
+<td>
+<?= $row['tank_balance'] ?>
+</td>
+<?php if ($i == 2) 
+{
+?><input type="hidden"  id="tank_balance" value="<?= $row['tank_balance'] ?>"> 
+<input type="hidden"  id="tank_opening" value="<?= $row['closing_meter'] ?>">
+<?php }
+ $previous = $i + 1;}
+  ?>
+  
+</tr><?php $i++;}?>
+</tbody>
+</table>
+<?php
 }
 
 function emp_area($emp_login_type,$area_id)

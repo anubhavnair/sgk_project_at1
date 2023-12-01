@@ -74,6 +74,7 @@ if (isset($_COOKIE["emp_name"]) || isset($_COOKIE["emp_id"]) || isset($_COOKIE["
                       id="success_promt">
                       Login Successfully !....
                     </p>
+                    
                     <p style="text-align:center; padding-top:5px; padding-bottom:5px; background-color:lightcoral; font-weight:bold; display:none; color:black;"
                       id="incorrect_mobile_number_promt">
 

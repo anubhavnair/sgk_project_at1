@@ -21,9 +21,16 @@ if (isset($_REQUEST["edit_id"])) {
     $emp_name = $_REQUEST["text_employee_name"];
     $emp_mobile = $_REQUEST["text_employee_mobile_number"];
     $emp_pass = $_REQUEST["text_employee_password"];
-$login_type = $_REQUEST["login_type"];
-    $qry = $db->query("INSERT INTO `employee_master`(`emp_name`, `emp_mono`, `emp_password`,`emp_login_type`,`created_by`,`created_on`) VALUES ('$emp_name','$emp_mobile','$emp_pass',$login_type,'$created_by',NOW())") or die("");
+    $login_type = $_REQUEST["login_type"];
 
+    $noexist = $db->query("SELECT * FROM `employee_master` WHERE `emp_mono`='$emp_mobile'");
+    if ($noexist->rowCount() == 0) {
+        $qry = $db->query("INSERT INTO `employee_master`(`emp_name`, `emp_mono`, `emp_password`,`emp_login_type`,`created_by`,`created_on`) VALUES ('$emp_name','$emp_mobile','$emp_pass',$login_type,'$created_by',NOW())") or die("");
+        echo "2";
+
+    } else {
+        echo "1";
+    }
 }
 
 
