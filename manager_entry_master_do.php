@@ -12,6 +12,21 @@ if (isset($_REQUEST["edit_id"])) {
     $qty = $_REQUEST["text_quantity"];
 
     if (isset($_FILES['img_upload_slip']) && $_FILES['img_upload_slip']['error'] == UPLOAD_ERR_OK) {
+
+        $delete_image = $db->query("SELECT  `slip_image` FROM `manager_entry_master` WHERE id = $edit_id") or die("");
+
+        $delete_image_name = $delete_image->fetch(PDO::FETCH_ASSOC);
+        $slipImageName = $delete_image_name['slip_image'];
+        $filePath = "images/slips/$slipImageName";
+
+        if (file_exists($filePath)) {
+            if (unlink($filePath)) {
+              
+            } 
+        } 
+
+
+
         $name = $_FILES['img_upload_slip']['name'];
         $filetype = $_FILES['img_upload_slip']['type'];
 

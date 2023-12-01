@@ -78,7 +78,7 @@ include("./root/dbconnection.php");
 
                                     <input type="hidden" name="text_edit_id" id="text_edit_id" value=<?php echo $row["id"]; ?>>
                                 </div>
-                                <img src="images/slips/<?= $row['slip_image'] ?>" class="rounded mx-auto d-block mb-2"
+                                <img src="images/slips/<?= $row['slip_image'] ?>" class="rounded mx-auto d-block mt-1 mb-2"
                                     style="height: 50vw;" alt="...">
                                 <div class="form-group custom-file col-12 mb-1">
                                     <input type="file" id="img_upload_slip">
