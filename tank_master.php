@@ -496,10 +496,9 @@ while ($row_emp = $get_emp_area->fetch(PDO::FETCH_ASSOC)) {
           if (status === "success") {
             $("#areaWiseTankBalance").html(data);
             const total_refill = $("#txt_total_refill");
-            const tank_balance = $("#tank_balance");
             
 
-              $('#txt_opening_meter').val($('#tank_opening').val())
+         
               balance = total_refill.val($("#tank_balance").val());
               $("#tank_balance_heading").text("Tank : " + $("#tank_balance").val());
             

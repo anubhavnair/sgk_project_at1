@@ -94,13 +94,13 @@ else if (isset($_REQUEST["txt_select_area"]))
         if($row){
         ?>
         <input type="hidden"  id="tank_balance" value="<?= $row['tank_balance'] ?>"> 
-        <input type="hidden"  id="tank_opening" value="<?= $row['closing_meter'] ?>">
+        
         <?php
         }
         else{
         ?>
                <input type="hidden"  id="tank_balance" value="0"> 
-        <input type="hidden"  id="tank_opening" value="0">
+
                 <?php
         }
 }
@@ -179,10 +179,17 @@ $rowdescdip['descp'];
 <td>
 <?= $row['tank_balance'] ?>
 </td>
-<?php if ($area_id==$area && $flag == 0) 
+<?php 
+if($i==2)
+{
+    
+?>
+<input type="hidden"  id="tank_opening" value="<?= $row['closing_meter'] ?>">
+<?php    
+}
+if ($area_id==$area && $flag == 0) 
 {
 ?><input type="hidden"  id="tank_balance" value="<?= $row['tank_balance'] ?>"> 
-<input type="hidden"  id="tank_opening" value="<?= $row['closing_meter'] ?>">
 <?php
 $flag = 1;
  }
