@@ -1,22 +1,21 @@
 <?php
 include("./header.php");
 require_once("./root/dbconnection.php");
-function emp_area($emp_login_type,$area_id)
+function emp_area($emp_login_type, $area_id)
 {
-        if($emp_login_type == 0)
-        { 
-            return " AND `id` IN ('$area_id')";
-        } else {
-            return ""; // Return an empty string if $emp_login_type is not 0
-        }
+  if ($emp_login_type == 0) {
+    return " AND `id` IN ('$area_id')";
+  } else {
+    return ""; // Return an empty string if $emp_login_type is not 0
+  }
 }
 $emp_id = $_COOKIE["emp_id"];
-                $get_emp_area = $db->query("SELECT emp_area_id, emp_login_type FROM `employee_master` WHERE `id` = $emp_id") or die("");
-                while ($row_emp = $get_emp_area->fetch(PDO::FETCH_ASSOC)) {
-                  $emp_login_type = $row_emp['emp_login_type'];
-                  $area_id = $row_emp["emp_area_id"];
-                  // $area_id_arr = explode(",", $area_id);
-                }
+$get_emp_area = $db->query("SELECT emp_area_id, emp_login_type FROM `employee_master` WHERE `id` = $emp_id") or die("");
+while ($row_emp = $get_emp_area->fetch(PDO::FETCH_ASSOC)) {
+  $emp_login_type = $row_emp['emp_login_type'];
+  $area_id = $row_emp["emp_area_id"];
+  // $area_id_arr = explode(",", $area_id);
+}
 ?>
 <div class="content_wrapper bg_homebefore inner-wrapper forms-sec">
   <div class="container-fluid">
@@ -76,7 +75,7 @@ $emp_id = $_COOKIE["emp_id"];
                     <select class="form-control custom-select p-1" name="txt_select_area" id="txt_select_area"
                       value="<?= $row['area_id'] ?>">
                       <?php
-                      $qry2 = $db->query("SELECT * FROM `area_master` WHERE e_d_optn=1 ".emp_area($emp_login_type,$area_id)) or die("");
+                      $qry2 = $db->query("SELECT * FROM `area_master` WHERE e_d_optn=1 " . emp_area($emp_login_type, $area_id)) or die("");
                       while ($rowArea = $qry2->fetch(PDO::FETCH_ASSOC)) {
                         $selected = ($rowArea['id'] == $row['area_id']) ? 'selected' : '';
                         ?>
@@ -152,12 +151,14 @@ $emp_id = $_COOKIE["emp_id"];
 
                     <?php $query2 = "SELECT * FROM `tank_entry_detail_table` WHERE `tank_main_id`=$edit_id";
                     $rsdescdip = $db->query($query2);
-                    $i=1;
-                    while ($rowdescdip = $rsdescdip->fetch(PDO::FETCH_ASSOC)) {  ?>
-                   
+                    $i = 1;
+                    while ($rowdescdip = $rsdescdip->fetch(PDO::FETCH_ASSOC)) { ?>
+
                       <tr id="struct_<?php echo $i; ?>">
-                        <td><input type="text" class="txtClassName txtdescp" id="txtdescp_<?php echo $i; ?>" value="<?=$rowdescdip['descp']?>"></td>
-                        <td><input type="text" class="txtClassName txtdip" id="txtdip_<?php echo $i; ?>" value="<?=$rowdescdip['dip']?>"></td>
+                        <td><input type="text" class="txtClassName txtdescp" id="txtdescp_<?php echo $i; ?>"
+                            value="<?= $rowdescdip['descp'] ?>"></td>
+                        <td><input type="text" class="txtClassName txtdip" id="txtdip_<?php echo $i; ?>"
+                            value="<?= $rowdescdip['dip'] ?>"></td>
 
                         <td>
                           <div class="removeButton" onclick="removefunction('struct_<?php echo $i; ?>')"
@@ -166,7 +167,8 @@ $emp_id = $_COOKIE["emp_id"];
                           </div>
                         </td>
                       </tr>
-                    <?php $i++;} ?>
+                      <?php $i++;
+                    } ?>
 
 
 
@@ -183,7 +185,8 @@ $emp_id = $_COOKIE["emp_id"];
 
             <div class="form-group col-md-12">
               <label for="txt_balance">Balance</label>
-              <input type="text" class="form-control" id="txt_balance" name="txt_balance" placeholder="Enter Balance" value="<?= $row['tank_balance'] ?>">
+              <input type="text" class="form-control" id="txt_balance" name="txt_balance" placeholder="Enter Balance"
+                value="<?= $row['tank_balance'] ?>">
             </div>
 
 
@@ -211,7 +214,7 @@ $emp_id = $_COOKIE["emp_id"];
                     <div class="col-md-12 p-0">
                       <select class="form-control custom-select p-1" name="txt_select_area" id="txt_select_area">
                         <?php
-                        $qry2 = $db->query("SELECT * FROM `area_master` WHERE e_d_optn='1' ".emp_area($emp_login_type,$area_id)) or die("");
+                        $qry2 = $db->query("SELECT * FROM `area_master` WHERE e_d_optn='1' " . emp_area($emp_login_type, $area_id)) or die("");
                         while ($rowArea = $qry2->fetch(PDO::FETCH_ASSOC)) {
                           ?>
                           <option value="<?= $rowArea['id'] ?>">
@@ -332,6 +335,9 @@ $emp_id = $_COOKIE["emp_id"];
           </form>
         </div>
       </div>
+      <div id="areaWiseTankBalance">
+
+      </div>
       <!-- Modal -->
       <div id="myModal" class="modal fade" role="dialog">
         <div class="modal-dialog">
@@ -398,14 +404,15 @@ $emp_id = $_COOKIE["emp_id"];
 
     $(document).ready(function () {
       // TAKING PREVIEW DATA FROM THE DATABASE 
-
+      const txt_select_area = $("#txt_select_area").val()
       $.post("tank_master_do.php", {
-        preview: "preview"
+        preview: "preview",
+        area: txt_select_area
       }, function (data, status) {
         if (status === "success") {
           $("#myPopup").html(data);
           const total_refill = $("#txt_total_refill");
-          
+
           if ($("#tank_balance").length == 1) {
 
             $('#txt_opening_meter').val($('#tank_opening').val())
@@ -478,6 +485,32 @@ $emp_id = $_COOKIE["emp_id"];
       if (message) {
         showNotification(message);
       }
+
+
+
+      $("#txt_select_area").on("change", function (e) {
+       const txt_select_area = $("#txt_select_area").val()
+        $.post("tank_master_do.php", {
+          txt_select_area: txt_select_area
+        }, function (data, status) {
+          if (status === "success") {
+            $("#areaWiseTankBalance").html(data);
+            const total_refill = $("#txt_total_refill");
+            const tank_balance = $("#tank_balance");
+            
+
+              $('#txt_opening_meter').val($('#tank_opening').val())
+              balance = total_refill.val($("#tank_balance").val());
+              $("#tank_balance_heading").text("Tank : " + $("#tank_balance").val());
+            
+          }
+          else {
+            // console.log("bhai error aaya hai")
+          }
+        })
+      })
+
+
       // FORM VALIDATION SECTION 
       $("#submit").on("click", function (e) {
         e.preventDefault();
@@ -686,21 +719,21 @@ $emp_id = $_COOKIE["emp_id"];
         else {
           var emptyValBox = "";
 
-for (i = 0; i < $("#tablestructure tr").length; i++) {
-  //console.log($("#tablestructure tr:eq("+i+")").attr("id"));
-  var mainid = $("#tablestructure tr:eq(" + i + ")").attr("id");
-  var finID = mainid.replace("struct_", "");
+          for (i = 0; i < $("#tablestructure tr").length; i++) {
+            //console.log($("#tablestructure tr:eq("+i+")").attr("id"));
+            var mainid = $("#tablestructure tr:eq(" + i + ")").attr("id");
+            var finID = mainid.replace("struct_", "");
 
-  var txtDescpval = $("#txtdescp_" + finID).val();
-  var txtDipval = $("#txtdip_" + finID).val();
+            var txtDescpval = $("#txtdescp_" + finID).val();
+            var txtDipval = $("#txtdip_" + finID).val();
 
-  emptyValBox = emptyValBox + txtDescpval + "==" + txtDipval + "||";
+            emptyValBox = emptyValBox + txtDescpval + "==" + txtDipval + "||";
 
-  //descp==4-5||descp==4-5||descp==4-5||descp==4-5		
-}
-console.log(emptyValBox);
+            //descp==4-5||descp==4-5||descp==4-5||descp==4-5		
+          }
+          console.log(emptyValBox);
 
-$("#txtTankDescp").val(emptyValBox);
+          $("#txtTankDescp").val(emptyValBox);
           $.post("tank_master_do.php",
             {
               edit_id: edit_id,
