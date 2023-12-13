@@ -1,0 +1,6 @@
+tank master filter 
+ if employee only employee name selected in default 
+if admin then all employee name shown 
+
+if emplyee assites only one site then sent to display block , display none 
+if employee assign all sites  then shown those sites 

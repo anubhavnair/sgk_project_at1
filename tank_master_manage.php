@@ -16,7 +16,7 @@ $get_emp_area = $db->query("SELECT emp_area_id, emp_login_type FROM `employee_ma
 while ($row_emp = $get_emp_area->fetch(PDO::FETCH_ASSOC)) {
   $emp_login_type = $row_emp['emp_login_type'];
   $area_id = $row_emp["emp_area_id"];
-  // $area_id_arr = explode(",", $area_id);
+  $area_id_arr = explode(",", $area_id);
 }
 ?>
 <div class="content_wrapper bg_homebefore inner-wrapper forms-sec">
@@ -42,10 +42,24 @@ while ($row_emp = $get_emp_area->fetch(PDO::FETCH_ASSOC)) {
       </section>
 
 
-        <section class="col-12 d-flex align-items-end p-0 mt-3">
-          <div class="col-6">
-            <label for="select_employee">Select Employee</label>
-            <select class="form-control custom-select p-1" name="select_employee" id="select_employee">
+      <section class="col-12 d-flex align-items-end p-0 mt-3">
+        <div class="col-6">
+          <label for="select_employee">Select Employee</label>
+          <select class="form-control custom-select p-1" name="select_employee" id="select_employee">
+            <?php if (count($area_id_arr) == 1) {
+             $emp_id = $_COOKIE['emp_id'];
+              $qry2 = $db->query("SELECT * FROM `employee_master` WHERE `id`=$emp_id") or die("");
+
+              while ($rowEmployee = $qry2->fetch(PDO::FETCH_ASSOC)) {
+
+                ?>
+                <option value="<?= $rowEmployee['id'] ?>">
+                  <?= $rowEmployee['emp_name'] ?>
+                </option>
+
+
+              <?php }
+            } else { ?>
               <option value="">Select employee</option>
               <?php
               $qry2 = $db->query("SELECT * FROM `employee_master` WHERE e_d_optn = 1") or die("");
@@ -58,29 +72,30 @@ while ($row_emp = $get_emp_area->fetch(PDO::FETCH_ASSOC)) {
                 </option>
                 <?php
               }
-              ?>
-            </select>
-          </div>
+            }
+            ?>
+          </select>
+        </div>
 
-          <div class="col-6"> 
-            <label for="select_area">Select Area</label>
-            <select class="form-control custom-select p-1" name="select_area" id="select_area">
-              <option value="0">All</option>
+        <div class="col-6">
+          <label for="select_area">Select Area</label>
+          <select class="form-control custom-select p-1" name="select_area" id="select_area">
+            <option value="0">All</option>
+            <?php
+            $qry2 = $db->query("SELECT * FROM `area_master` WHERE e_d_optn='1' " . emp_area($emp_login_type, $area_id)) or die("");
+
+            while ($rowArea = $qry2->fetch(PDO::FETCH_ASSOC)) {
+
+              ?>
+              <option value="<?= $rowArea['id'] ?>">
+                <?= $rowArea['area_name'] ?>
+              </option>
               <?php
-              $qry2 = $db->query("SELECT * FROM `area_master` WHERE e_d_optn='1' " . emp_area($emp_login_type, $area_id)) or die("");
-
-              while ($rowArea = $qry2->fetch(PDO::FETCH_ASSOC)) {
-
-                ?>
-                <option value="<?= $rowArea['id'] ?>">
-                  <?= $rowArea['area_name'] ?>
-                </option>
-                <?php
-              }
-              ?>
-            </select>
-          </div>
-        </section>
+            }
+            ?>
+          </select>
+        </div>
+      </section>
 
 
 
@@ -142,6 +157,8 @@ while ($row_emp = $get_emp_area->fetch(PDO::FETCH_ASSOC)) {
                   <th scope="col">Opening Meter</th>
                   <th scope="col">Closing Meter</th>
                   <th scope="col">Desel Out</th>
+                  <th scope="col">Send To</th>
+                  <th scope="col">Send Refill</th>
                   <th scope="col">Description</th>
                   <th scope="col">DIP</th>
                   <th scope="col">Balance</th>
@@ -221,10 +238,24 @@ LIMIT $initial_page, $limit";
                 while ($row = $qry->fetch(PDO::FETCH_ASSOC)) {
                   $id = $row['id'];
                   $area_id = $row['area_id'];
+                  $send_area_id = $row['send_area_id'];
+
+
+                  if ($send_area_id != 0) {
+                    $querySendToArea = $db->query("SELECT * FROM `area_master` WHERE id='$send_area_id'");
+                    $rowSendArea = $querySendToArea->fetch(PDO::FETCH_ASSOC);
+
+                    $send_to_area = $rowSendArea['area_name'];
+
+                    $send_refill = $row['send_refill'];
+                  } else {
+                    $send_to_area = "";
+                    $send_refill = "";
+                  }
+
                   $query = $db->query("SELECT * FROM `area_master` WHERE id='$area_id'");
                   $rowArea = $query->fetch(PDO::FETCH_ASSOC);
                   $area_name = $rowArea['area_name'];
-
                   $query2 = "SELECT * FROM `tank_entry_detail_table` WHERE `tank_main_id`=$id AND descp!=''";
                   $rsdescdip = $db->query($query2);
 
@@ -256,7 +287,12 @@ LIMIT $initial_page, $limit";
                       <td>
                         <?= ($previous == $i) ? $row['diesel_out'] : "" ?>
                       </td>
-
+                      <td>
+                        <?= ($previous == $i) ? $send_to_area : "" ?>
+                      </td>
+                      <td>
+                        <?= ($previous == $i) ? $send_refill : "" ?>
+                      </td>
                       <td>
                         <?=
                           $rowdescdip['descp'];

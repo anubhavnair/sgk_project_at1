@@ -14,7 +14,7 @@ $get_emp_area = $db->query("SELECT emp_area_id, emp_login_type FROM `employee_ma
 while ($row_emp = $get_emp_area->fetch(PDO::FETCH_ASSOC)) {
   $emp_login_type = $row_emp['emp_login_type'];
   $area_id = $row_emp["emp_area_id"];
-  // $area_id_arr = explode(",", $area_id);
+  $area_id_arr = explode(",", $area_id);
 }
 ?>
 <div class="content_wrapper bg_homebefore inner-wrapper forms-sec">
@@ -45,7 +45,7 @@ while ($row_emp = $get_emp_area->fetch(PDO::FETCH_ASSOC)) {
     <div class="row">
       <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
-          <h6 class="header-title ml-2" id="tank_balance_heading"></h6>
+          <h6 class="header-title ml-2" id="tank_balance_heading">Tank : 0</h6>
           <form class="forms-sample">
             <?php
             if (isset($_REQUEST['edit_id'])) {
@@ -53,7 +53,7 @@ while ($row_emp = $get_emp_area->fetch(PDO::FETCH_ASSOC)) {
               $qry = $db->query("SELECT * FROM `tank_entry_master` where id = '$edit_id'") or die("");
               $row = $qry->fetch(PDO::FETCH_ASSOC);
 
-              $dateString = $row['tank_entry_date']; // Replace with your date string
+              $dateString = $row['tank_entry_date'];
               $date = new DateTime($dateString);
               ?>
               <input type="hidden" name="edit_id" id="edit_id" value="<?= $edit_id ?>">
@@ -74,6 +74,7 @@ while ($row_emp = $get_emp_area->fetch(PDO::FETCH_ASSOC)) {
                   <div class="col-md-12 p-0">
                     <select class="form-control custom-select p-1" name="txt_select_area" id="txt_select_area"
                       value="<?= $row['area_id'] ?>">
+                      <option value="0">Select Area</option>
                       <?php
                       $qry2 = $db->query("SELECT * FROM `area_master` WHERE e_d_optn=1 " . emp_area($emp_login_type, $area_id)) or die("");
                       while ($rowArea = $qry2->fetch(PDO::FETCH_ASSOC)) {
@@ -89,10 +90,39 @@ while ($row_emp = $get_emp_area->fetch(PDO::FETCH_ASSOC)) {
                   </div>
 
                 </div>
+
+                <div class="form-group col-md-6 d-flex flex-column justify-content-end">
+                  <label for="txt_send_to_area" class="col-form-label col-md-4 pl-0 pr-0">Send To</label>
+                  <div class="col-md-12 p-0">
+                    <select class="form-control custom-select p-1" name="txt_send_to_area" id="txt_send_to_area" <?php echo count($area_id_arr) == 1 ? "disabled" : ""; ?>>
+                      <option value="0">Select Area</option>
+                      <?php
+                      $qry2 = $db->query("SELECT * FROM `area_master` WHERE e_d_optn='1' " . emp_area($emp_login_type, $area_id)) or die("");
+                      while ($rowArea = $qry2->fetch(PDO::FETCH_ASSOC)) {
+                        $selected = ($rowArea['id'] == $row['send_area_id']) ? 'selected' : '';
+                        ?>
+                        <option value="<?= $rowArea['id'] ?>" <?= $selected ?>>
+                          <?= $rowArea['area_name'] ?>
+                        </option>
+                        <?php
+                      }
+                      ?>
+                    </select>
+                  </div>
+
+                </div>
+              </section>
+              <section class="d-flex align-items-center col-12 p-0">
+
                 <div class="form-group col-md-6">
                   <label for="txt_total_refill">Total Refill</label>
                   <input type="text" class="form-control" name="txt_total_refill" id="txt_total_refill"
-                    placeholder="Enter Total Refill" value="<?= $row['total_refil'] ?>">
+                    placeholder="Enter Total Refill" value="<?= $row['total_refil'] ?>" <?php echo count($area_id_arr) == 1 ? "disabled" : ""; ?>>
+                </div>
+                <div class="form-group col-md-6">
+                  <label for="txt_send_refill">To Send Refill</label>
+                  <input type="text" class="form-control" name="txt_send_refill" id="txt_send_refill"
+                    placeholder="Enter Send Refill" value="<?= $row['send_refill'] ?>">
                 </div>
               </section>
 
@@ -192,9 +222,12 @@ while ($row_emp = $get_emp_area->fetch(PDO::FETCH_ASSOC)) {
 
             <div class="d-flex flex-col pl-3">
               <button type="submit" id="update" class="btn btn-warning mr-2">Update</button>
-              <button type="button" id="preview" class="btn btn-primary mr-2 mb-2" data-toggle="modal"
+              <button type="button" id="preview" class="btn btn-primary mr-2 " data-toggle="modal"
                 data-target="#myModal">Preview</button>
 
+              <script>
+                $("#tank_balance_heading").text("Tank : " +<?php echo $row['tank_balance'] + $row['diesel_out']; ?>);
+              </script>
               <?php
             } else {
               ?>
@@ -203,7 +236,7 @@ while ($row_emp = $get_emp_area->fetch(PDO::FETCH_ASSOC)) {
                   <!-- Content for the first div -->
                   </div>
                   <div class="form-group col-6">
-                    <input type="date" class="form-control m-0" name="date_enter_date" id="date_enter_date" readonly>
+                    <input type="date" class="form-control m-0" name="date_enter_date" id="date_enter_date">
                   </div>
                 </section>
 
@@ -213,6 +246,7 @@ while ($row_emp = $get_emp_area->fetch(PDO::FETCH_ASSOC)) {
                     <label for="txt_select_area" class="col-form-label col-md-4 pl-0 pr-0">Select Area</label>
                     <div class="col-md-12 p-0">
                       <select class="form-control custom-select p-1" name="txt_select_area" id="txt_select_area">
+                        <option value="0">Select Area</option>
                         <?php
                         $qry2 = $db->query("SELECT * FROM `area_master` WHERE e_d_optn='1' " . emp_area($emp_login_type, $area_id)) or die("");
                         while ($rowArea = $qry2->fetch(PDO::FETCH_ASSOC)) {
@@ -227,10 +261,40 @@ while ($row_emp = $get_emp_area->fetch(PDO::FETCH_ASSOC)) {
                     </div>
 
                   </div>
+                  <div class="form-group col-md-6 d-flex flex-column justify-content-end">
+                    <label for="txt_send_to_area" class="col-form-label col-md-4 pl-0 pr-0">Send To</label>
+                    <div class="col-md-12 p-0">
+                      <select class="form-control custom-select p-1" name="txt_send_to_area" id="txt_send_to_area" <?php echo count($area_id_arr) == 1 ? "disabled" : ""; ?>>
+                        <option value="">Select Area</option>
+                        <?php
+                        $qry2 = $db->query("SELECT * FROM `area_master` WHERE e_d_optn='1' " . emp_area($emp_login_type, $area_id)) or die("");
+                        while ($rowArea = $qry2->fetch(PDO::FETCH_ASSOC)) {
+                          ?>
+                          <option value="<?= $rowArea['id'] ?>">
+                            <?= $rowArea['area_name'] ?>
+                          </option>
+                          <?php
+                        }
+                        ?>
+                      </select>
+                    </div>
+
+                  </div>
+                </section>
+                <section class="d-flex align-items-center col-12 p-0">
+
+
+
                   <div class="form-group col-md-6">
                     <label for="txt_total_refill">Total Refill</label>
                     <input type="text" class="form-control" name="txt_total_refill" id="txt_total_refill"
                       placeholder="Enter Total Refill">
+                  </div>
+
+                  <div class="form-group col-md-6">
+                    <label for="txt_send_refill">To Send Refill</label>
+                    <input type="text" class="form-control" name="txt_send_refill" id="txt_send_refill"
+                      placeholder="Enter Total Refill" <?php echo count($area_id_arr) == 1 ? "disabled" : ""; ?>>
                   </div>
                 </section>
 
@@ -413,18 +477,18 @@ while ($row_emp = $get_emp_area->fetch(PDO::FETCH_ASSOC)) {
           $("#myPopup").html(data);
           const total_refill = $("#txt_total_refill");
 
-          if ($("#tank_balance").length == 1) {
+          // if ($("#tank_balance").length == 1) {
 
-            $('#txt_opening_meter').val($('#tank_opening').val())
-            balance = total_refill.val($("#tank_balance").val());
-            $("#tank_balance_heading").text("Tank : " + $("#tank_balance").val());
-          }
-          else {
-            $('#txt_opening_meter').val(0)
-            balance = total_refill.val(0);
-            $("#tank_balance_heading").text("Tank : 0");
+          //   $('#txt_opening_meter').val($('#tank_opening').val())
+          //   balance = total_refill.val($("#tank_balance").val());
+          //   $("#tank_balance_heading").text("Tank : " + $("#tank_balance").val());
+          // }
+          // else {
+          //   $('#txt_opening_meter').val(0)
+          //   balance = total_refill.val(0);
+          //   $("#tank_balance_heading").text("Tank : 0");
 
-          }
+          // }
         }
         else {
           // console.log("bhai error aaya hai")
@@ -487,28 +551,32 @@ while ($row_emp = $get_emp_area->fetch(PDO::FETCH_ASSOC)) {
       }
 
 
+      <?php if (!isset($_REQUEST['edit_id'])) {
+        ?>
+        $("#txt_select_area").on("change", function (e) {
+          const txt_select_area = $("#txt_select_area").val()
+          $.post("tank_master_do.php", {
+            txt_select_area: txt_select_area
+          }, function (data, status) {
+            if (status === "success") {
+              $("#areaWiseTankBalance").html(data);
+              const total_refill = $("#txt_total_refill");
+              const tank_balance = $("#tank_balance");
 
-      $("#txt_select_area").on("change", function (e) {
-       const txt_select_area = $("#txt_select_area").val()
-        $.post("tank_master_do.php", {
-          txt_select_area: txt_select_area
-        }, function (data, status) {
-          if (status === "success") {
-            $("#areaWiseTankBalance").html(data);
-            const total_refill = $("#txt_total_refill");
-            const tank_balance = $("#tank_balance");
-            
 
               $('#txt_opening_meter').val($('#tank_opening').val())
               balance = total_refill.val($("#tank_balance").val());
               $("#tank_balance_heading").text("Tank : " + $("#tank_balance").val());
-            
-          }
-          else {
-            // console.log("bhai error aaya hai")
-          }
+
+            }
+            else {
+              // console.log("bhai error aaya hai")
+            }
+          })
         })
-      })
+        <?php
+      }
+      ?>
 
 
       // FORM VALIDATION SECTION 
@@ -523,6 +591,8 @@ while ($row_emp = $get_emp_area->fetch(PDO::FETCH_ASSOC)) {
         // const description = $("#txt_description").val();
         // const dip = $("#txt_dip").val();
         const banance = $("#txt_balance").val();
+        const send_to_area = $("#txt_send_to_area").val() != "" ? $("#txt_send_to_area").val() : 0;
+        const send_refill = $("#txt_send_refill").val()
 
         if (select_area == "" || select_area == null) {
           $("#txt_select_area").css("border", "1.2px solid red");
@@ -532,305 +602,331 @@ while ($row_emp = $get_emp_area->fetch(PDO::FETCH_ASSOC)) {
             $(this).css("border", "1.2px solid skyblue");
           });
         }
-        else if (opening_meter == "" || opening_meter == null) {
-          $("#txt_opening_meter").css("border", "1.2px solid red");
 
-          $("#txt_opening_meter").focus();
-          $("#txt_opening_meter").keydown(function () {
-            $(this).css("border", "1.2px solid skyblue");
-          });
+        else if (send_to_area == 0 || send_refill == "") {
+          if (send_refill != "") {
+            $("#txt_send_to_area").css("border", "1.2px solid red");
 
-        }
-        else if (total_refill == "" || total_refill == null) {
-
-          $("#txt_total_refill").css("border", "1.2px solid red");
-
-          $("#txt_total_refill").focus();
-          $("#txt_total_refill").keydown(function () {
-            $(this).css("border", "1.2px solid skyblue");
-          });
-        }
-        else if (closing_meter == "" || closing_meter == null) {
-
-
-          $("#txt_closing_meter").css("border", "1.2px solid red");
-          $("#txt_closing_meter").focus();
-          $("#txt_closing_meter").keydown(function () {
-            $(this).css("border", "1.2px solid skyblue");
-          });
-        }
-        else if (desel_out == "" || desel_out == null) {
-
-
-          $("#txt_desel_out").css("border", "1.2px solid red");
-          $("#txt_desel_out").focus();
-          $("#txt_desel_out").keydown(function () {
-            $(this).css("border", "1.2px solid skyblue");
-          });
-        }
-        // else if (description == "" || description == null) {
-
-
-        //   $("#txt_description").css("border", "1.2px solid red");
-        //   $("#txt_description").focus();
-        //   $("#txt_description").keydown(function () {
-        //     $(this).css("border", "1.2px solid skyblue");
-        //   });
-        // }
-        // else if (dip == "" || dip == null) {
-
-        //   $("#txt_dip").css("border", "1.2px solid red");
-        //   $("#txt_dip").focus();
-        //   $("#txt_dip").keydown(function () {
-        //     $(this).css("border", "1.2px solid skyblue");
-        //   });
-        // }
-        else if (banance == "" || banance == null) {
-
-          $("#txt_balance").css("border", "1.2px solid red");
-          $("#txt_balance").focus();
-          $("#txt_balance").keydown(function () {
-            $(this).css("border", "1.2px solid skyblue");
-          });
-        }
-        else {
-
-          var emptyValBox = "";
-
-          for (i = 0; i < $("#tablestructure tr").length; i++) {
-            //console.log($("#tablestructure tr:eq("+i+")").attr("id"));
-            var mainid = $("#tablestructure tr:eq(" + i + ")").attr("id");
-            var finID = mainid.replace("struct_", "");
-
-            var txtDescpval = $("#txtdescp_" + finID).val();
-            var txtDipval = $("#txtdip_" + finID).val();
-
-            emptyValBox = emptyValBox + txtDescpval + "==" + txtDipval + "||";
-
-            //descp==4-5||descp==4-5||descp==4-5||descp==4-5		
+            $("#txt_send_to_area").focus();
+            $("#txt_send_to_area").keydown(function () {
+              $(this).css("border", "1.2px solid skyblue");
+            });
           }
-          console.log(emptyValBox);
+          else if (send_to_area > 0) {
+            $("#txt_send_refill").css("border", "1.2px solid red");
 
-          $("#txtTankDescp").val(emptyValBox);
-          // emptyValBox = $("txtTankDescp").val();
-          $.post("tank_master_do.php",
-            {
-              date_enter_date: date,
-              txt_select_area: select_area,
-              txt_opening_meter: opening_meter,
-              txt_total_refill: total_refill,
-              txt_closing_meter: closing_meter,
-              txt_desel_out: desel_out,
-              description_dip_info: emptyValBox,
-              txt_balance: banance
-            }, function (data, status) {
-              if (status == "success") {
-                // alert("New Record Added Successfully !....");
-                let message = "New Record Added Successfully !....";
-                window.location.replace("./tank_master.php?message=" + message);
-              }
-
-
-            }
-          );
-        }
-
-      })
-
-      $("#update").on("click", function (e) {
-        e.preventDefault();
-        const edit_id = $('#edit_id').val();
-        const date = $("#date_enter_date").val();
-        const select_area = $("#txt_select_area").val();
-        const opening_meter = $("#txt_opening_meter").val();
-        const total_refill = $("#txt_total_refill").val();
-        const closing_meter = $("#txt_closing_meter").val();
-        const desel_out = $("#txt_desel_out").val();
-        const banance = $("#txt_balance").val();
-        if (select_area == "" || select_area == null) {
-          $("#txt_select_area").css("border", "1.2px solid red");
-
-          $("#txt_select_area").focus();
-          $("#txt_select_area").keydown(function () {
-            $(this).css("border", "1.2px solid skyblue");
-          });
-        }
-        else if (opening_meter == "" || opening_meter == null) {
-          $("#txt_opening_meter").css("border", "1.2px solid red");
-
-          $("#txt_opening_meter").focus();
-          $("#txt_opening_meter").keydown(function () {
-            $(this).css("border", "1.2px solid skyblue");
-          });
-
-        }
-        else if (total_refill == "" || total_refill == null) {
-
-          $("#txt_total_refill").css("border", "1.2px solid red");
-
-          $("#txt_total_refill").focus();
-          $("#txt_total_refill").keydown(function () {
-            $(this).css("border", "1.2px solid skyblue");
-          });
-        }
-        else if (closing_meter == "" || closing_meter == null) {
-
-
-          $("#txt_closing_meter").css("border", "1.2px solid red");
-          $("#txt_closing_meter").focus();
-          $("#txt_closing_meter").keydown(function () {
-            $(this).css("border", "1.2px solid skyblue");
-          });
-        }
-        else if (desel_out == "" || desel_out == null) {
-
-
-          $("#txt_desel_out").css("border", "1.2px solid red");
-          $("#txt_desel_out").focus();
-          $("#txt_desel_out").keydown(function () {
-            $(this).css("border", "1.2px solid skyblue");
-          });
-        }
-        // else if (description == "" || description == null) {
-
-
-        //   $("#txt_description").css("border", "1.2px solid red");
-        //   $("#txt_description").focus();
-        //   $("#txt_description").keydown(function () {
-        //     $(this).css("border", "1.2px solid skyblue");
-        //   });
-        // }
-        // else if (dip == "" || dip == null) {
-
-        //   $("#txt_dip").css("border", "1.2px solid red");
-        //   $("#txt_dip").focus();
-        //   $("#txt_dip").keydown(function () {
-        //     $(this).css("border", "1.2px solid skyblue");
-        //   });
-        // }
-        else if (banance == "" || banance == null) {
-
-          $("#txt_balance").css("border", "1.2px solid red");
-          $("#txt_balance").focus();
-          $("#txt_balance").keydown(function () {
-            $(this).css("border", "1.2px solid skyblue");
-          });
-        }
-        else {
-          var emptyValBox = "";
-
-          for (i = 0; i < $("#tablestructure tr").length; i++) {
-            //console.log($("#tablestructure tr:eq("+i+")").attr("id"));
-            var mainid = $("#tablestructure tr:eq(" + i + ")").attr("id");
-            var finID = mainid.replace("struct_", "");
-
-            var txtDescpval = $("#txtdescp_" + finID).val();
-            var txtDipval = $("#txtdip_" + finID).val();
-
-            emptyValBox = emptyValBox + txtDescpval + "==" + txtDipval + "||";
-
-            //descp==4-5||descp==4-5||descp==4-5||descp==4-5		
+            $("#txt_send_refill").focus();
+            $("#txt_send_refill").keydown(function () {
+              $(this).css("border", "1.2px solid skyblue");
+            });
           }
-          console.log(emptyValBox);
+        }
+      
+        else if (opening_meter == "" || opening_meter == null) {
+        $("#txt_opening_meter").css("border", "1.2px solid red");
 
-          $("#txtTankDescp").val(emptyValBox);
-          $.post("tank_master_do.php",
-            {
-              edit_id: edit_id,
-              date_enter_date: date,
-              txt_select_area: select_area,
-              txt_opening_meter: opening_meter,
-              txt_total_refill: total_refill,
-              txt_closing_meter: closing_meter,
-              txt_desel_out: desel_out,
-              description_dip_info: emptyValBox,
-              txt_balance: banance
-            }, function (data, status) {
-              if (status == "success") {
-                // alert("Record Updated Successfully !....");
-                let message = "Record Updated Successfully !....";
-                window.location.replace("./tank_master_manage.php?message=" + message)
-              }
+        $("#txt_opening_meter").focus();
+        $("#txt_opening_meter").keydown(function () {
+          $(this).css("border", "1.2px solid skyblue");
+        });
 
+      }
+      else if (total_refill == "" || total_refill == null) {
+
+        $("#txt_total_refill").css("border", "1.2px solid red");
+
+        $("#txt_total_refill").focus();
+        $("#txt_total_refill").keydown(function () {
+          $(this).css("border", "1.2px solid skyblue");
+        });
+      }
+      else if (closing_meter == "" || closing_meter == null) {
+
+
+        $("#txt_closing_meter").css("border", "1.2px solid red");
+        $("#txt_closing_meter").focus();
+        $("#txt_closing_meter").keydown(function () {
+          $(this).css("border", "1.2px solid skyblue");
+        });
+      }
+      else if (desel_out == "" || desel_out == null) {
+
+
+        $("#txt_desel_out").css("border", "1.2px solid red");
+        $("#txt_desel_out").focus();
+        $("#txt_desel_out").keydown(function () {
+          $(this).css("border", "1.2px solid skyblue");
+        });
+      }
+      // else if (description == "" || description == null) {
+
+
+      //   $("#txt_description").css("border", "1.2px solid red");
+      //   $("#txt_description").focus();
+      //   $("#txt_description").keydown(function () {
+      //     $(this).css("border", "1.2px solid skyblue");
+      //   });
+      // }
+      // else if (dip == "" || dip == null) {
+
+      //   $("#txt_dip").css("border", "1.2px solid red");
+      //   $("#txt_dip").focus();
+      //   $("#txt_dip").keydown(function () {
+      //     $(this).css("border", "1.2px solid skyblue");
+      //   });
+      // }
+      else if (banance == "" || banance == null) {
+
+        $("#txt_balance").css("border", "1.2px solid red");
+        $("#txt_balance").focus();
+        $("#txt_balance").keydown(function () {
+          $(this).css("border", "1.2px solid skyblue");
+        });
+      }
+      else {
+
+        var emptyValBox = "";
+
+        for (i = 0; i < $("#tablestructure tr").length; i++) {
+          //console.log($("#tablestructure tr:eq("+i+")").attr("id"));
+          var mainid = $("#tablestructure tr:eq(" + i + ")").attr("id");
+          var finID = mainid.replace("struct_", "");
+
+          var txtDescpval = $("#txtdescp_" + finID).val();
+          var txtDipval = $("#txtdip_" + finID).val();
+
+          emptyValBox = emptyValBox + txtDescpval + "==" + txtDipval + "||";
+
+          //descp==4-5||descp==4-5||descp==4-5||descp==4-5		
+        }
+        console.log(emptyValBox);
+
+        $("#txtTankDescp").val(emptyValBox);
+        // emptyValBox = $("txtTankDescp").val();
+        $.post("tank_master_do.php",
+          {
+            date_enter_date: date,
+            txt_select_area: select_area,
+            txt_opening_meter: opening_meter,
+            txt_total_refill: total_refill,
+            txt_closing_meter: closing_meter,
+            txt_desel_out: desel_out,
+            description_dip_info: emptyValBox,
+            txt_balance: banance,
+            send_to_area: send_to_area,
+            send_refill: send_refill,
+          }, function (data, status) {
+            if (status == "success") {
+              // alert("New Record Added Successfully !....");
+              let message = "New Record Added Successfully !....";
+              window.location.replace("./tank_master.php?message=" + message);
             }
-          );
+
+
+          }
+        );
+      }
+
+    })
+
+    $("#update").on("click", function (e) {
+      e.preventDefault();
+      const edit_id = $('#edit_id').val();
+      const date = $("#date_enter_date").val();
+      const select_area = $("#txt_select_area").val();
+      const opening_meter = $("#txt_opening_meter").val();
+      const total_refill = $("#txt_total_refill").val();
+      const closing_meter = $("#txt_closing_meter").val();
+      const desel_out = $("#txt_desel_out").val();
+      const banance = $("#txt_balance").val();
+      const send_to_area = $("#txt_send_to_area").val() != "" ? $("#txt_send_to_area").val() : 0;
+      const send_refill = $("#txt_send_refill").val()
+      if (select_area == "" || select_area == null) {
+        $("#txt_select_area").css("border", "1.2px solid red");
+
+        $("#txt_select_area").focus();
+        $("#txt_select_area").keydown(function () {
+          $(this).css("border", "1.2px solid skyblue");
+        });
+      }
+      else if (opening_meter == "" || opening_meter == null) {
+        $("#txt_opening_meter").css("border", "1.2px solid red");
+
+        $("#txt_opening_meter").focus();
+        $("#txt_opening_meter").keydown(function () {
+          $(this).css("border", "1.2px solid skyblue");
+        });
+
+      }
+      else if (total_refill == "" || total_refill == null) {
+
+        $("#txt_total_refill").css("border", "1.2px solid red");
+
+        $("#txt_total_refill").focus();
+        $("#txt_total_refill").keydown(function () {
+          $(this).css("border", "1.2px solid skyblue");
+        });
+      }
+      else if (closing_meter == "" || closing_meter == null) {
+
+
+        $("#txt_closing_meter").css("border", "1.2px solid red");
+        $("#txt_closing_meter").focus();
+        $("#txt_closing_meter").keydown(function () {
+          $(this).css("border", "1.2px solid skyblue");
+        });
+      }
+      else if (desel_out == "" || desel_out == null) {
+
+
+        $("#txt_desel_out").css("border", "1.2px solid red");
+        $("#txt_desel_out").focus();
+        $("#txt_desel_out").keydown(function () {
+          $(this).css("border", "1.2px solid skyblue");
+        });
+      }
+      // else if (description == "" || description == null) {
+
+
+      //   $("#txt_description").css("border", "1.2px solid red");
+      //   $("#txt_description").focus();
+      //   $("#txt_description").keydown(function () {
+      //     $(this).css("border", "1.2px solid skyblue");
+      //   });
+      // }
+      // else if (dip == "" || dip == null) {
+
+      //   $("#txt_dip").css("border", "1.2px solid red");
+      //   $("#txt_dip").focus();
+      //   $("#txt_dip").keydown(function () {
+      //     $(this).css("border", "1.2px solid skyblue");
+      //   });
+      // }
+      else if (banance == "" || banance == null) {
+
+        $("#txt_balance").css("border", "1.2px solid red");
+        $("#txt_balance").focus();
+        $("#txt_balance").keydown(function () {
+          $(this).css("border", "1.2px solid skyblue");
+        });
+      }
+      else {
+        var emptyValBox = "";
+
+        for (i = 0; i < $("#tablestructure tr").length; i++) {
+          //console.log($("#tablestructure tr:eq("+i+")").attr("id"));
+          var mainid = $("#tablestructure tr:eq(" + i + ")").attr("id");
+          var finID = mainid.replace("struct_", "");
+
+          var txtDescpval = $("#txtdescp_" + finID).val();
+          var txtDipval = $("#txtdip_" + finID).val();
+
+          emptyValBox = emptyValBox + txtDescpval + "==" + txtDipval + "||";
+
+          //descp==4-5||descp==4-5||descp==4-5||descp==4-5		
         }
+        console.log(emptyValBox);
 
-      })
+        $("#txtTankDescp").val(emptyValBox);
+        $.post("tank_master_do.php",
+          {
+            edit_id: edit_id,
+            date_enter_date: date,
+            txt_select_area: select_area,
+            txt_opening_meter: opening_meter,
+            txt_total_refill: total_refill,
+            txt_closing_meter: closing_meter,
+            txt_desel_out: desel_out,
+            description_dip_info: emptyValBox,
+            txt_balance: banance,
+            send_to_area: send_to_area,
+            send_refill: send_refill,
+          }, function (data, status) {
+            if (status == "success") {
+              // alert("Record Updated Successfully !....");
+              let message = "Record Updated Successfully !....";
+              window.location.replace("./tank_master_manage.php?message=" + message)
+            }
 
-      // POPUP SECTION 
-      $("#preview").on("click", function (e) {
-        const date = $("#date_enter_date").val();
-        const select_area = $("#txt_select_area option:selected").text();
-        const opening_meter = $("#txt_opening_meter").val();
-        const total_refill = $("#txt_total_refill").val();
-        const closing_meter = $("#txt_closing_meter").val();
-        const desel_out = $("#txt_desel_out").val();
-        const description = $(".txtdescp");
-        const dip = $(".txtdip");
-        const balance = $("#txt_balance").val();
+          }
+        );
+      }
 
-        if ($("#dynamicData").length === 0) {
-          var popup = $("#details_table_body");
-          var newTr = $("<tr>");
-          newTr.attr("id", 'dynamicData');
-          var tdSNo = $("<th>");
-          var tdDate = $("<td>");
-          var tdArea = $("<td>");
-          var tdTotalRefill = $("<td>");
-          var tdOpeningMeter = $("<td>");
-          var tdClosingMeter = $("<td>");
-          var tdDeselOut = $("<td>");
-          var tdDescription = $("<td>");
-          var tdDip = $("<td>");
-          var tdBalance = $("<td>");
+    })
 
-          tdSNo.text('1');
-          tdDate.text(date)
-          tdArea.text(select_area)
-          tdTotalRefill.text(total_refill)
-          tdOpeningMeter.text(opening_meter)
-          tdClosingMeter.text(closing_meter)
-          tdDeselOut.text(desel_out)
-          description.each(function (index, element) {
-            tdDescription.append($(element).text() + ' (' + $(element).val() + ')<br>');
-          });
+    // POPUP SECTION 
+    $("#preview").on("click", function (e) {
+      const date = $("#date_enter_date").val();
+      const select_area = $("#txt_select_area option:selected").text();
+      const opening_meter = $("#txt_opening_meter").val();
+      const total_refill = $("#txt_total_refill").val();
+      const closing_meter = $("#txt_closing_meter").val();
+      const desel_out = $("#txt_desel_out").val();
+      const description = $(".txtdescp");
+      const dip = $(".txtdip");
+      const balance = $("#txt_balance").val();
 
-          dip.each(function (index, element) {
-            tdDip.append($(element).text() + ' (' + $(element).val() + ')<br>');
-          });
+      if ($("#dynamicData").length === 0) {
+        var popup = $("#details_table_body");
+        var newTr = $("<tr>");
+        newTr.attr("id", 'dynamicData');
+        var tdSNo = $("<th>");
+        var tdDate = $("<td>");
+        var tdArea = $("<td>");
+        var tdTotalRefill = $("<td>");
+        var tdOpeningMeter = $("<td>");
+        var tdClosingMeter = $("<td>");
+        var tdDeselOut = $("<td>");
+        var tdDescription = $("<td>");
+        var tdDip = $("<td>");
+        var tdBalance = $("<td>");
 
-          tdBalance.text(balance)
+        tdSNo.text('1');
+        tdDate.text(date)
+        tdArea.text(select_area)
+        tdTotalRefill.text(total_refill)
+        tdOpeningMeter.text(opening_meter)
+        tdClosingMeter.text(closing_meter)
+        tdDeselOut.text(desel_out)
+        description.each(function (index, element) {
+          tdDescription.append($(element).text() + ' (' + $(element).val() + ')<br>');
+        });
 
-          newTr.append(tdSNo);
-          newTr.append(tdDate);
-          newTr.append(tdArea);
-          newTr.append(tdTotalRefill);
-          newTr.append(tdOpeningMeter);
-          newTr.append(tdClosingMeter);
-          newTr.append(tdDeselOut);
-          newTr.append(tdDescription);
-          newTr.append(tdDip);
-          newTr.append(tdBalance);
-          popup.prepend(newTr);
-        }
-        else {
-          var newTr = $('#dynamicData');
-          // If newTr already exists, update the values of td elements
-          newTr.find('td:eq(0)').text(date);
-          newTr.find('td:eq(1)').text(select_area);
-          newTr.find('td:eq(2)').text(total_refill);
-          newTr.find('td:eq(3)').text(opening_meter);
-          newTr.find('td:eq(4)').text(closing_meter);
-          newTr.find('td:eq(5)').text(desel_out);
-          newTr.find('td:eq(6)').text(description);
-          newTr.find('td:eq(7)').text(dip);
-          newTr.find('td:eq(8)').text(balance);
-        }
-      })
+        dip.each(function (index, element) {
+          tdDip.append($(element).text() + ' (' + $(element).val() + ')<br>');
+        });
 
-      $("#addDescription").on("click", function (e) {
-        var newSection = $(`<section class="d-flex align-items-center col-md-12 p-0">
+        tdBalance.text(balance)
+
+        newTr.append(tdSNo);
+        newTr.append(tdDate);
+        newTr.append(tdArea);
+        newTr.append(tdTotalRefill);
+        newTr.append(tdOpeningMeter);
+        newTr.append(tdClosingMeter);
+        newTr.append(tdDeselOut);
+        newTr.append(tdDescription);
+        newTr.append(tdDip);
+        newTr.append(tdBalance);
+        popup.prepend(newTr);
+      }
+      else {
+        var newTr = $('#dynamicData');
+        // If newTr already exists, update the values of td elements
+        newTr.find('td:eq(0)').text(date);
+        newTr.find('td:eq(1)').text(select_area);
+        newTr.find('td:eq(2)').text(total_refill);
+        newTr.find('td:eq(3)').text(opening_meter);
+        newTr.find('td:eq(4)').text(closing_meter);
+        newTr.find('td:eq(5)').text(desel_out);
+        newTr.find('td:eq(6)').text(description);
+        newTr.find('td:eq(7)').text(dip);
+        newTr.find('td:eq(8)').text(balance);
+      }
+    })
+
+    $("#addDescription").on("click", function (e) {
+      var newSection = $(`<section class="d-flex align-items-center col-md-12 p-0">
         <div class="form-group col-md-4">
           <label for="txt_description">Description</label>
           <input type="text" value="Enter Description" id="txt_description" class="form-control " name="txt_description"/>
@@ -845,35 +941,42 @@ while ($row_emp = $get_emp_area->fetch(PDO::FETCH_ASSOC)) {
         </div>
       </section>`).clone();
 
-        $("#multiple_entries").append(newSection);
-      });
+      $("#multiple_entries").append(newSection);
+    });
 
-      // balance calculating section 
+    // balance calculating section 
 
-      $("#txt_total_refill").on("change", updateBalance);
-      $("#txt_desel_out").on("change", updateBalance);
+    $("#txt_total_refill").on("change", updateBalance);
+    $("#txt_desel_out").on("change", updateBalance);
+    $("#txt_send_refill").on("change", updateBalance);
 
-      $("#txt_opening_meter").on("change", updateDeselOut);
-      $("#txt_closing_meter").on("change", updateDeselOut);
+    $("#txt_opening_meter").on("change", updateDeselOut);
+    $("#txt_closing_meter").on("change", updateDeselOut);
 
 
 
-      function updateBalance() {
-        const totalRefill = parseFloat($("#txt_total_refill").val()) || 0;
-        const deselOut = parseFloat($("#txt_desel_out").val()) || 0;
-        const balance = $("#txt_balance");
+    function updateBalance() {
+      const tankBalance = parseFloat($("#tank_balance").val()) || 0;
+      const txtTotalRefill = parseFloat($("#txt_total_refill").val()) || 0;
+      const totalRefill = tankBalance === 0 ? txtTotalRefill : tankBalance;
+      const deselOut = parseFloat($("#txt_desel_out").val()) || 0;
+      const sendRefill = parseFloat($("#txt_send_refill").val()) || 0;
 
-        balance.val(totalRefill - deselOut);
-      }
+      const result = deselOut - sendRefill;
 
-      function updateDeselOut() {
-        const openingMeter = parseFloat($("#txt_opening_meter").val()) || 0;
-        const closingMeter = parseFloat($("#txt_closing_meter").val()) || 0;
-        const deselOut = $("#txt_desel_out");
+      const balance = $("#txt_balance");
 
-        deselOut.val(closingMeter - openingMeter)
-        updateBalance();
-      }
+      balance.val(totalRefill - result);
+    }
+
+    function updateDeselOut() {
+      const openingMeter = parseFloat($("#txt_opening_meter").val()) || 0;
+      const closingMeter = parseFloat($("#txt_closing_meter").val()) || 0;
+      const deselOut = $("#txt_desel_out");
+
+      deselOut.val(closingMeter - openingMeter)
+      updateBalance();
+    }
     });
 
   </script>
